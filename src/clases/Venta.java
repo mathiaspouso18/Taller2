@@ -13,22 +13,24 @@ public class Venta {
 	public Venta() {
 	}
 	
-	public Venta(Date fecha, String dirEntrega) {
+	public Venta(Date _fecha, String _dirEntrega) {
+		fecha = _fecha;
+		dirEntrega = _dirEntrega;
 	}
 	
-	public int GetNumero() {
+	public int getNumero() {
 		return numeroVenta;
 	}
 	
-	public Date GetFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 	
-	public String GetDirEntrega() {
+	public String getDirEntrega() {
 		return dirEntrega;
 	}
 	
-	public boolean GetEnProc() {
+	public boolean getEnProc() {
 		return enProc;
 	}
 	
