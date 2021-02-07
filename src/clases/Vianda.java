@@ -31,7 +31,15 @@ public class Vianda {
 		codVianda = _codVianda;
 	}
 	
+	public void setDescripcion(String _descripcion) {
+		descripcion = _descripcion;
+	}
+	
 	public void setPrecio(int _precio) {
 		precio = _precio;
+	}
+	
+	public String ToString() {
+		return "Codigo: " + codVianda + "\nDescripcion: " + descripcion + "\nPrecio: " + precio;
 	}
 }

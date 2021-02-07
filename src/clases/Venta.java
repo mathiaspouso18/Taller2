@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Venta {
 	
+	private static int _contador = 0;
+	
 	private int numeroVenta;
 	private Date fecha;
 	private String dirEntrega;
@@ -11,11 +13,17 @@ public class Venta {
 	//private CantViandas cantViandas;
 	
 	public Venta() {
+		_contador++;
+		numeroVenta = _contador;
+		//cantViandas = new cantViandas();
 	}
 	
 	public Venta(Date _fecha, String _dirEntrega) {
+		_contador++;
+		numeroVenta = _contador;
 		fecha = _fecha;
 		dirEntrega = _dirEntrega;
+		enProc = false;
 	}
 	
 	public int getNumero() {
@@ -38,19 +46,23 @@ public class Venta {
 	//	return cantViandas;
 	//}
 	
-	public void SetFecha(Date _fecha) {
+	public void setFecha(Date _fecha) {
 		fecha = _fecha;
 	}
 	
-	public void SetDirEntrega(String _dirEntrega) {
+	public void setDirEntrega(String _dirEntrega) {
 		dirEntrega = _dirEntrega;
 	}
 	
-	public void SetEnProc(boolean _enProc) {
+	public void setEnProc(boolean _enProc) {
 		enProc = _enProc;
 	}
 	
 	//public void SetCantViandas(CantViandas _cantViandas) {
 	//	cantViandas = _cantViandas;
 	//}
+	
+	public String ToString() {
+		return ("Numero: " + numeroVenta + "\nFecha: " + fecha.toString() + "\nDireccion de entrega: " + dirEntrega + "\nEn proceso: " + enProc );
+	}
 }

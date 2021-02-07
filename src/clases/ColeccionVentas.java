@@ -14,10 +14,17 @@ public class ColeccionVentas {
 	}
 	
 	public Venta buscarVenta(int numeroVenta) {
-		return Ventas.get(numeroVenta);
+		return Ventas.get(numeroVenta - 1);
 	}
 	
 	public boolean existeVenta(int numeroVenta) {
 		return buscarVenta(numeroVenta) != null;
+	}
+	
+	public void ToString() {
+		for(Venta v : Ventas) {
+			System.out.println(v.ToString());
+			System.out.println();
+		}
 	}
 }
