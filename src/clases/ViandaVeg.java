@@ -30,4 +30,8 @@ public class ViandaVeg extends Vianda {
 	public void setDescAdic(String _descAdic) {
 		descAdic = _descAdic;
 	}
+	
+	public String ToString() {
+		return (super.ToString() + "\nEs ovo: " + esOvo + "\nDescripcion Adicional: " + descAdic);
+	}
 }

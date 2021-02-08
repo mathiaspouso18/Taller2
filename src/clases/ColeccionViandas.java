@@ -23,5 +23,12 @@ public class ColeccionViandas {
 		return buscarVianda(_codVianda) != null;
 	}
 	
+	public void ToString() {
+		for(Vianda v : Viandas.values()){ 
+			System.out.println(v.ToString());
+			System.out.println();
+		}
+	}
+	
 	//Faltan los metodos que utilizan value objects
 }

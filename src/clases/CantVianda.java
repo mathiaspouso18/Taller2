@@ -27,4 +27,8 @@ public class CantVianda {
 	public void setCantidad(int _cantidad) {
 		cantidad = _cantidad;
 	}
+	
+	public String ToString() {
+		return (vianda.ToString() + "\nCantidad: " + cantidad);
+	}
 }
