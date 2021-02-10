@@ -31,6 +31,19 @@ public class ColeccionCantVianda {
 		return total;
 	}
 
+	public boolean existeCantVianda(String _codVianda) {
+		for(CantVianda cv: CantViandas) {
+			if(cv.getVianda().getCodVianda().equals(_codVianda) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void eliminarCantViandas() {
+		
+	}
+
 	public void ToString() {
 		for (CantVianda cv : CantViandas) {
 			System.out.println(cv.ToString());

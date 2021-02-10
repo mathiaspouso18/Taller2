@@ -26,6 +26,11 @@ public class ColeccionViandas {
 	public boolean existeVianda(String _codVianda) {
 		return buscarVianda(_codVianda) != null;
 	}
+	
+	public void ListarDatos(String _codVianda) {
+		Vianda v = Viandas.get(_codVianda);
+		v.ToString();
+	}
 
 	public void ToString() {
 		for (Vianda v : Viandas.values()) {

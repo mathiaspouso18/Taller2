@@ -35,17 +35,17 @@ public class CapaLogica {
 		}	
 	}
 	
-	public void AltaVenta(VOVenta v) {
-		int numeroVenta = v.getNumero();
-		Date fecha = v.getFecha();
-		Venta ulventa = ventas.ultimaVenta();
-		if(fecha.compareTo(ulventa.getFecha())<0) {
-			String dir = v.getDirEntrega();
-			Venta ve = new Venta(numeroVenta, fecha, dir);
-			ventas.insertarVenta(ve);
-		}else {
+	public void AltaVenta(VOVenta _voventa) {
+		//int numeroVenta = _voventa.getNumero();
+		//Date fecha = _voventa.getFecha();
+		//Date ulventa = ventas.ultimaVenta().getFecha();
+		//if(fecha.compareTo(ulventa)<0) {
+			//String dir = _voventa.getDirEntrega();
+			//Venta ve = new Venta(numeroVenta, fecha, dir);
+		ventas.insertarVenta(_voventa);
+		//}else {
 			//excepcion: La fecha no puede ser menor a la ultima venta ingresada
-		}
+		//}
 	}
 	
 	public void AltaViandaxVenta(String codVianda, int numVenta, int cant) {
@@ -53,7 +53,7 @@ public class CapaLogica {
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getEnProc()) {
 				if(v.getTotalViandas() < 30){
-					if(viandas.existeVianda(codVianda)) {
+					
 						if(true) {
 							//Ingreso la venta
 						}else {
@@ -70,10 +70,56 @@ public class CapaLogica {
 			}else {
 				//excepcion: la venta no esta en proceso
 			}
+	}
+	
+	public void ReducirCantVianda(String codVianda, int cant, int numVenta) {
+		if(ventas.existeVenta(numVenta)) {
+			ventas.reducirCantViandas(numVenta, codVianda, cant);
 		}else {
-			//excepcion: no existe vianda
+			//excepcion: no existe una venta con ese numero
 		}
 	}
+	
+	public void ProcesarVenta(int numVenta, boolean indicacion) {
+		if(ventas.existeVenta(numVenta)) {
+			ventas.procesarVenta(numVenta, indicacion);
+		}else {
+			//excepcion: no existe una venta con ese numero
+		}
+	}
+	
+	public void ListarVentas() {
+		ventas.ToString();
+	}
+	
+	public void  ListarViandasVenta(int numVenta) {
+		
+	}
+	
+	public void RespaldarInfo() {
+		
+	}
+	
+	public void RestaurarInfo() {
+		
+	}
+	
+	public void ListarViandas() {
+		viandas.toString();
+	}
+	
+	public void ListarDatosVianda(String codVianda) {
+		if(viandas.existeVianda(codVianda)) {
+			viandas.ListarDatos(codVianda);
+		}else {
+			//excepcion: No existe la vianda a listar
+		}
+	}
+	
+	public void ListarViandaxDescripcion(String codVianda) {
+		
+	}
+	
 	
 	
 	

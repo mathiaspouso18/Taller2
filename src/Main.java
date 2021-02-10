@@ -9,12 +9,12 @@ public class Main {
 		ColeccionCantVianda viandasEnVenta = new ColeccionCantVianda();
 
 		Vianda v3 = new Vianda("ZPM123", "Para probar la insercion", 115);
-		viandas.insertarVianda(v3);
+		//viandas.insertarVianda(v3);
 		// System.out.println(v3.ToString());
 		// System.out.println();
 
 		Vianda vv = new ViandaVeg("ACS770", "Arroz con Seitan", 770, true, "No tiene nada raro");
-		viandas.insertarVianda(vv);
+		//viandas.insertarVianda(vv);
 		// System.out.println(vv.ToString());
 		// System.out.println();
 
@@ -23,7 +23,7 @@ public class Main {
 		v.setDescripcion("Arroz con pollo");
 		v.setPrecio(15);
 		// System.out.println(v.ToString());
-		viandas.insertarVianda(v);
+		//viandas.insertarVianda(v);
 
 		System.out.println("Viandas");
 		CantVianda _cv = new CantVianda(v, 3);
