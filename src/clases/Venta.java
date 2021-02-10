@@ -39,13 +39,12 @@ public class Venta {
 		return enProc;
 	}
 	
+	/*public cantViandas getCantViandas(){
+		return cantViandas.getCantViandas();
+	}*/
+	
 	public int getTotalViandas() {
-		int total = 0;
-
-		for (CantVianda cv : cantViandas) {
-			total+=cv.getCantidad();
-		}
-		return total;
+		return cantViandas.totalViandas();
 	}
 
 	public void setFecha(Date _fecha) {
@@ -61,7 +60,7 @@ public class Venta {
 	}
 	
 	public void aumentarCantidad(String codVianda, int cantidad) {
-		cantViandas.
+		//cantViandas.
 	}
 	
 	public String ToString() {

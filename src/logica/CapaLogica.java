@@ -2,14 +2,12 @@ package logica;
 import java.io.IOException;
 import clases.ColeccionVentas;
 import clases.ColeccionViandas;
-import clases.ColeccionCantVianda;
 import clases.*;
 import java.util.*;
 
 public class CapaLogica {
 	ColeccionViandas viandas;
 	ColeccionVentas ventas;
-	ColeccionCantVianda viandasEnVenta;
 	
 	private static CapaLogica instance = null;
 	
@@ -23,7 +21,6 @@ public class CapaLogica {
 	public CapaLogica(){
 		viandas = new ColeccionViandas();
 		ventas = new ColeccionVentas();
-		viandasEnVenta = new ColeccionCantVianda();
 	}
 
 	public void AltaVianda(VOVianda _vovianda) {
@@ -32,18 +29,24 @@ public class CapaLogica {
 		int prec = _vovianda.getPrecio();
 		Vianda v = new Vianda(cod, desc, prec);
 		
-		if(!viandas.existeVianda(cod))
+		if(!viandas.existeVianda(cod)) {
 			viandas.insertarVianda(v);
-		//else
-			//aca lanzo excepcion
+		}else {
+			//excepcion: ya existe la vianda
+		}	
 	}
 	
 	public void AltaVenta(VOVenta v) {
 		int numeroVenta = v.getNumero();
 		Date fecha = v.getFecha();
-		String dir = v.getDirEntrega();
-		Venta ve = new Venta(numeroVenta, fecha, dir);
-		ventas.insertarVenta(ve);
+		Venta ulventa = ventas.ultimaVenta();
+		if(fecha.compareTo(ulventa.getFecha())<0) {
+			String dir = v.getDirEntrega();
+			Venta ve = new Venta(numeroVenta, fecha, dir);
+			ventas.insertarVenta(ve);
+		}else {
+			//excepcion: La fecha no puede ser menor a la ultima venta ingresada
+		}
 	}
 	
 	public void AltaViandaxVenta(String codVianda, int numVenta, int cant) {
@@ -51,11 +54,29 @@ public class CapaLogica {
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getEnProc()) {
 				if(v.getTotalViandas() < 30){
-					if(v.)
+					if(viandas.existeVianda(codVianda)) {
+						if(true) {
+							//Ingreso la venta
+						}else {
+							Vianda v1 =viandas.buscarVianda(codVianda);
+							//La agrego con la cant que ingresó el usuario
+						}
+						
+					}else {
+						//excepcion: No existe vianda con ese codigo
+					}
+				}else {
+					//excepcion: se llego al maximo de viandas por venta
 				}
+			}else {
+				//excepcion: la venta no esta en proceso
 			}
+		}else {
+			//excepcion: no existe vianda
 		}
 	}
+	
+	
 	
 	
 }

@@ -38,13 +38,13 @@ public class Main {
 		//Venta ve = new Venta(fecha, "Calle 123");
 		// System.out.println("");
 		// System.out.println(ve.ToString());
-		ventas.insertarVenta(ve);
+		//ventas.insertarVenta(ve);
 
 		Date fecha2 = new Date();
 		//Venta ve2 = new Venta(fecha2, "Calle 456");
 		// System.out.println("");
 		// System.out.println(ve2.ToString());
-		ventas.insertarVenta(ve2);
+		//ventas.insertarVenta(ve2);
 
 		// ventas.ToString();
 

@@ -2,6 +2,8 @@ package clases;
 
 import java.util.*;
 
+import java.util.ListIterator;
+
 public class ColeccionCantVianda {
 	private LinkedList<CantVianda> CantViandas;
 
@@ -19,6 +21,14 @@ public class ColeccionCantVianda {
 
 	public void setCantViandas(LinkedList<CantVianda> _cantViandas) {
 		CantViandas = _cantViandas;
+	}
+	
+	public int totalViandas() {
+		int total = 0;
+		for (CantVianda cv : CantViandas) {
+			total+=cv.getCantidad();
+		}
+		return total;
 	}
 
 	public void ToString() {

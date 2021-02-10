@@ -1,12 +1,12 @@
 package clases;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ColeccionVentas {
-	private ArrayList<Venta> Ventas;
+	private LinkedList<Venta> Ventas;
 
 	public ColeccionVentas() {
-		Ventas = new ArrayList<Venta>();
+		Ventas = new LinkedList<Venta>();
 	}
 
 	public void insertarVenta(Venta _venta) {
@@ -19,6 +19,10 @@ public class ColeccionVentas {
 
 	public boolean existeVenta(int numeroVenta) {
 		return buscarVenta(numeroVenta) != null;
+	}
+	
+	public Venta ultimaVenta() {
+		return Ventas.getLast();
 	}
 
 	public void ToString() {
