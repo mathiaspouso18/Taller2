@@ -24,13 +24,12 @@ public class CapaLogica {
 	}
 
 	public void AltaVianda(VOVianda _vovianda) {
-		String cod = _vovianda.getCodVianda();
-		String desc = _vovianda.getDescripcion();
-		int prec = _vovianda.getPrecio();
-		Vianda v = new Vianda(cod, desc, prec);
-		
-		if(!viandas.existeVianda(cod)) {
-			viandas.insertarVianda(v);
+		//String cod = _vovianda.getCodVianda();
+		//String desc = _vovianda.getDescripcion();
+		//int prec = _vovianda.getPrecio();
+		//Vianda v = new Vianda(cod, desc, prec);
+		if(!viandas.existeVianda(_vovianda.getCodVianda())) {
+			viandas.insertarVianda(_vovianda);
 		}else {
 			//excepcion: ya existe la vianda
 		}	

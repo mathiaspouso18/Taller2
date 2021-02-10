@@ -9,9 +9,12 @@ public class ColeccionViandas {
 		Viandas = new TreeMap<String, Vianda>();
 	}
 
-	public void insertarVianda(Vianda _vianda) {
-		String key = _vianda.getCodVianda();
-		Viandas.put(key, _vianda);
+	public void insertarVianda(VOVianda _vovianda) {
+		String key = _vovianda.getCodVianda();
+		String desc = _vovianda.getDescripcion();
+		int prec = _vovianda.getPrecio();
+		Vianda v = new Vianda(key, desc, prec);
+		Viandas.put(key, v);
 	}
 
 	public Vianda buscarVianda(String _codVianda) {
