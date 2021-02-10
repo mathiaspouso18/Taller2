@@ -3,66 +3,69 @@ package clases;
 import java.util.Date;
 
 public class Venta {
-	
-	private static int _contador = 0;
-	
+
+
 	private int numeroVenta;
 	private Date fecha;
 	private String dirEntrega;
 	private boolean enProc;
-	//private CantViandas cantViandas;
-	
+	private ColeccionCantVianda cantViandas;
+
 	public Venta() {
-		_contador++;
-		numeroVenta = _contador;
-		//cantViandas = new cantViandas();
+		cantViandas = new ColeccionCantVianda();
 	}
-	
-	public Venta(Date _fecha, String _dirEntrega) {
-		_contador++;
-		numeroVenta = _contador;
+
+	public Venta(int _numeroVenta, Date _fecha, String _dirEntrega) {
+		numeroVenta = _numeroVenta;
 		fecha = _fecha;
 		dirEntrega = _dirEntrega;
 		enProc = false;
+		cantViandas = new ColeccionCantVianda();
 	}
-	
+
 	public int getNumero() {
 		return numeroVenta;
 	}
-	
+
 	public Date getFecha() {
 		return fecha;
 	}
-	
+
 	public String getDirEntrega() {
 		return dirEntrega;
 	}
-	
+
 	public boolean getEnProc() {
 		return enProc;
 	}
 	
-	//public CantViandas GetCantViandas() {
-	//	return cantViandas;
-	//}
-	
+	public int getTotalViandas() {
+		int total = 0;
+
+		for (CantVianda cv : cantViandas) {
+			total+=cv.getCantidad();
+		}
+		return total;
+	}
+
 	public void setFecha(Date _fecha) {
 		fecha = _fecha;
 	}
-	
+
 	public void setDirEntrega(String _dirEntrega) {
 		dirEntrega = _dirEntrega;
 	}
-	
+
 	public void setEnProc(boolean _enProc) {
 		enProc = _enProc;
 	}
 	
-	//public void SetCantViandas(CantViandas _cantViandas) {
-	//	cantViandas = _cantViandas;
-	//}
+	public void aumentarCantidad(String codVianda, int cantidad) {
+		cantViandas.
+	}
 	
 	public String ToString() {
-		return ("Numero: " + numeroVenta + "\nFecha: " + fecha.toString() + "\nDireccion de entrega: " + dirEntrega + "\nEn proceso: " + enProc );
+		return ("Numero: " + numeroVenta + "\nFecha: " + fecha.toString() + "\nDireccion de entrega: " + dirEntrega
+				+ "\nEn proceso: " + enProc);
 	}
 }
