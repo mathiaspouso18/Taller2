@@ -1,9 +1,14 @@
 package logica;
+import logica.ventas.*;
+import logica.viandas.*;
 import java.io.IOException;
-import clases.ColeccionVentas;
-import clases.ColeccionViandas;
-import clases.*;
+
 import java.util.*;
+//import logica.ventas.ColeccionVentas;
+//import logica.ventas.VOVenta;
+//import logica.ventas.Venta;
+//import logica.viandas.ColeccionViandas;
+//import logica.viandas.VOVianda;
 
 public class CapaLogica {
 	ColeccionViandas viandas;

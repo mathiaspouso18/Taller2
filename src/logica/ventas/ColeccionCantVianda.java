@@ -1,8 +1,6 @@
-package clases;
+package logica.ventas;
 
 import java.util.*;
-
-import java.util.ListIterator;
 
 public class ColeccionCantVianda {
 	private LinkedList<CantVianda> CantViandas;

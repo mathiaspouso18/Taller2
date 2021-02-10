@@ -1,4 +1,4 @@
-package clases;
+package logica.viandas;
 
 public class ViandaVeg extends Vianda {
 

@@ -1,4 +1,5 @@
- package clases;
+ package logica.ventas;
+ import logica.viandas.*;
 
 public class CantVianda {
 	private Vianda vianda;

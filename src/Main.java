@@ -1,5 +1,12 @@
 import java.util.Date;
-import clases.*;
+
+import logica.ventas.*;
+import logica.viandas.*;
+
+/*import logica.ventas.CantVianda;
+import logica.ventas.ColeccionCantVianda;
+import logica.ventas.ColeccionVentas;
+import logica.viandas.ColeccionViandas;*/
 
 public class Main {
 

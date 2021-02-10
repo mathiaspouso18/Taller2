@@ -1,4 +1,4 @@
-package clases;
+package logica.viandas;
 
 import java.util.*;
 

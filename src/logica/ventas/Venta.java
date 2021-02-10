@@ -1,4 +1,4 @@
-package clases;
+package logica.ventas;
 
 import java.util.Date;
 
