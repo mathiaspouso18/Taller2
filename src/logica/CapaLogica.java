@@ -54,27 +54,28 @@ public class CapaLogica {
 	}
 	
 	public void AltaViandaxVenta(String codVianda, int numVenta, int cant) {
-		if(ventas.existeVenta(numVenta)){
+		if(ventas.existeVenta(numVenta) && viandas.existeVianda(codVianda)){
+			//A partir de aca lo haria llamando a un AltaViandaXVenta dentro de la coleccion ventas
+			//El problema es que en la linea 66 donde voy a buscar la vianda a la coleccion
+			//no llego ya que estaria dentro de ventaS
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getEnProc()) {
 				if(v.getTotalViandas() < 30){
-					
-						if(true) {
-							//Ingreso la venta
-						}else {
-							Vianda v1 =viandas.buscarVianda(codVianda);
-							//La agrego con la cant que ingresó el usuario
-						}
-						
+					if(true) {//Si existe dicha vianda en la venta
+						//Le sumo el cant a cant venta
 					}else {
-						//excepcion: No existe vianda con ese codigo
+						Vianda v1 =viandas.buscarVianda(codVianda); //Voy a buscar la vianda
+						//La agrego con la cant que ingresó el usuario
 					}
 				}else {
-					//excepcion: se llego al maximo de viandas por venta
+					//excepcion: Se llego al numero maximo de viandas
 				}
 			}else {
-				//excepcion: la venta no esta en proceso
+				//excepcion: la venta no se encuentra en proceso
 			}
+		}else {
+			//excepcion: no existe la venta o la vianda
+		}
 	}
 	
 	public void ReducirCantVianda(String codVianda, int cant, int numVenta) {
@@ -85,7 +86,7 @@ public class CapaLogica {
 		}
 	}
 	
-	public void ProcesarVenta(int numVenta, boolean indicacion) {
+	public void ProcesarVenta(int numVenta, String indicacion) {
 		if(ventas.existeVenta(numVenta)) {
 			ventas.procesarVenta(numVenta, indicacion);
 		}else {
@@ -121,12 +122,8 @@ public class CapaLogica {
 		}
 	}
 	
-	public void ListarViandaxDescripcion(String codVianda) {
-		
+	public void ListarViandaxDescripcion(String descripcion) {
+		viandas.ListarxDescripcion(descripcion);
 	}
-	
-	
-	
-	
 	
 }

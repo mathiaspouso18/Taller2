@@ -33,7 +33,7 @@ public class ColeccionVentas {
 	}
 	
 	public void reducirCantViandas(int _numeroVenta, String _codVianda, int _cant) {
-		Venta ve = Ventas.get(_numeroVenta-1);
+		Venta ve = this.buscarVenta(_numeroVenta);
 		if(ve.getEnProc()) {
 			ve.reducirCantidad(_codVianda, _cant);
 		}else {
@@ -41,15 +41,19 @@ public class ColeccionVentas {
 		}
 	}
 	
-	public void procesarVenta(int _numeroVenta, boolean _indicacion) {
+	public void procesarVenta(int _numeroVenta, String _indicacion) {
 		Venta ve = Ventas.get(_numeroVenta-1);
-		ve.procesarVenta(_indicacion);
+		if(ve.getTotalViandas() == 0) {
+			Ventas.remove(ve);
+		}else{
+			if(_indicacion=="confirmar") {
+				ve.setEnProc(false);
+			}else {
+				Ventas.remove(ve);
+			}
+		}
 	}
 	
-	
-	/*public Venta ultimaVenta() {
-		return Ventas.getLast();
-	}*/
 
 	public void ToString() {
 		for (Venta v : Ventas) {

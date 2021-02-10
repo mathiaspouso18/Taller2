@@ -31,6 +31,18 @@ public class ColeccionViandas {
 		Vianda v = Viandas.get(_codVianda);
 		v.ToString();
 	}
+	
+	public void ListarxDescripcion(String _descripcion) {
+		Iterator<Vianda> iter = Viandas.values().iterator();
+		while (iter.hasNext()) {
+			Vianda v = iter.next();
+			String desc = v.getDescripcion();
+			if(desc.contains(_descripcion)) {
+				v.toString();
+				System.out.println();
+			}
+		}
+	}
 
 	public void ToString() {
 		for (Vianda v : Viandas.values()) {

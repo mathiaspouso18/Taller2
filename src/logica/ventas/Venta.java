@@ -65,17 +65,9 @@ public class Venta {
 	
 	public void reducirCantidad(String _codVianda, int _cantidad) {
 		if(cantViandas.existeCantVianda(_codVianda)) {
-			//cantViandas.obtenerCantVianda(_codVianda)
+			//cantViandas.reducirCant(_codVianda, _cantidad);
 		}else {
 			//excepcion: No existe vianda con ese código
-		}
-	}
-	
-	public void procesarVenta(boolean indicacion) {
-		if(cantViandas.totalViandas() == 0) {
-			cantViandas.eliminarCantViandas();
-		}else{
-			enProc = false;
 		}
 	}
 	
