@@ -1,12 +1,12 @@
 package logica.ventas;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Venta {
 
 
 	private int numeroVenta;
-	private Date fecha;
+	private LocalDate fecha;
 	private String dirEntrega;
 	private boolean enProc;
 	private ColeccionCantVianda cantViandas;
@@ -15,7 +15,7 @@ public class Venta {
 		cantViandas = new ColeccionCantVianda();
 	}
 
-	public Venta(int _numeroVenta, Date _fecha, String _dirEntrega) {
+	public Venta(int _numeroVenta, LocalDate _fecha, String _dirEntrega) {
 		numeroVenta = _numeroVenta;
 		fecha = _fecha;
 		dirEntrega = _dirEntrega;
@@ -27,7 +27,7 @@ public class Venta {
 		return numeroVenta;
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
@@ -47,7 +47,7 @@ public class Venta {
 		return cantViandas.totalViandas();
 	}
 
-	public void setFecha(Date _fecha) {
+	public void setFecha(LocalDate _fecha) {
 		fecha = _fecha;
 	}
 

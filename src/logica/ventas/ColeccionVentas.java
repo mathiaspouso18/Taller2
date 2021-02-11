@@ -1,6 +1,8 @@
 package logica.ventas;
+import excepciones.VentasException;
+import logica.viandas.ViandaVeg;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class ColeccionVentas {
@@ -10,18 +12,26 @@ public class ColeccionVentas {
 		Ventas = new LinkedList<Venta>();
 	}
 
-	public void insertarVenta(VOVenta _voventa) {
+	public void insertarVenta(VOVenta _voventa) throws VentasException  {
 		int numeroVenta = _voventa.getNumero();
 		String dir = _voventa.getDirEntrega();
-		Date fecha = _voventa.getFecha();
-		Date ulventa = Ventas.getLast().getFecha();
-		if(fecha.compareTo(ulventa)<0) {
+		LocalDate fecha = _voventa.getFecha();
+		if(Ventas.size() == 0) {
 			Venta ve = new Venta(numeroVenta, fecha, dir);
 			Ventas.add(ve);
-		}else {
-			//excepcion: La fecha no puede ser menor a la ultima venta ingresada
 		}
-		
+		else {
+			Venta ulventa = Ventas.getLast();
+			if(ulventa != null) {
+				LocalDate ulfecha = ulventa.getFecha();
+				if(fecha.compareTo(ulfecha)>0) {
+					Venta ve = new Venta(numeroVenta, fecha, dir);
+					Ventas.add(ve);
+				}else {
+					throw new VentasException(3);
+				}
+			}
+		}
 	}
 
 	public Venta buscarVenta(int numeroVenta) {
@@ -37,21 +47,29 @@ public class ColeccionVentas {
 		if(ve.getEnProc()) {
 			ve.reducirCantidad(_codVianda, _cant);
 		}else {
-			//excepcion: La venta no esta en proceso
+			
 		}
 	}
 	
-	public void procesarVenta(int _numeroVenta, String _indicacion) {
+	public void procesarVenta(int _numeroVenta, boolean _indicacion) {
 		Venta ve = Ventas.get(_numeroVenta-1);
 		if(ve.getTotalViandas() == 0) {
 			Ventas.remove(ve);
 		}else{
-			if(_indicacion=="confirmar") {
+			if(_indicacion) {
 				ve.setEnProc(false);
 			}else {
 				Ventas.remove(ve);
 			}
 		}
+	}
+	
+	public boolean esVacio() {
+		return Ventas.size() == 0;
+	}
+	
+	public int largoColeccion() {
+		return Ventas.size();
 	}
 	
 

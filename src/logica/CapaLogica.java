@@ -1,14 +1,8 @@
 package logica;
 import logica.ventas.*;
 import logica.viandas.*;
-import java.io.IOException;
-
-import java.util.*;
-//import logica.ventas.ColeccionVentas;
-//import logica.ventas.VOVenta;
-//import logica.ventas.Venta;
-//import logica.viandas.ColeccionViandas;
-//import logica.viandas.VOVianda;
+import excepciones.*;
+//import java.util.*;
 
 public class CapaLogica {
 	ColeccionViandas viandas;
@@ -28,74 +22,67 @@ public class CapaLogica {
 		ventas = new ColeccionVentas();
 	}
 
-	public void AltaVianda(VOVianda _vovianda) {
-		//String cod = _vovianda.getCodVianda();
-		//String desc = _vovianda.getDescripcion();
-		//int prec = _vovianda.getPrecio();
-		//Vianda v = new Vianda(cod, desc, prec);
+	public void AltaVianda(VOVianda _vovianda) throws ViandasException {
 		if(!viandas.existeVianda(_vovianda.getCodVianda())) {
 			viandas.insertarVianda(_vovianda);
 		}else {
-			//excepcion: ya existe la vianda
+			throw new ViandasException(1);
 		}	
 	}
 	
-	public void AltaVenta(VOVenta _voventa) {
-		//int numeroVenta = _voventa.getNumero();
-		//Date fecha = _voventa.getFecha();
-		//Date ulventa = ventas.ultimaVenta().getFecha();
-		//if(fecha.compareTo(ulventa)<0) {
-			//String dir = _voventa.getDirEntrega();
-			//Venta ve = new Venta(numeroVenta, fecha, dir);
+	public void AltaVenta(VOVenta _voventa) throws VentasException{
 		ventas.insertarVenta(_voventa);
-		//}else {
-			//excepcion: La fecha no puede ser menor a la ultima venta ingresada
-		//}
 	}
 	
-	public void AltaViandaxVenta(String codVianda, int numVenta, int cant) {
-		if(ventas.existeVenta(numVenta) && viandas.existeVianda(codVianda)){
-			//A partir de aca lo haria llamando a un AltaViandaXVenta dentro de la coleccion ventas
-			//El problema es que en la linea 66 donde voy a buscar la vianda a la coleccion
-			//no llego ya que estaria dentro de ventaS
-			Venta v = ventas.buscarVenta(numVenta);
-			if(v.getEnProc()) {
-				if(v.getTotalViandas() < 30){
-					if(true) {//Si existe dicha vianda en la venta
-						//Le sumo el cant a cant venta
+	public void AltaViandaxVenta(String codVianda, int numVenta, int cant) throws VentasException, ViandasException {
+		if(ventas.existeVenta(numVenta)){
+				if(viandas.existeVianda(codVianda)) {
+				//A partir de aca lo haria llamando a un AltaViandaXVenta dentro de la coleccion ventas
+				//El problema es que en la linea 66 donde voy a buscar la vianda a la coleccion
+				//no llego ya que estaria dentro de ventaS
+				Venta v = ventas.buscarVenta(numVenta);
+				if(v.getEnProc()) {
+					if(v.getTotalViandas() < 30){
+						if(v.existeVianda) {//Si existe dicha vianda en la venta
+							//Le sumo el cant a cant venta
+						}else {
+							Vianda v1 = viandas.buscarVianda(codVianda); //Voy a buscar la vianda
+							//La agrego con la cant que ingresó el usuario
+						}
 					}else {
-						Vianda v1 =viandas.buscarVianda(codVianda); //Voy a buscar la vianda
-						//La agrego con la cant que ingresó el usuario
+						throw new VentasException(4);
 					}
 				}else {
-					//excepcion: Se llego al numero maximo de viandas
+					throw new VentasException(2);
 				}
 			}else {
-				//excepcion: la venta no se encuentra en proceso
+				throw new ViandasException(2);
 			}
-		}else {
-			//excepcion: no existe la venta o la vianda
+		}
+		else {
+			throw new VentasException(5);
 		}
 	}
 	
-	public void ReducirCantVianda(String codVianda, int cant, int numVenta) {
+	public void ReducirCantVianda(String codVianda, int cant, int numVenta) throws VentasException {
 		if(ventas.existeVenta(numVenta)) {
 			ventas.reducirCantViandas(numVenta, codVianda, cant);
 		}else {
-			//excepcion: no existe una venta con ese numero
+			throw new VentasException(5);
 		}
 	}
 	
-	public void ProcesarVenta(int numVenta, String indicacion) {
+	public void ProcesarVenta(int numVenta, Boolean indicacion) throws VentasException {
 		if(ventas.existeVenta(numVenta)) {
 			ventas.procesarVenta(numVenta, indicacion);
 		}else {
-			//excepcion: no existe una venta con ese numero
+			throw new VentasException(5);
 		}
 	}
 	
 	public void ListarVentas() {
-		ventas.ToString();
+		if(!ventas.esVacio())
+			ventas.ToString();
 	}
 	
 	public void  ListarViandasVenta(int numVenta) {
@@ -111,19 +98,22 @@ public class CapaLogica {
 	}
 	
 	public void ListarViandas() {
-		viandas.toString();
+		if(!viandas.esVacio())
+			viandas.ToString();
 	}
 	
-	public void ListarDatosVianda(String codVianda) {
-		if(viandas.existeVianda(codVianda)) {
-			viandas.ListarDatos(codVianda);
-		}else {
-			//excepcion: No existe la vianda a listar
+	public void ListarDatosVianda(String codVianda) throws ViandasException {
+		if(!viandas.esVacio()) {
+			if(viandas.existeVianda(codVianda)) {
+				viandas.ListarDatos(codVianda);
+			}else {
+				throw new ViandasException(2);
+			}
 		}
 	}
 	
 	public void ListarViandaxDescripcion(String descripcion) {
-		viandas.ListarxDescripcion(descripcion);
+		if(!viandas.esVacio())
+			viandas.ListarxDescripcion(descripcion);
 	}
-	
 }

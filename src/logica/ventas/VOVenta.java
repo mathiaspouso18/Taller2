@@ -1,15 +1,15 @@
 package logica.ventas;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class VOVenta {
 
 	private static int _contador = 0;
 	private int numeroVenta;
-	private Date fecha;
+	private LocalDate fecha;
 	private String dirEntrega;
 	
-	public VOVenta(Date _fecha, String _dirEntrega) {
+	public VOVenta(LocalDate _fecha, String _dirEntrega) {
 		_contador++;
 		numeroVenta = _contador;
 		fecha = _fecha;
@@ -20,7 +20,7 @@ public class VOVenta {
 		return numeroVenta;
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 

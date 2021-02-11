@@ -27,9 +27,17 @@ public class ColeccionViandas {
 		return buscarVianda(_codVianda) != null;
 	}
 	
+	public boolean esVacio() {
+		return Viandas.size() == 0;
+	}
+	
+	public int largoColeccion() {
+		return Viandas.size();
+	}
+	
 	public void ListarDatos(String _codVianda) {
 		Vianda v = Viandas.get(_codVianda);
-		v.ToString();
+		System.out.println(v.ToString());
 	}
 	
 	public void ListarxDescripcion(String _descripcion) {
