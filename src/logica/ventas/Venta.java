@@ -39,10 +39,6 @@ public class Venta {
 		return enProc;
 	}
 	
-	/*public cantViandas getCantViandas(){
-		return cantViandas.getCantViandas();
-	}*/
-	
 	public int getTotalViandas() {
 		return cantViandas.totalViandas();
 	}
@@ -63,9 +59,17 @@ public class Venta {
 		//cantViandas.
 	}
 	
+	public void insertCantVianda(CantVianda _cv) {
+		cantViandas.insertarCantVianda(_cv);
+	}
+	
+	public boolean existeViandaxVenta(String _codVianda) {
+		return cantViandas.existeCantVianda(_codVianda);
+	}
+	
 	public void reducirCantidad(String _codVianda, int _cantidad) {
 		if(cantViandas.existeCantVianda(_codVianda)) {
-			//cantViandas.reducirCant(_codVianda, _cantidad);
+			cantViandas.reducirCant(_codVianda, _cantidad);
 		}else {
 			//excepcion: No existe vianda con ese código
 		}

@@ -3,6 +3,7 @@ import excepciones.VentasException;
 import logica.viandas.ViandaVeg;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ColeccionVentas {
@@ -35,31 +36,34 @@ public class ColeccionVentas {
 	}
 
 	public Venta buscarVenta(int numeroVenta) {
-		return Ventas.get(numeroVenta - 1);
+		return Ventas.get(numeroVenta);
 	}
 
 	public boolean existeVenta(int numeroVenta) {
 		return buscarVenta(numeroVenta) != null;
 	}
 	
-	public void reducirCantViandas(int _numeroVenta, String _codVianda, int _cant) {
+	public void reducirCantViandas(int _numeroVenta, String _codVianda, int _cant) throws VentasException {
 		Venta ve = this.buscarVenta(_numeroVenta);
 		if(ve.getEnProc()) {
 			ve.reducirCantidad(_codVianda, _cant);
 		}else {
-			
+			throw new VentasException(2);
 		}
 	}
 	
 	public void procesarVenta(int _numeroVenta, boolean _indicacion) {
-		Venta ve = Ventas.get(_numeroVenta-1);
-		if(ve.getTotalViandas() == 0) {
-			Ventas.remove(ve);
-		}else{
-			if(_indicacion) {
-				ve.setEnProc(false);
-			}else {
-				Ventas.remove(ve);
+		boolean encontre = false;
+		Iterator<Venta> iter = Ventas.iterator();
+		while(iter.hasNext() && !encontre) {
+			Venta v = iter.next();
+			if(v.getNumero() == (_numeroVenta)) {
+				if(_indicacion) {
+					v.setEnProc(false);
+				}else {
+					Ventas.remove(v);
+				}
+				encontre = true;
 			}
 		}
 	}

@@ -37,17 +37,15 @@ public class CapaLogica {
 	public void AltaViandaxVenta(String codVianda, int numVenta, int cant) throws VentasException, ViandasException {
 		if(ventas.existeVenta(numVenta)){
 				if(viandas.existeVianda(codVianda)) {
-				//A partir de aca lo haria llamando a un AltaViandaXVenta dentro de la coleccion ventas
-				//El problema es que en la linea 66 donde voy a buscar la vianda a la coleccion
-				//no llego ya que estaria dentro de ventaS
 				Venta v = ventas.buscarVenta(numVenta);
 				if(v.getEnProc()) {
 					if(v.getTotalViandas() < 30){
-						if(v.existeVianda) {//Si existe dicha vianda en la venta
-							//Le sumo el cant a cant venta
+						if(v.existeViandaxVenta(codVianda)) {
+							v.aumentarCantidad(codVianda, cant);
 						}else {
-							Vianda v1 = viandas.buscarVianda(codVianda); //Voy a buscar la vianda
-							//La agrego con la cant que ingresó el usuario
+							Vianda v1 = viandas.buscarVianda(codVianda); 
+							CantVianda cv = new CantVianda(v1, cant);
+							v.insertCantVianda(cv);
 						}
 					}else {
 						throw new VentasException(4);
@@ -72,7 +70,7 @@ public class CapaLogica {
 		}
 	}
 	
-	public void ProcesarVenta(int numVenta, Boolean indicacion) throws VentasException {
+	public void ProcesarVenta(int numVenta, boolean indicacion) throws VentasException {
 		if(ventas.existeVenta(numVenta)) {
 			ventas.procesarVenta(numVenta, indicacion);
 		}else {

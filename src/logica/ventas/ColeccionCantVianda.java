@@ -9,13 +9,10 @@ public class ColeccionCantVianda {
 		CantViandas = new LinkedList<CantVianda>();
 	}
 
-	public void insertarVianda(CantVianda _cantVianda) {
+	public void insertarCantVianda(CantVianda _cantVianda) {
 		CantViandas.addLast(_cantVianda);
 	}
 
-	public LinkedList<CantVianda> getCantViandas() {
-		return CantViandas;
-	}
 
 	public void setCantViandas(LinkedList<CantVianda> _cantViandas) {
 		CantViandas = _cantViandas;
@@ -30,12 +27,31 @@ public class ColeccionCantVianda {
 	}
 
 	public boolean existeCantVianda(String _codVianda) {
-		for(CantVianda cv: CantViandas) {
-			if(cv.getVianda().getCodVianda().equals(_codVianda) ) {
-				return true;
+		boolean encontre = false;
+		Iterator<CantVianda> iter = CantViandas.iterator();
+		while(iter.hasNext() && !encontre) {
+			CantVianda cv = iter.next();
+			encontre = cv.getVianda().getCodVianda().equals(_codVianda);
+		}
+		return encontre;
+	}
+	
+	public void reducirCant(String _codVianda, int _cantidad) {
+		boolean encontre = false;
+		Iterator<CantVianda> iter = CantViandas.iterator();
+		while(iter.hasNext() && !encontre) {
+			CantVianda cv = iter.next();
+			if(cv.getVianda().getCodVianda().equals(_codVianda)) {
+				int cant = cv.getCantidad();
+				cant = cant - _cantidad;
+				if(cant <= 0) {
+					CantViandas.remove(cv);
+				}else {
+					cv.setCantidad(cant);
+				}
+				encontre = true;
 			}
 		}
-		return false;
 	}
 	
 	
