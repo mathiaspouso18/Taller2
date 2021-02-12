@@ -27,6 +27,9 @@ public class VentasException extends Exception {
 		case 5:
 			error = "No existe la venta con el codigo especificado.";
 			break;
+		case 6:
+			error = "No existe la vianda especificada en la venta";
+			break;
 		default:
 			error = "Error no especificado";
 		}

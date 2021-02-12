@@ -104,7 +104,7 @@ public class CapaLogica {
 							}
 						}
 						else {
-							//Excepcion no existe la vianda en dicha venta
+							throw new VentasException(6);
 						}
 					}else {
 						throw new VentasException(4);
@@ -120,7 +120,13 @@ public class CapaLogica {
 	
 	public void ProcesarVenta(int numVenta, boolean indicacion) throws VentasException {
 		if(ventas.existeVenta(numVenta)) {
-			ventas.procesarVenta(numVenta, indicacion);
+			Venta v = ventas.buscarVenta(numVenta);
+			if(v.getTotalViandas() == 0) {
+				ventas.eliminarVenta(v);
+			}
+			else {
+				ventas.procesarVenta(numVenta, indicacion);
+			}
 		}else {
 			throw new VentasException(5);
 		}
