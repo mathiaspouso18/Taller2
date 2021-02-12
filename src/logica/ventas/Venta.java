@@ -23,7 +23,7 @@ public class Venta {
 		cantViandas = new ColeccionCantVianda();
 	}
 
-	public int getNumero() {
+	public int getNumeroVenta() {
 		return numeroVenta;
 	}
 

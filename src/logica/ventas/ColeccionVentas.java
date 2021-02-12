@@ -41,7 +41,7 @@ public class ColeccionVentas {
 		Iterator<Venta> iter = Ventas.iterator();
 		while(iter.hasNext() && !encontre) {
 			Venta v = iter.next();
-			if(v.getNumero() == (_numeroVenta)) {
+			if(v.getNumeroVenta() == (_numeroVenta)) {
 				if(_indicacion) {
 					v.setEnProc(true);
 				}else {
@@ -67,7 +67,6 @@ public class ColeccionVentas {
 	public void eliminarVenta(Venta v) {
 		Ventas.remove(v);
 	}
-	
 
 	public String ToString() {
 		String retorno = "";
