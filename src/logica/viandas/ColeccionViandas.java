@@ -9,12 +9,20 @@ public class ColeccionViandas {
 		Viandas = new TreeMap<String, Vianda>();
 	}
 
-	public void insertarVianda(VOVianda _vovianda) {
+	public void insertarVianda(Vianda _vovianda) {
 		String key = _vovianda.getCodVianda();
 		String desc = _vovianda.getDescripcion();
 		int prec = _vovianda.getPrecio();
-		Vianda v = new Vianda(key, desc, prec);
-		Viandas.put(key, v);
+		if(_vovianda instanceof ViandaVeg){
+			boolean esOvo = ((ViandaVeg)_vovianda).getEsOvo();
+			String descAdic = ((ViandaVeg)_vovianda).getDescAdic();
+			ViandaVeg v = new ViandaVeg(key, desc, prec, esOvo, descAdic);
+			Viandas.put(key, v);
+		}
+		else {
+			Vianda v = new Vianda(key, desc, prec);
+			Viandas.put(key, v);
+		}
 	}
 
 	public Vianda buscarVianda(String _codVianda) {
@@ -35,29 +43,34 @@ public class ColeccionViandas {
 		return Viandas.size();
 	}
 	
-	public void ListarDatos(String _codVianda) {
+	public void ListarDatosVianda(String _codVianda) {
 		Vianda v = Viandas.get(_codVianda);
 		System.out.println(v.ToString());
 	}
 	
-	public void ListarxDescripcion(String _descripcion) {
-		Iterator<Vianda> iter = Viandas.values().iterator();
-		while (iter.hasNext()) {
-			Vianda v = iter.next();
+	public void ListarxDescripcion(String _descripcion) {		
+		for(Vianda v : Viandas.values()) {
 			String desc = v.getDescripcion();
 			if(desc.contains(_descripcion)) {
-				v.toString();
+				System.out.println(v.ToString());
 				System.out.println();
 			}
 		}
 	}
 
-	public void ToString() {
+	public String ToString() {
+		String retorno = "";
 		for (Vianda v : Viandas.values()) {
-			System.out.println(v.ToString());
-			System.out.println();
+			if(v instanceof Vianda) {
+				retorno = retorno +  v.ToString();
+				retorno = retorno + "\n\n";
+			}
+			else {
+				retorno = retorno + ((ViandaVeg)v).ToString();
+				retorno = retorno + "\n\n";
+			}
 		}
+		
+		return retorno;
 	}
-
-	// Faltan los metodos que utilizan value objects
 }

@@ -1,8 +1,5 @@
 package logica.ventas;
 import excepciones.VentasException;
-import logica.viandas.ViandaVeg;
-
-import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -13,34 +10,21 @@ public class ColeccionVentas {
 		Ventas = new LinkedList<Venta>();
 	}
 
-	public void insertarVenta(VOVenta _voventa) throws VentasException  {
-		int numeroVenta = _voventa.getNumero();
-		String dir = _voventa.getDirEntrega();
-		LocalDate fecha = _voventa.getFecha();
-		if(Ventas.size() == 0) {
-			Venta ve = new Venta(numeroVenta, fecha, dir);
-			Ventas.add(ve);
-		}
-		else {
-			Venta ulventa = Ventas.getLast();
-			if(ulventa != null) {
-				LocalDate ulfecha = ulventa.getFecha();
-				if(fecha.compareTo(ulfecha)>0) {
-					Venta ve = new Venta(numeroVenta, fecha, dir);
-					Ventas.add(ve);
-				}else {
-					throw new VentasException(3);
-				}
-			}
-		}
+	public void insertarVenta(Venta _voventa) {
+			Ventas.add(_voventa);
 	}
 
 	public Venta buscarVenta(int numeroVenta) {
-		return Ventas.get(numeroVenta);
+		return Ventas.get(numeroVenta - 1);
 	}
 
 	public boolean existeVenta(int numeroVenta) {
-		return buscarVenta(numeroVenta) != null;
+		boolean existe = false;
+		if(numeroVenta-1 < Ventas.size()) {
+			if(Ventas.get(numeroVenta - 1) != null)
+				existe = true;
+		}
+		return existe;
 	}
 	
 	public void reducirCantViandas(int _numeroVenta, String _codVianda, int _cant) throws VentasException {
@@ -59,7 +43,7 @@ public class ColeccionVentas {
 			Venta v = iter.next();
 			if(v.getNumero() == (_numeroVenta)) {
 				if(_indicacion) {
-					v.setEnProc(false);
+					v.setEnProc(true);
 				}else {
 					Ventas.remove(v);
 				}
@@ -76,11 +60,22 @@ public class ColeccionVentas {
 		return Ventas.size();
 	}
 	
+	public Venta obtenerUltimaVenta() {
+		return Ventas.getLast();
+	}
+	
+	public void eliminarVenta(Venta v) {
+		Ventas.remove(v);
+	}
+	
 
-	public void ToString() {
-		for (Venta v : Ventas) {
-			System.out.println(v.ToString());
-			System.out.println();
+	public String ToString() {
+		String retorno = "";
+		Iterator<Venta> iter = Ventas.iterator();
+		while(iter.hasNext()) {
+			retorno = retorno + iter.next().ToString();
+			retorno = retorno + "\n\n";
 		}
+		return retorno;
 	}
 }

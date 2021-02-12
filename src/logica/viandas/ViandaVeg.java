@@ -32,6 +32,7 @@ public class ViandaVeg extends Vianda {
 	}
 
 	public String ToString() {
-		return (super.ToString() + "\nEs ovo: " + esOvo + "\nDescripcion Adicional: " + descAdic);
+		String retorno = super.ToString();
+		return retorno = retorno  + "\nEs ovo: " + (esOvo ? "si" : "no") + "\nDescripcion Adicional: " + descAdic;
 	}
 }

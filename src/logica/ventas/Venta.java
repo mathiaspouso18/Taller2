@@ -56,7 +56,7 @@ public class Venta {
 	}
 	
 	public void aumentarCantidad(String _codVianda, int _cantidad) {
-		//cantViandas.
+		cantViandas.aumentarCant(_codVianda, _cantidad);
 	}
 	
 	public void insertCantVianda(CantVianda _cv) {
@@ -68,15 +68,16 @@ public class Venta {
 	}
 	
 	public void reducirCantidad(String _codVianda, int _cantidad) {
-		if(cantViandas.existeCantVianda(_codVianda)) {
-			cantViandas.reducirCant(_codVianda, _cantidad);
-		}else {
-			//excepcion: No existe vianda con ese código
-		}
+		cantViandas.reducirCant(_codVianda, _cantidad);
+	}
+	
+	public String ListarViandasVenta() {
+		return cantViandas.ToString();
 	}
 	
 	public String ToString() {
-		return ("Numero: " + numeroVenta + "\nFecha: " + fecha.toString() + "\nDireccion de entrega: " + dirEntrega
-				+ "\nEn proceso: " + enProc);
+		return "Numero: " + numeroVenta + "\nFecha: " + fecha.toString() + "\nDireccion de entrega: " + dirEntrega
+				+ "\nEn proceso: " + (enProc ? "si" : "no") 
+				+ "\nViandas: " + (cantViandas.esVacio() ? "No hay viandas" : cantViandas.ToString());
 	}
 }

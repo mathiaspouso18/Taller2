@@ -1,8 +1,8 @@
 package logica;
 import logica.ventas.*;
 import logica.viandas.*;
+import java.time.LocalDate;
 import excepciones.*;
-//import java.util.*;
 
 public class CapaLogica {
 	ColeccionViandas viandas;
@@ -23,15 +23,45 @@ public class CapaLogica {
 	}
 
 	public void AltaVianda(VOVianda _vovianda) throws ViandasException {
-		if(!viandas.existeVianda(_vovianda.getCodVianda())) {
-			viandas.insertarVianda(_vovianda);
+		String _codVianda = _vovianda.getCodVianda();
+		if(!viandas.existeVianda(_codVianda)) {
+			String _descripcion = _vovianda.getDescripcion();
+			int _precio = _vovianda.getPrecio();
+			if(_vovianda instanceof VOViandaVeg){
+				boolean _esOvo = ((VOViandaVeg)_vovianda).getEsOvo();
+				String _descAdic = ((VOViandaVeg)_vovianda).getDescAdic();
+				ViandaVeg vv = new ViandaVeg(_codVianda, _descripcion, _precio, _esOvo, _descAdic);
+				viandas.insertarVianda(vv);
+			}
+			else {
+				Vianda v = new Vianda(_codVianda, _descripcion, _precio);
+				viandas.insertarVianda(v);
+			}
 		}else {
 			throw new ViandasException(1);
 		}	
 	}
 	
 	public void AltaVenta(VOVenta _voventa) throws VentasException{
-		ventas.insertarVenta(_voventa);
+		int numeroVenta = _voventa.getNumero();
+		String dir = _voventa.getDirEntrega();
+		LocalDate fecha = _voventa.getFecha();
+		
+		if(ventas.esVacio()) {
+			Venta ve = new Venta(numeroVenta, fecha, dir);
+			ventas.insertarVenta(ve);
+		}else {
+			Venta ulventa = ventas.obtenerUltimaVenta();
+			if(ulventa != null) {
+				LocalDate ulfecha = ulventa.getFecha();
+				if(fecha.compareTo(ulfecha)>0) {
+					Venta ve = new Venta(numeroVenta, fecha, dir);
+					ventas.insertarVenta(ve);
+				}else {
+					throw new VentasException(3);
+				}
+			}
+		}
 	}
 	
 	public void AltaViandaxVenta(String codVianda, int numVenta, int cant) throws VentasException, ViandasException {
@@ -62,10 +92,28 @@ public class CapaLogica {
 		}
 	}
 	
-	public void ReducirCantVianda(String codVianda, int cant, int numVenta) throws VentasException {
-		if(ventas.existeVenta(numVenta)) {
-			ventas.reducirCantViandas(numVenta, codVianda, cant);
-		}else {
+	public void ReducirCantVianda(String codVianda, int cant, int numVenta) throws VentasException, ViandasException {
+		if(ventas.existeVenta(numVenta)){
+			Venta v = ventas.buscarVenta(numVenta);
+			if(v.getEnProc()) {
+				if(v.getTotalViandas() < 30){
+						if(v.existeViandaxVenta(codVianda)) {
+							v.reducirCantidad(codVianda, cant);
+							if(v.getTotalViandas() == 0) {
+								ventas.eliminarVenta(v);
+							}
+						}
+						else {
+							//Excepcion no existe la vianda en dicha venta
+						}
+					}else {
+						throw new VentasException(4);
+					}
+				}else {
+					throw new VentasException(2);
+				}
+		}
+		else {
 			throw new VentasException(5);
 		}
 	}
@@ -80,10 +128,22 @@ public class CapaLogica {
 	
 	public void ListarVentas() {
 		if(!ventas.esVacio())
-			ventas.ToString();
+			System.out.println(ventas.ToString());
+		//else
+		//Excepcion no hay ventas
 	}
 	
-	public void  ListarViandasVenta(int numVenta) {
+	public void ListarViandasVenta(int numVenta) throws VentasException {
+		if(ventas.existeVenta(numVenta)) {
+			Venta v = ventas.buscarVenta(numVenta);
+			if(v.getTotalViandas()> 0)
+				System.out.println(v.ListarViandasVenta());
+			else
+				System.out.println("No hay viandas en esa venta");
+		}
+		else {
+			throw new VentasException(5);
+		}
 		
 	}
 	
@@ -97,13 +157,15 @@ public class CapaLogica {
 	
 	public void ListarViandas() {
 		if(!viandas.esVacio())
-			viandas.ToString();
+			System.out.println(viandas.ToString());
+		//else
+			//Excepcion no hay viandas
 	}
 	
 	public void ListarDatosVianda(String codVianda) throws ViandasException {
 		if(!viandas.esVacio()) {
 			if(viandas.existeVianda(codVianda)) {
-				viandas.ListarDatos(codVianda);
+				viandas.ListarDatosVianda(codVianda);
 			}else {
 				throw new ViandasException(2);
 			}
@@ -113,5 +175,7 @@ public class CapaLogica {
 	public void ListarViandaxDescripcion(String descripcion) {
 		if(!viandas.esVacio())
 			viandas.ListarxDescripcion(descripcion);
+		//else
+		//Excepcion no hay viandas
 	}
 }

@@ -44,25 +44,52 @@ public class ColeccionCantVianda {
 			if(cv.getVianda().getCodVianda().equals(_codVianda)) {
 				int cant = cv.getCantidad();
 				cant = cant - _cantidad;
-				if(cant <= 0) {
-					CantViandas.remove(cv);
-				}else {
-					cv.setCantidad(cant);
-				}
+				cv.setCantidad(cant);
 				encontre = true;
 			}
 		}
 	}
 	
+	public void aumentarCant(String _codVianda, int _cantidad) {
+		boolean encontre = false;
+		Iterator<CantVianda> iter = CantViandas.iterator();
+		while(iter.hasNext() && !encontre) {
+			CantVianda cv = iter.next();
+			if(cv.getVianda().getCodVianda().equals(_codVianda)) {
+				int cant = cv.getCantidad();
+				cant = cant + _cantidad;
+				cv.setCantidad(cant);
+				encontre = true;
+			}
+		}
+	}
 	
-	public void eliminarCantViandas() {
-		
+	public CantVianda buscarCantVianda(String _codVianda) {
+		boolean encontre = false;
+		CantVianda cv = null;
+		Iterator<CantVianda> iter = CantViandas.iterator();
+		while(iter.hasNext() && !encontre) {
+			cv = iter.next();
+			encontre = cv.getVianda().getCodVianda().equals(_codVianda);
+		}
+		return cv;
+	}
+	
+	public boolean esVacio() {
+		return CantViandas.size() == 0;
+	}
+	
+	
+	public void eliminarCantViandas(CantVianda cv) {
+		CantViandas.remove(cv);
 	}
 
-	public void ToString() {
+	public String ToString() {
+		String retorno = "";
 		for (CantVianda cv : CantViandas) {
-			System.out.println(cv.ToString());
-			System.out.println();
+			retorno = retorno + cv.ToString();
+			retorno = retorno + "\n\n";
 		}
+		return retorno;
 	}
 }
