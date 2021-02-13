@@ -1,5 +1,4 @@
 package logica.ventas;
-import excepciones.VentasException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -10,8 +9,8 @@ public class ColeccionVentas {
 		Ventas = new LinkedList<Venta>();
 	}
 
-	public void insertarVenta(Venta _voventa) {
-			Ventas.add(_voventa);
+	public void insertarVenta(Venta _venta) {
+			Ventas.add(_venta);
 	}
 
 	public Venta buscarVenta(int numeroVenta) {
@@ -27,14 +26,14 @@ public class ColeccionVentas {
 		return existe;
 	}
 	
-	public void reducirCantViandas(int _numeroVenta, String _codVianda, int _cant) throws VentasException {
+	/*public void reducirCantViandas(int _numeroVenta, String _codVianda, int _cant) throws VentasException {
 		Venta ve = this.buscarVenta(_numeroVenta);
 		if(ve.getEnProc()) {
 			ve.reducirCantidad(_codVianda, _cant);
 		}else {
 			throw new VentasException(2);
 		}
-	}
+	}*/
 	
 	public void procesarVenta(int _numeroVenta, boolean _indicacion) {
 		boolean encontre = false;
@@ -56,9 +55,9 @@ public class ColeccionVentas {
 		return Ventas.size() == 0;
 	}
 	
-	public int largoColeccion() {
+	/*public int largoColeccion() {
 		return Ventas.size();
-	}
+	}*/
 	
 	public Venta obtenerUltimaVenta() {
 		return Ventas.getLast();

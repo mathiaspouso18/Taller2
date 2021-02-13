@@ -3,20 +3,22 @@ package logica.ventas;
 import java.util.*;
 
 public class ColeccionCantVianda {
-	private LinkedList<CantVianda> CantViandas;
+	private CantVianda [] CantViandas;
+	private int tope;
 
 	public ColeccionCantVianda() {
-		CantViandas = new LinkedList<CantVianda>();
+		CantViandas = new CantVianda[30];
+		tope = 0;
 	}
 
 	public void insertarCantVianda(CantVianda _cantVianda) {
-		CantViandas.addLast(_cantVianda);
+		CantViandas[tope] = _cantVianda;
+		tope++;
 	}
 
-
-	public void setCantViandas(LinkedList<CantVianda> _cantViandas) {
+	/*public void setCantViandas(LinkedList<CantVianda> _cantViandas) {
 		CantViandas = _cantViandas;
-	}
+	}*/
 	
 	public int totalViandas() {
 		int total = 0;
@@ -64,7 +66,7 @@ public class ColeccionCantVianda {
 		}
 	}
 	
-	public CantVianda buscarCantVianda(String _codVianda) {
+	/*public CantVianda buscarCantVianda(String _codVianda) {
 		boolean encontre = false;
 		CantVianda cv = null;
 		Iterator<CantVianda> iter = CantViandas.iterator();
@@ -73,16 +75,16 @@ public class ColeccionCantVianda {
 			encontre = cv.getVianda().getCodVianda().equals(_codVianda);
 		}
 		return cv;
-	}
+	}*/
 	
 	public boolean esVacio() {
 		return CantViandas.size() == 0;
 	}
 	
 	
-	public void eliminarCantViandas(CantVianda cv) {
+	/*public void eliminarCantViandas(CantVianda cv) {
 		CantViandas.remove(cv);
-	}
+	}*/
 
 	public String ToString() {
 		String retorno = "";

@@ -71,7 +71,7 @@ public class Venta {
 		cantViandas.reducirCant(_codVianda, _cantidad);
 	}
 	
-	public String ListarViandasVenta() {
+	public String listarViandasVenta() { //1
 		return cantViandas.ToString();
 	}
 	

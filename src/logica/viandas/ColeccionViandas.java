@@ -9,20 +9,9 @@ public class ColeccionViandas {
 		Viandas = new TreeMap<String, Vianda>();
 	}
 
-	public void insertarVianda(Vianda _vovianda) {
-		String key = _vovianda.getCodVianda();
-		String desc = _vovianda.getDescripcion();
-		int prec = _vovianda.getPrecio();
-		if(_vovianda instanceof ViandaVeg){
-			boolean esOvo = ((ViandaVeg)_vovianda).getEsOvo();
-			String descAdic = ((ViandaVeg)_vovianda).getDescAdic();
-			ViandaVeg v = new ViandaVeg(key, desc, prec, esOvo, descAdic);
-			Viandas.put(key, v);
-		}
-		else {
-			Vianda v = new Vianda(key, desc, prec);
-			Viandas.put(key, v);
-		}
+	public void insertarVianda(Vianda _vianda) {
+		String key = _vianda.getCodVianda();
+		Viandas.put(key, _vianda);
 	}
 
 	public Vianda buscarVianda(String _codVianda) {
@@ -39,16 +28,16 @@ public class ColeccionViandas {
 		return Viandas.size() == 0;
 	}
 	
-	public int largoColeccion() {
+	/*public int largoColeccion() {
 		return Viandas.size();
-	}
+	}*/
 	
 	public void ListarDatosVianda(String _codVianda) {
 		Vianda v = Viandas.get(_codVianda);
 		System.out.println(v.ToString());
 	}
 	
-	public void ListarxDescripcion(String _descripcion) {		
+	public void ListarxDescripcion(String _descripcion) {	
 		for(Vianda v : Viandas.values()) {
 			String desc = v.getDescripcion();
 			if(desc.contains(_descripcion)) {

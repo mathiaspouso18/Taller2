@@ -46,20 +46,17 @@ public class CapaLogica {
 		int numeroVenta = _voventa.getNumero();
 		String dir = _voventa.getDirEntrega();
 		LocalDate fecha = _voventa.getFecha();
-		
 		if(ventas.esVacio()) {
 			Venta ve = new Venta(numeroVenta, fecha, dir);
 			ventas.insertarVenta(ve);
 		}else {
 			Venta ulventa = ventas.obtenerUltimaVenta();
-			if(ulventa != null) {
-				LocalDate ulfecha = ulventa.getFecha();
-				if(fecha.compareTo(ulfecha)>0) {
-					Venta ve = new Venta(numeroVenta, fecha, dir);
-					ventas.insertarVenta(ve);
-				}else {
-					throw new VentasException(3);
-				}
+			LocalDate ulfecha = ulventa.getFecha();
+			if(fecha.compareTo(ulfecha)>0) {
+				Venta ve = new Venta(numeroVenta, fecha, dir);
+				ventas.insertarVenta(ve);
+			}else {
+				throw new VentasException(3);
 			}
 		}
 	}
@@ -86,8 +83,7 @@ public class CapaLogica {
 			}else {
 				throw new ViandasException(2);
 			}
-		}
-		else {
+		}else {
 			throw new VentasException(5);
 		}
 	}
@@ -102,8 +98,7 @@ public class CapaLogica {
 							if(v.getTotalViandas() == 0) {
 								ventas.eliminarVenta(v);
 							}
-						}
-						else {
+						}else {
 							throw new VentasException(6);
 						}
 					}else {
@@ -112,8 +107,7 @@ public class CapaLogica {
 				}else {
 					throw new VentasException(2);
 				}
-		}
-		else {
+		}else {
 			throw new VentasException(5);
 		}
 	}
@@ -123,8 +117,7 @@ public class CapaLogica {
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getTotalViandas() == 0) {
 				ventas.eliminarVenta(v);
-			}
-			else {
+			}else {
 				ventas.procesarVenta(numVenta, indicacion);
 			}
 		}else {
@@ -133,19 +126,20 @@ public class CapaLogica {
 	}
 	
 	public void listarVentas() {
-		if(!ventas.esVacio())
+		if(!ventas.esVacio()) {
 			System.out.println(ventas.ToString());
-		//else
-		//Excepcion no hay ventas
+		}else {
+			System.out.println("No hay ventas ingresadas en el sistema"); 
+		}
 	}
 	
 	public void listarViandasVenta(int numVenta) throws VentasException {
 		if(ventas.existeVenta(numVenta)) {
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getTotalViandas()> 0)
-				System.out.println(v.ListarViandasVenta());
+				System.out.println(v.listarViandasVenta());
 			else
-				System.out.println("No hay viandas en esa venta");
+				System.out.println("No hay viandas en esa venta"); 
 		}
 		else {
 			throw new VentasException(5);
@@ -162,10 +156,11 @@ public class CapaLogica {
 	}
 	
 	public void listarViandas() {
-		if(!viandas.esVacio())
+		if(!viandas.esVacio()) {
 			System.out.println(viandas.ToString());
-		//else
-			//Excepcion no hay viandas
+		}else {
+			System.out.println("No hay viandas ingresadas en el sistema"); 
+		}
 	}
 	
 	public void listarDatosVianda(String codVianda) throws ViandasException {
@@ -175,13 +170,16 @@ public class CapaLogica {
 			}else {
 				throw new ViandasException(2);
 			}
+		}else {
+			System.out.println("No hay viandas ingresadas en el sistema"); 
 		}
 	}
 	
 	public void listarViandaxDescripcion(String descripcion) {
-		if(!viandas.esVacio())
+		if(!viandas.esVacio()) {
 			viandas.ListarxDescripcion(descripcion);
-		//else
-		//Excepcion no hay viandas
+		}else {
+			System.out.println("No hay viandas ingresadas en el sistema"); 
+		}
 	}
 }
