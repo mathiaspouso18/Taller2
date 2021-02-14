@@ -22,63 +22,75 @@ public class ColeccionCantVianda {
 	
 	public int totalViandas() {
 		int total = 0;
-		for (CantVianda cv : CantViandas) {
-			total+=cv.getCantidad();
+		int i = 0;
+		
+		while(i < tope) {
+			total += CantViandas[i].getCantidad();
+			i++;
 		}
 		return total;
 	}
 
 	public boolean existeCantVianda(String _codVianda) {
 		boolean encontre = false;
-		Iterator<CantVianda> iter = CantViandas.iterator();
-		while(iter.hasNext() && !encontre) {
-			CantVianda cv = iter.next();
+		int i = 0;
+		
+		while(i < tope && !encontre) {
+			CantVianda cv = CantViandas[i];
 			encontre = cv.getVianda().getCodVianda().equals(_codVianda);
+			i++;
 		}
 		return encontre;
 	}
 	
 	public void reducirCant(String _codVianda, int _cantidad) {
 		boolean encontre = false;
-		Iterator<CantVianda> iter = CantViandas.iterator();
-		while(iter.hasNext() && !encontre) {
-			CantVianda cv = iter.next();
+		int i = 0;
+		
+		while(i < tope && !encontre) {
+			CantVianda cv = CantViandas[i];
 			if(cv.getVianda().getCodVianda().equals(_codVianda)) {
 				int cant = cv.getCantidad();
 				cant = cant - _cantidad;
 				cv.setCantidad(cant);
 				encontre = true;
 			}
+			i++;
 		}
 	}
 	
 	public void aumentarCant(String _codVianda, int _cantidad) {
 		boolean encontre = false;
-		Iterator<CantVianda> iter = CantViandas.iterator();
-		while(iter.hasNext() && !encontre) {
-			CantVianda cv = iter.next();
+		int i = 0;
+		
+		while(i < tope && !encontre) {
+			CantVianda cv = CantViandas[i];
 			if(cv.getVianda().getCodVianda().equals(_codVianda)) {
 				int cant = cv.getCantidad();
 				cant = cant + _cantidad;
 				cv.setCantidad(cant);
 				encontre = true;
 			}
+			i++;
 		}
 	}
 	
-	/*public CantVianda buscarCantVianda(String _codVianda) {
+	public CantVianda buscarCantVianda(String _codVianda) {
 		boolean encontre = false;
+		int i = 0;
 		CantVianda cv = null;
-		Iterator<CantVianda> iter = CantViandas.iterator();
-		while(iter.hasNext() && !encontre) {
-			cv = iter.next();
-			encontre = cv.getVianda().getCodVianda().equals(_codVianda);
+		while(i < tope && !encontre) {
+			cv = CantViandas[i];
+			if(cv.getVianda().getCodVianda().equals(_codVianda)) {
+				encontre = true;
+			}
+			i++;
 		}
 		return cv;
-	}*/
+	}
 	
 	public boolean esVacio() {
-		return CantViandas.size() == 0;
+		return tope == 0;
 	}
 	
 	
@@ -88,9 +100,13 @@ public class ColeccionCantVianda {
 
 	public String ToString() {
 		String retorno = "";
-		for (CantVianda cv : CantViandas) {
+		int i = 0;
+		
+		while(i < tope) {
+			CantVianda cv = CantViandas[i];
 			retorno = retorno + cv.ToString();
 			retorno = retorno + "\n\n";
+			i++;
 		}
 		return retorno;
 	}

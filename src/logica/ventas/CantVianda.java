@@ -6,6 +6,7 @@ public class CantVianda {
 	private int cantidad;
 
 	public CantVianda() {
+		cantidad = 0;
 	}
 
 	public CantVianda(Vianda _vianda, int _cantidad) {

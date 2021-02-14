@@ -1,28 +1,43 @@
 package logica;
 import logica.ventas.*;
 import logica.viandas.*;
+import persistencia.Respaldo;
+
+import java.io.IOException;
+import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
+
+import monitor.*;
+
 import excepciones.*;
 
-public class CapaLogica {
+//public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
+public class CapaLogica{
+		
 	ColeccionViandas viandas;
 	ColeccionVentas ventas;
+	Respaldo respaldo;
+	Monitor monitor;
 	
 	private static CapaLogica instance = null;
 	
-	public static CapaLogica getInstance() {
+	public static CapaLogica getInstance() throws ClassNotFoundException, IOException, PersistenciaException {
 		if (instance == null) {
 			instance = new CapaLogica();
 		}
 		return instance;
 	}
 	
-	public CapaLogica(){
+	public CapaLogica() throws ClassNotFoundException, IOException, PersistenciaException{
+		respaldo = new Respaldo();
 		viandas = new ColeccionViandas();
 		ventas = new ColeccionVentas();
+		
+		viandas = respaldo.recuperar(respaldo.GetNombreArchivo());
+		monitor = new Monitor();
 	}
 
-	public void altaVianda(VOVianda _vovianda) throws ViandasException {
+	public void altaVianda(VOVianda _vovianda) throws ViandasException, InterruptedException {
 		String _codVianda = _vovianda.getCodVianda();
 		if(!viandas.existeVianda(_codVianda)) {
 			String _descripcion = _vovianda.getDescripcion();
@@ -42,7 +57,7 @@ public class CapaLogica {
 		}	
 	}
 	
-	public void altaVenta(VOVenta _voventa) throws VentasException{
+	public void altaVenta(VOVenta _voventa) throws VentasException {
 		int numeroVenta = _voventa.getNumero();
 		String dir = _voventa.getDirEntrega();
 		LocalDate fecha = _voventa.getFecha();
@@ -112,7 +127,7 @@ public class CapaLogica {
 		}
 	}
 	
-	public void procesarVenta(int numVenta, boolean indicacion) throws VentasException {
+	/*public void procesarVenta(int numVenta, boolean indicacion) throws VentasException { ORIGINAL
 		if(ventas.existeVenta(numVenta)) {
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getTotalViandas() == 0) {
@@ -123,6 +138,18 @@ public class CapaLogica {
 		}else {
 			throw new VentasException(5);
 		}
+	}*/
+	
+	public void procesarVenta(int numVenta, boolean indicacion) throws VentasException {
+		if(ventas.existeVenta(numVenta)) {
+			ventas.procesarVenta(numVenta, indicacion);
+		}else {
+			throw new VentasException(5);
+		}
+	}
+	
+	public void confirmarCancelar() {
+		
 	}
 	
 	public void listarVentas() {
@@ -147,11 +174,14 @@ public class CapaLogica {
 		
 	}
 	
-	public void respaldarInfo() {
+	public void respaldarInfo() throws PersistenciaException, IOException {
 		
+		respaldo.respaldar(respaldo.GetNombreArchivo(), viandas);
 	}
 	
-	public void restaurarInfo() {
+	public void restaurarInfo() throws ClassNotFoundException, IOException, PersistenciaException {
+		viandas = new ColeccionViandas();
+		viandas = respaldo.recuperar(respaldo.GetNombreArchivo());
 		
 	}
 	

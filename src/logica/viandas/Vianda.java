@@ -1,6 +1,8 @@
 package logica.viandas;
 
-public class Vianda {
+import java.io.Serializable;
+
+public class Vianda implements Serializable {
 
 	private String codVianda;
 	private String descripcion;

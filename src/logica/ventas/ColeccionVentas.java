@@ -35,7 +35,7 @@ public class ColeccionVentas {
 		}
 	}*/
 	
-	public void procesarVenta(int _numeroVenta, boolean _indicacion) {
+	/*public void procesarVenta(int _numeroVenta, boolean _indicacion) { ORIGINAL
 		boolean encontre = false;
 		Iterator<Venta> iter = Ventas.iterator();
 		while(iter.hasNext() && !encontre) {
@@ -46,6 +46,18 @@ public class ColeccionVentas {
 				}else {
 					Ventas.remove(v);
 				}
+				encontre = true;
+			}
+		}
+	}*/
+	
+	public void procesarVenta(int _numeroVenta, boolean _indicacion) {
+		boolean encontre = false;
+		Iterator<Venta> iter = Ventas.iterator();
+		while(iter.hasNext() && !encontre) {
+			Venta v = iter.next();
+			if(v.getNumeroVenta() == (_numeroVenta)) {
+				v.setEnProc(_indicacion);
 				encontre = true;
 			}
 		}
