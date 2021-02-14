@@ -30,6 +30,12 @@ public class VentasException extends Exception {
 		case 6:
 			error = "No existe la vianda especificada en la venta";
 			break;
+		case 7: 
+			error = "No hay viandas registradas en la venta";
+			break;
+		case 8:
+			error = "No hay ventas registradas en el sistema";
+			break;
 		default:
 			error = "Error no especificado";
 		}

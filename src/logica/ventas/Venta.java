@@ -1,8 +1,9 @@
 package logica.ventas;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Venta {
+public class Venta implements Serializable {
 
 
 	private int numeroVenta;

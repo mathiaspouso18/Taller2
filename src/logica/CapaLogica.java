@@ -11,9 +11,9 @@ import monitor.*;
 
 import excepciones.*;
 
-//public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
-public class CapaLogica{
-		
+public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
+//public class CapaLogica{
+	private static final long serialVersionUID = 1L;
 	ColeccionViandas viandas;
 	ColeccionVentas ventas;
 	Respaldo respaldo;
@@ -33,11 +33,12 @@ public class CapaLogica{
 		viandas = new ColeccionViandas();
 		ventas = new ColeccionVentas();
 		
-		viandas = respaldo.recuperar(respaldo.GetNombreArchivo());
+		restaurarInfo();
 		monitor = new Monitor();
 	}
 
 	public void altaVianda(VOVianda _vovianda) throws ViandasException, InterruptedException {
+		monitor.comienzoEscritura();
 		String _codVianda = _vovianda.getCodVianda();
 		if(!viandas.existeVianda(_codVianda)) {
 			String _descripcion = _vovianda.getDescripcion();
@@ -47,36 +48,44 @@ public class CapaLogica{
 				String _descAdic = ((VOViandaVeg)_vovianda).getDescAdic();
 				ViandaVeg vv = new ViandaVeg(_codVianda, _descripcion, _precio, _esOvo, _descAdic);
 				viandas.insertarVianda(vv);
+				monitor.terminoEscritura();
 			}
 			else {
 				Vianda v = new Vianda(_codVianda, _descripcion, _precio);
 				viandas.insertarVianda(v);
+				monitor.terminoEscritura();
 			}
 		}else {
+			monitor.terminoEscritura();
 			throw new ViandasException(1);
 		}	
 	}
 	
-	public void altaVenta(VOVenta _voventa) throws VentasException {
+	public void altaVenta(VOVenta _voventa) throws VentasException, InterruptedException {
+		monitor.comienzoEscritura();
 		int numeroVenta = _voventa.getNumero();
 		String dir = _voventa.getDirEntrega();
 		LocalDate fecha = _voventa.getFecha();
 		if(ventas.esVacio()) {
 			Venta ve = new Venta(numeroVenta, fecha, dir);
 			ventas.insertarVenta(ve);
+			monitor.terminoEscritura();
 		}else {
 			Venta ulventa = ventas.obtenerUltimaVenta();
 			LocalDate ulfecha = ulventa.getFecha();
 			if(fecha.compareTo(ulfecha)>0) {
 				Venta ve = new Venta(numeroVenta, fecha, dir);
 				ventas.insertarVenta(ve);
+				monitor.terminoEscritura();
 			}else {
+				monitor.terminoEscritura();
 				throw new VentasException(3);
 			}
 		}
 	}
 	
-	public void altaViandaxVenta(String codVianda, int numVenta, int cant) throws VentasException, ViandasException {
+	public void altaViandaxVenta(String codVianda, int numVenta, int cant) throws VentasException, ViandasException, InterruptedException {
+		monitor.comienzoEscritura();
 		if(ventas.existeVenta(numVenta)){
 				if(viandas.existeVianda(codVianda)) {
 				Venta v = ventas.buscarVenta(numVenta);
@@ -84,21 +93,27 @@ public class CapaLogica{
 					if(v.getTotalViandas() < 30){
 						if(v.existeViandaxVenta(codVianda)) {
 							v.aumentarCantidad(codVianda, cant);
+							monitor.terminoEscritura();
 						}else {
 							Vianda v1 = viandas.buscarVianda(codVianda); 
 							CantVianda cv = new CantVianda(v1, cant);
 							v.insertCantVianda(cv);
+							monitor.terminoEscritura();
 						}
 					}else {
+						monitor.terminoEscritura();
 						throw new VentasException(4);
 					}
 				}else {
+					monitor.terminoEscritura();
 					throw new VentasException(2);
 				}
 			}else {
+				monitor.terminoEscritura();
 				throw new ViandasException(2);
 			}
 		}else {
+			monitor.terminoEscritura();
 			throw new VentasException(5);
 		}
 	}
@@ -152,64 +167,83 @@ public class CapaLogica{
 		
 	}
 	
-	public void listarVentas() {
+	public void listarVentas() throws InterruptedException, VentasException {
+		monitor.comienzoLectura();
 		if(!ventas.esVacio()) {
 			System.out.println(ventas.ToString());
 		}else {
-			System.out.println("No hay ventas ingresadas en el sistema"); 
+			monitor.terminoLectura();
+			throw new VentasException(8);
 		}
 	}
 	
-	public void listarViandasVenta(int numVenta) throws VentasException {
+	public void listarViandasVenta(int numVenta) throws VentasException, InterruptedException {
+		monitor.comienzoLectura();
 		if(ventas.existeVenta(numVenta)) {
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getTotalViandas()> 0)
 				System.out.println(v.listarViandasVenta());
 			else
-				System.out.println("No hay viandas en esa venta"); 
+				monitor.terminoLectura();
+				throw new VentasException(7);
 		}
 		else {
+			monitor.terminoLectura();
 			throw new VentasException(5);
 		}
 		
 	}
 	
 	public void respaldarInfo() throws PersistenciaException, IOException {
-		
-		respaldo.respaldar(respaldo.GetNombreArchivo(), viandas);
+		respaldo.respaldar(respaldo.GetNombreArchivo(), ventas, viandas);
 	}
 	
 	public void restaurarInfo() throws ClassNotFoundException, IOException, PersistenciaException {
-		viandas = new ColeccionViandas();
-		viandas = respaldo.recuperar(respaldo.GetNombreArchivo());
-		
-	}
-	
-	public void listarViandas() {
-		if(!viandas.esVacio()) {
-			System.out.println(viandas.ToString());
-		}else {
-			System.out.println("No hay viandas ingresadas en el sistema"); 
+		try {
+			ventas = respaldo.recuperarVentas(respaldo.GetNombreArchivo());
+			viandas = respaldo.recuperarViandas(respaldo.GetNombreArchivo());
+		}
+		catch(IOException ioe){
+			ventas = new ColeccionVentas();
+			viandas = new ColeccionViandas();
 		}
 	}
 	
-	public void listarDatosVianda(String codVianda) throws ViandasException {
+	public void listarViandas() throws ViandasException, InterruptedException {
+		monitor.comienzoLectura();
+		if(!viandas.esVacio()) {
+			System.out.println(viandas.ToString());
+			monitor.terminoLectura();
+		}else {
+			monitor.terminoLectura();
+			throw new ViandasException(3);
+		}
+	}
+	
+	public void listarDatosVianda(String codVianda) throws ViandasException, InterruptedException {
+		monitor.comienzoLectura();
 		if(!viandas.esVacio()) {
 			if(viandas.existeVianda(codVianda)) {
 				viandas.ListarDatosVianda(codVianda);
+				monitor.terminoLectura();
 			}else {
+				monitor.terminoLectura();
 				throw new ViandasException(2);
 			}
 		}else {
-			System.out.println("No hay viandas ingresadas en el sistema"); 
+			monitor.terminoLectura();
+			throw new ViandasException(3);
 		}
 	}
 	
-	public void listarViandaxDescripcion(String descripcion) {
+	public void listarViandaxDescripcion(String descripcion) throws ViandasException, InterruptedException {
+		monitor.comienzoLectura();
 		if(!viandas.esVacio()) {
 			viandas.ListarxDescripcion(descripcion);
+			monitor.terminoLectura();
 		}else {
-			System.out.println("No hay viandas ingresadas en el sistema"); 
+			monitor.terminoLectura();
+			throw new ViandasException(3);
 		}
 	}
 }

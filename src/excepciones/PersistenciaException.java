@@ -19,6 +19,9 @@ public class PersistenciaException extends Exception {
 		case 2:
 			mensaje = "Error al recuperar el archivo";
 			break;
+		case 3:
+			mensaje  = "El archivo no existe en disco";
+			break;
 		default:
 			mensaje = "Error no especificado";
 		}

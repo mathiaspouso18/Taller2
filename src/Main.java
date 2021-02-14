@@ -26,7 +26,7 @@ public class Main {
 			
 			//cp.altaVenta(_voventa);
 			//cp.altaVenta(_voventa2);
-			//cp.listarVentas();
+			cp.listarVentas();
 			
 			
 			//VOVianda _vovianda = new VOVianda("ACP", "Arroz con pollo", 300);
@@ -35,7 +35,7 @@ public class Main {
 			//cp.altaVianda(_voviandaveg);
 			cp.listarViandas();
 			
-			cp.respaldarInfo();
+			//cp.respaldarInfo();
 			
 			
 			
@@ -66,9 +66,8 @@ public class Main {
 		catch(ClassNotFoundException c) {
 			System.out.println(c);
 		}
-		
-		//catch(ViandasException v) {
-		//	System.out.println(v);
+		//catch(VentasException ve) {
+		//	System.out.println(ve.getMensajeVentaException());
 		//}
 	}
 }

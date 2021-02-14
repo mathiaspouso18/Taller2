@@ -2,22 +2,35 @@ package persistencia;
 import java.io.*;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import excepciones.PersistenciaException;
 import logica.ventas.ColeccionVentas;
 import logica.viandas.*;
 
 public class Respaldo
-{
-	public void respaldar (String nomArch, ColeccionViandas v) throws PersistenciaException, IOException{
+{	
+	private void respaldarColeccionViandas (String nomArch, ColeccionViandas cv) throws IOException{
 		FileOutputStream f = new FileOutputStream(nomArch);
 		ObjectOutputStream o = new ObjectOutputStream(f);
-		o.writeObject(v);
+		o.writeObject(cv);
 		o.close();
 		f.close();
-		
 	}
-	public ColeccionViandas recuperar (String nomArch) throws IOException, ClassNotFoundException {
+	
+	private void respaldarColeccionVentas(String nomArch, ColeccionVentas cve) throws IOException {
+		FileOutputStream f = new FileOutputStream(nomArch);
+		ObjectOutputStream o = new ObjectOutputStream(f);
+		o.writeObject(cve);
+		o.close();
+		f.close();
+	}
+	
+	public void respaldar(String nomArch, ColeccionVentas cve, ColeccionViandas cv) throws IOException, PersistenciaException {
+		respaldarColeccionViandas(nomArch, cv);
+		respaldarColeccionVentas(nomArch, cve);
+	}
+	
+	
+	public ColeccionViandas recuperarViandas (String nomArch) throws IOException, ClassNotFoundException {
 		ColeccionViandas cv = new ColeccionViandas();
 		try{ 
 			FileInputStream f = new FileInputStream(nomArch);
@@ -33,18 +46,31 @@ public class Respaldo
 		return cv;
 	}
 	
+	public ColeccionVentas recuperarVentas (String nomArch) throws IOException, ClassNotFoundException {
+		ColeccionVentas cve = new ColeccionVentas();
+		try{ 
+			FileInputStream f = new FileInputStream(nomArch);
+			ObjectInputStream o = new ObjectInputStream(f);
+			cve = (ColeccionVentas)o.readObject();
+			o.close();
+			f.close();
+		}
+		catch (IOException e)
+		{ 
+			e.printStackTrace();
+		}
+		return cve;
+	}
+	
 	public String GetNombreArchivo() throws IOException, PersistenciaException {
 		File file = new File(AuxGetArchivo());
 		if (!file.exists()) {
 			file.createNewFile();
-			ColeccionViandas cv = new ColeccionViandas();
-			ColeccionVentas cve = new ColeccionVentas();
-			respaldar(AuxGetArchivo(), cv);
 		}
 		return AuxGetArchivo();
 	}
 	
-	public String AuxGetArchivo() throws PersistenciaException {
+	private String AuxGetArchivo() throws PersistenciaException {
 		try {
 			Properties p = new Properties();
 			String name = "src/config/Respaldo.properties";

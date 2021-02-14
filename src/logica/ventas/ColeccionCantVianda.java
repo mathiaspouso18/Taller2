@@ -1,8 +1,9 @@
 package logica.ventas;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class ColeccionCantVianda {
+public class ColeccionCantVianda implements Serializable {
 	private CantVianda [] CantViandas;
 	private int tope;
 

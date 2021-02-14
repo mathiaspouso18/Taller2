@@ -1,7 +1,9 @@
  package logica.ventas;
- import logica.viandas.*;
+ import java.io.Serializable;
 
-public class CantVianda {
+import logica.viandas.*;
+
+public class CantVianda implements Serializable {
 	private Vianda vianda;
 	private int cantidad;
 

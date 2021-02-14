@@ -1,8 +1,9 @@
 package logica.ventas;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class ColeccionVentas {
+public class ColeccionVentas implements Serializable{
 	private LinkedList<Venta> Ventas;
 
 	public ColeccionVentas() {

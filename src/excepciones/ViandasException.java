@@ -18,6 +18,9 @@ public class ViandasException extends Exception {
 		case 2: 
 			error = "No existe la vianda con el codigo especificado.";
 			break;
+		case 3:
+			error = "No hay viandas ingresadas en el sistema";
+			break;
 		default:
 			error = "Error no especificado";
 		}
