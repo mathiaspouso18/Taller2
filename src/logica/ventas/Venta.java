@@ -20,7 +20,7 @@ public class Venta implements Serializable {
 		numeroVenta = _numeroVenta;
 		fecha = _fecha;
 		dirEntrega = _dirEntrega;
-		enProc = false;
+		enProc = true;
 		cantViandas = new ColeccionCantVianda();
 	}
 

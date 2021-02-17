@@ -33,7 +33,7 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		viandas = new ColeccionViandas();
 		ventas = new ColeccionVentas();
 		
-		restaurarInfo();
+		//restaurarInfo();
 		monitor = new Monitor();
 	}
 
@@ -171,6 +171,7 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		monitor.comienzoLectura();
 		if(!ventas.esVacio()) {
 			System.out.println(ventas.ToString());
+			monitor.terminoLectura();
 		}else {
 			monitor.terminoLectura();
 			throw new VentasException(8);
@@ -181,17 +182,19 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		monitor.comienzoLectura();
 		if(ventas.existeVenta(numVenta)) {
 			Venta v = ventas.buscarVenta(numVenta);
-			if(v.getTotalViandas()> 0)
+			if(v.getTotalViandas()> 0) {
 				System.out.println(v.listarViandasVenta());
-			else
+				monitor.terminoLectura();
+			}
+			else {
 				monitor.terminoLectura();
 				throw new VentasException(7);
+			}
 		}
 		else {
 			monitor.terminoLectura();
 			throw new VentasException(5);
 		}
-		
 	}
 	
 	public void respaldarInfo() throws PersistenciaException, IOException {

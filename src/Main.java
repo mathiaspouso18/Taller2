@@ -19,20 +19,20 @@ public class Main {
 		try {
 			CapaLogica cp = new CapaLogica();
 			
-			//LocalDate fecha = LocalDate.now();
-			//LocalDate fecha2 = LocalDate.of(2021, 02, 17);
-			//VOVenta _voventa = new VOVenta(fecha, "calle 123");
-			//VOVenta _voventa2 = new VOVenta(fecha2, "calle 456");
+			LocalDate fecha = LocalDate.now();
+			LocalDate fecha2 = LocalDate.of(2021, 02, 19);
+			VOVenta _voventa = new VOVenta(fecha, "calle 123");
+			VOVenta _voventa2 = new VOVenta(fecha2, "calle 456");
 			
-			//cp.altaVenta(_voventa);
-			//cp.altaVenta(_voventa2);
+			cp.altaVenta(_voventa);
+			cp.altaVenta(_voventa2);
 			cp.listarVentas();
 			
 			
-			//VOVianda _vovianda = new VOVianda("ACP", "Arroz con pollo", 300);
-			//cp.altaVianda(_vovianda);
-			//VOVianda _voviandaveg = new VOViandaVeg("S", "Seitan", 159, true, "Nada que agregar");
-			//cp.altaVianda(_voviandaveg);
+			VOVianda _vovianda = new VOVianda("ACP", "Arroz con pollo", 300);
+			cp.altaVianda(_vovianda);
+			VOVianda _voviandaveg = new VOViandaVeg("S", "Seitan", 159, true, "Nada que agregar");
+			cp.altaVianda(_voviandaveg);
 			cp.listarViandas();
 			
 			//cp.respaldarInfo();
@@ -41,9 +41,9 @@ public class Main {
 			
 			//cp.procesarVenta(1, true);
 			//cp.ListarVentas();
-			//cp.altaViandaxVenta("ACP", 1, 2);
-			//cp.ListarVentas();
-			//cp.listarViandasVenta(1);
+			cp.altaViandaxVenta("ACP", 1, 2);
+			cp.listarVentas();
+			cp.listarViandasVenta(1);
 			//cp.altaViandaxVenta("ACP", 1, 5);
 			//cp.listarViandasVenta(1);
 			//cp.reducirCantVianda("ACP", 2, 1);
@@ -60,14 +60,14 @@ public class Main {
 		catch(PersistenciaException p) {
 			System.out.println(p);
 		}
-		//catch(ViandasException v) {
-		//	System.out.println(v.getMensajeViandaException());
-		//}
+		catch(ViandasException v) {
+			System.out.println(v.getMensajeViandaException());
+		}
 		catch(ClassNotFoundException c) {
 			System.out.println(c);
 		}
-		//catch(VentasException ve) {
-		//	System.out.println(ve.getMensajeVentaException());
-		//}
+		catch(VentasException ve) {
+			System.out.println(ve.getMensajeVentaException());
+		}
 	}
 }
