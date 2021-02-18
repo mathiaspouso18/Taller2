@@ -3,7 +3,9 @@ import logica.ventas.*;
 import logica.viandas.*;
 import persistencia.Respaldo;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 
@@ -33,7 +35,7 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		viandas = new ColeccionViandas();
 		ventas = new ColeccionVentas();
 		
-		//restaurarInfo();
+		restaurarInfo();
 		monitor = new Monitor();
 	}
 
@@ -203,8 +205,16 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 	
 	public void restaurarInfo() throws ClassNotFoundException, IOException, PersistenciaException {
 		try {
-			ventas = respaldo.recuperarVentas(respaldo.GetNombreArchivo());
-			viandas = respaldo.recuperarViandas(respaldo.GetNombreArchivo());
+			
+			FileInputStream f = new FileInputStream(respaldo.GetNombreArchivo());
+			ObjectInputStream o = new ObjectInputStream(f);
+			viandas = (ColeccionViandas)o.readObject();
+			ventas = (ColeccionVentas)o.readObject();
+			o.close();
+			f.close();
+			
+			//viandas = respaldo.recuperarViandas(respaldo.GetNombreArchivo());
+			//ventas = respaldo.recuperarVentas(respaldo.GetNombreArchivo());
 		}
 		catch(IOException ioe){
 			ventas = new ColeccionVentas();

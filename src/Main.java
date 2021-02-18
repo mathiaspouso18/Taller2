@@ -15,45 +15,51 @@ import logica.viandas.*;
 public class Main {
 
 	public static void main(String[] args) throws VentasException, ViandasException, IOException, ClassNotFoundException, PersistenciaException, InterruptedException {
-		
+		//Comentar y descomentar para hacer pruebas
 		try {
 			CapaLogica cp = new CapaLogica();
 			
-			LocalDate fecha = LocalDate.now();
-			LocalDate fecha2 = LocalDate.of(2021, 02, 19);
-			VOVenta _voventa = new VOVenta(fecha, "calle 123");
-			VOVenta _voventa2 = new VOVenta(fecha2, "calle 456");
+			//Creo ventas
+			//LocalDate fecha = LocalDate.now();
+			//LocalDate fecha2 = LocalDate.of(2021, 02, 19);
+			//VOVenta _voventa = new VOVenta(fecha, "calle 123");
+			//VOVenta _voventa2 = new VOVenta(fecha2, "calle 456");
 			
-			cp.altaVenta(_voventa);
-			cp.altaVenta(_voventa2);
+			//Doy de alta ventas en coleccion
+			//cp.altaVenta(_voventa);
+			//cp.altaVenta(_voventa2);
+			
+			//Listo ventas
 			cp.listarVentas();
 			
+			//Creo viandas
+			//VOVianda _vovianda = new VOVianda("ACP", "Arroz con pollo", 300);
+			//cp.altaVianda(_vovianda);
+			//VOVianda _voviandaveg = new VOViandaVeg("S", "Seitan", 159, true, "Nada que agregar");
+			//cp.altaVianda(_voviandaveg);
 			
-			VOVianda _vovianda = new VOVianda("ACP", "Arroz con pollo", 300);
-			cp.altaVianda(_vovianda);
-			VOVianda _voviandaveg = new VOViandaVeg("S", "Seitan", 159, true, "Nada que agregar");
-			cp.altaVianda(_voviandaveg);
+			//Listo viandas
 			cp.listarViandas();
 			
+			//Respaldo info
+			//cp.respaldarInfo();
+
+			//Agrego vianda a una venta
+			//cp.altaViandaxVenta("ACP", 1, 2);
+			
+			//Respaldo info
 			//cp.respaldarInfo();
 			
+			//Verifico si ingreso la vianda en la venta
+			//cp.listarViandasVenta(1);
 			
-			
-			//cp.procesarVenta(1, true);
-			//cp.ListarVentas();
-			cp.altaViandaxVenta("ACP", 1, 2);
-			cp.listarVentas();
-			cp.listarViandasVenta(1);
+			//Aumento cantidad de vianda en la venta
 			//cp.altaViandaxVenta("ACP", 1, 5);
-			//cp.listarViandasVenta(1);
+			
+			//Bajo cantidad de viandas en la venta
 			//cp.reducirCantVianda("ACP", 2, 1);
-			//cp.listarViandasVenta(1);
-			//cp.ListarDatosVianda("S");
-			//cp.listarViandaxDescripcion("n");
-			//cp.ListarVentas();
-			//}catch(VentasException ve) {
-			//System.out.println(ve);
-			}
+
+		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}

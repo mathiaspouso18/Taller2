@@ -25,8 +25,16 @@ public class Respaldo
 	}
 	
 	public void respaldar(String nomArch, ColeccionVentas cve, ColeccionViandas cv) throws IOException, PersistenciaException {
-		respaldarColeccionViandas(nomArch, cv);
-		respaldarColeccionVentas(nomArch, cve);
+		
+		FileOutputStream f = new FileOutputStream(nomArch);
+		ObjectOutputStream o = new ObjectOutputStream(f);
+		o.writeObject(cv);
+		o.writeObject(cve);
+		o.close();
+		f.close();
+		
+		//respaldarColeccionViandas(nomArch, cv);
+		//respaldarColeccionVentas(nomArch, cve);
 	}
 	
 	
@@ -35,7 +43,9 @@ public class Respaldo
 		try{ 
 			FileInputStream f = new FileInputStream(nomArch);
 			ObjectInputStream o = new ObjectInputStream(f);
-			cv = (ColeccionViandas)o.readObject();
+			if(o.readObject() instanceof ColeccionViandas) {
+				cv = (ColeccionViandas)o.readObject();
+			}
 			o.close();
 			f.close();
 		}
@@ -51,7 +61,9 @@ public class Respaldo
 		try{ 
 			FileInputStream f = new FileInputStream(nomArch);
 			ObjectInputStream o = new ObjectInputStream(f);
-			cve = (ColeccionVentas)o.readObject();
+			if(o.readObject() instanceof ColeccionVentas) {
+				cve = (ColeccionVentas)o.readObject();
+			}
 			o.close();
 			f.close();
 		}
