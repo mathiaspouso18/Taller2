@@ -8,7 +8,7 @@ import logica.viandas.*;
 
 public class Respaldo
 {	
-	private void respaldarColeccionViandas (String nomArch, ColeccionViandas cv) throws IOException{
+	/*private void respaldarColeccionViandas (String nomArch, ColeccionViandas cv) throws IOException{
 		FileOutputStream f = new FileOutputStream(nomArch);
 		ObjectOutputStream o = new ObjectOutputStream(f);
 		o.writeObject(cv);
@@ -22,23 +22,19 @@ public class Respaldo
 		o.writeObject(cve);
 		o.close();
 		f.close();
-	}
+	}*/
 	
-	public void respaldar(String nomArch, ColeccionVentas cve, ColeccionViandas cv) throws IOException, PersistenciaException {
-		
+	public void respaldar(String nomArch, ColeccionVentas cve, ColeccionViandas cv) throws IOException {
 		FileOutputStream f = new FileOutputStream(nomArch);
 		ObjectOutputStream o = new ObjectOutputStream(f);
 		o.writeObject(cv);
 		o.writeObject(cve);
 		o.close();
 		f.close();
-		
-		//respaldarColeccionViandas(nomArch, cv);
-		//respaldarColeccionVentas(nomArch, cve);
 	}
 	
 	
-	public ColeccionViandas recuperarViandas (String nomArch) throws IOException, ClassNotFoundException {
+	/*public ColeccionViandas recuperarViandas (String nomArch) throws IOException, ClassNotFoundException {
 		ColeccionViandas cv = new ColeccionViandas();
 		try{ 
 			FileInputStream f = new FileInputStream(nomArch);
@@ -72,7 +68,7 @@ public class Respaldo
 			e.printStackTrace();
 		}
 		return cve;
-	}
+	}*/
 	
 	public String GetNombreArchivo() throws IOException, PersistenciaException {
 		File file = new File(AuxGetArchivo());

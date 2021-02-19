@@ -212,9 +212,6 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 			ventas = (ColeccionVentas)o.readObject();
 			o.close();
 			f.close();
-			
-			//viandas = respaldo.recuperarViandas(respaldo.GetNombreArchivo());
-			//ventas = respaldo.recuperarVentas(respaldo.GetNombreArchivo());
 		}
 		catch(IOException ioe){
 			ventas = new ColeccionVentas();

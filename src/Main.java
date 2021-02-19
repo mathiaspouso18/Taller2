@@ -1,4 +1,8 @@
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.time.*;
 import java.util.Properties;
 
@@ -14,66 +18,31 @@ import logica.viandas.*;
 
 public class Main {
 
-	public static void main(String[] args) throws VentasException, ViandasException, IOException, ClassNotFoundException, PersistenciaException, InterruptedException {
-		//Comentar y descomentar para hacer pruebas
-		try {
-			CapaLogica cp = new CapaLogica();
-			
-			//Creo ventas
-			//LocalDate fecha = LocalDate.now();
-			//LocalDate fecha2 = LocalDate.of(2021, 02, 19);
-			//VOVenta _voventa = new VOVenta(fecha, "calle 123");
-			//VOVenta _voventa2 = new VOVenta(fecha2, "calle 456");
-			
-			//Doy de alta ventas en coleccion
-			//cp.altaVenta(_voventa);
-			//cp.altaVenta(_voventa2);
-			
-			//Listo ventas
-			cp.listarVentas();
-			
-			//Creo viandas
-			//VOVianda _vovianda = new VOVianda("ACP", "Arroz con pollo", 300);
-			//cp.altaVianda(_vovianda);
-			//VOVianda _voviandaveg = new VOViandaVeg("S", "Seitan", 159, true, "Nada que agregar");
-			//cp.altaVianda(_voviandaveg);
-			
-			//Listo viandas
-			cp.listarViandas();
-			
-			//Respaldo info
-			//cp.respaldarInfo();
-
-			//Agrego vianda a una venta
-			//cp.altaViandaxVenta("ACP", 1, 2);
-			
-			//Respaldo info
-			//cp.respaldarInfo();
-			
-			//Verifico si ingreso la vianda en la venta
-			//cp.listarViandasVenta(1);
-			
-			//Aumento cantidad de vianda en la venta
-			//cp.altaViandaxVenta("ACP", 1, 5);
-			
-			//Bajo cantidad de viandas en la venta
-			//cp.reducirCantVianda("ACP", 2, 1);
-
+	public static void main(String[] args) throws ClassNotFoundException, IOException, PersistenciaException{
+		try
+		{ 
+			Properties p = new Properties();
+			String nomArch = "src/config/Config.properties";
+			p.load (new FileInputStream (nomArch));
+			String ip = p.getProperty("ipServidor");
+			String puerto = p.getProperty("puertoServidor");
+			int port = Integer.parseInt(puerto);
+		
+			//pongo a correr el rmiregistry
+			LocateRegistry.createRegistry(port);
+		
+			//publico el objeto remoto en dicha ip y puerto
+			String ruta = "//" + ip + ":" + puerto + "/fachada";
+			CapaLogica fachada = new CapaLogica();
+			System.out.println("Antes de publicar");
+			Naming.rebind(ruta, fachada);
+			System.out.println("Luego de publicar");
 		}
-		catch (IOException e) {
-			e.printStackTrace();
+		catch (RemoteException e){ 
+			e.printStackTrace(); 
 		}
-		catch(PersistenciaException p) {
-			System.out.println(p);
-		}
-		catch(ViandasException v) {
-			System.out.println(v.getMensajeViandaException());
-		}
-		catch(ClassNotFoundException c) {
-			System.out.println(c);
-		}
-		catch(VentasException ve) {
-			System.out.println(ve.getMensajeVentaException());
+		catch (MalformedURLException e){ 
+			e.printStackTrace(); 
 		}
 	}
 }
