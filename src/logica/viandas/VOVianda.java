@@ -1,10 +1,17 @@
 package logica.viandas;
 
-public class VOVianda {
+import java.io.Serializable;
+
+public class VOVianda implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String codVianda;
 	private String descripcion;
 	private int precio;
 
+	public VOVianda() {
+		
+	}
+	
 	public VOVianda(String _codVianda, String _descripcion, int _precio) {
 		codVianda = _codVianda;
 		descripcion = _descripcion;

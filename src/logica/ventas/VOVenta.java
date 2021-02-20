@@ -5,20 +5,29 @@ import java.time.LocalDate;
 public class VOVenta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static int _contador = 0;
 	private int numeroVenta;
 	private LocalDate fecha;
 	private String dirEntrega;
+	private boolean enProc;
+	private int montoTotal;
 	
 	public VOVenta() {
 		
 	}
 	
-	public VOVenta(LocalDate _fecha, String _dirEntrega) {
-		_contador++;
-		numeroVenta = _contador;
+	public VOVenta(LocalDate _fecha, String _dirEntrega, boolean _enProc) {
 		fecha = _fecha;
 		dirEntrega = _dirEntrega;
+		enProc = _enProc;
+		montoTotal = 0;
+	}
+	
+	public void setNumero(int _numero) {
+		numeroVenta = _numero;
+	}
+	
+	public void setMontoTotal(int _montoTotal) {
+		montoTotal = _montoTotal;
 	}
 
 	public int getNumero() {
@@ -31,5 +40,13 @@ public class VOVenta implements Serializable {
 
 	public String getDirEntrega() {
 		return dirEntrega;
+	}
+	
+	public boolean getEnProc() {
+		return enProc;
+	}
+	
+	public int getMontoTotal() {
+		return montoTotal;
 	}
 }

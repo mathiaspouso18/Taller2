@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import monitor.*;
 
@@ -33,9 +35,9 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		respaldo = new Respaldo();
 		viandas = new ColeccionViandas();
 		ventas = new ColeccionVentas();
+		monitor = new Monitor();
 		
 		restaurarInfo();
-		monitor = new Monitor();
 	}
 
 	public void altaVianda(VOVianda _vovianda) throws ViandasException, InterruptedException {
@@ -119,7 +121,8 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		}
 	}
 	
-	public void reducirCantVianda(String codVianda, int cant, int numVenta) throws VentasException, ViandasException {
+	public void reducirCantVianda(String codVianda, int cant, int numVenta) throws VentasException, ViandasException, InterruptedException {
+		monitor.comienzoEscritura();
 		if(ventas.existeVenta(numVenta)){
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getEnProc()) {
@@ -129,16 +132,21 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 							if(v.getTotalViandas() == 0) {
 								ventas.eliminarVenta(v);
 							}
+							monitor.terminoEscritura();
 						}else {
+							monitor.terminoEscritura();
 							throw new VentasException(6);
 						}
 					}else {
+						monitor.terminoEscritura();
 						throw new VentasException(4);
 					}
 				}else {
+					monitor.terminoEscritura();
 					throw new VentasException(2);
 				}
 		}else {
+			monitor.terminoEscritura();
 			throw new VentasException(5);
 		}
 	}
@@ -156,27 +164,38 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		}
 	}*/
 	
-	public void procesarVenta(int numVenta, boolean indicacion) throws VentasException {
+	public void procesarVenta(int numVenta, boolean indicacion) throws VentasException, InterruptedException {
+		monitor.comienzoEscritura();
 		if(ventas.existeVenta(numVenta)) {
 			ventas.procesarVenta(numVenta, indicacion);
+			monitor.terminoEscritura();
 		}else {
+			monitor.terminoEscritura();
 			throw new VentasException(5);
 		}
 	}
 	
-	public void confirmarCancelar() {
-		
-	}
-	
-	public void listarVentas() throws InterruptedException, VentasException {
+	public ArrayList<VOVenta> listarVentas() throws InterruptedException, VentasException {
 		monitor.comienzoLectura();
+		ArrayList<VOVenta> listaVentas = new ArrayList<>();
 		if(!ventas.esVacio()) {
-			System.out.println(ventas.ToString());
+			Iterator<Venta> iterador = ventas.getVentas().iterator();
+			
+			while(iterador.hasNext()) {
+				Venta _v = iterador.next();
+				VOVenta _vo = new VOVenta(_v.getFecha(), _v.getDirEntrega(), _v.getEnProc());
+				_vo.setNumero(_v.getNumeroVenta());
+				_vo.setMontoTotal(_v.getMontoTotal());
+				listaVentas.add(_vo);
+			}
+			
 			monitor.terminoLectura();
 		}else {
 			monitor.terminoLectura();
 			throw new VentasException(8);
 		}
+		
+		return listaVentas;
 	}
 	
 	public void listarViandasVenta(int numVenta) throws VentasException, InterruptedException {

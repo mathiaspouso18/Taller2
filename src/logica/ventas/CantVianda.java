@@ -32,7 +32,6 @@ public class CantVianda implements Serializable {
 		cantidad = _cantidad;
 	}
 
-
 	public String ToString() {
 		return (vianda.ToString() + "\nCantidad: " + cantidad);
 	}

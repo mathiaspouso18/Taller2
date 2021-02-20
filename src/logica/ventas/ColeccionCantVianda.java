@@ -98,6 +98,18 @@ public class ColeccionCantVianda implements Serializable {
 	/*public void eliminarCantViandas(CantVianda cv) {
 		CantViandas.remove(cv);
 	}*/
+	
+	public int getMontoTotal() {
+		int total = 0;
+		int i = 0;
+		while(i < tope) {
+			int precioVianda = CantViandas[i].getVianda().getPrecio();
+			int cantidad = CantViandas[i].getCantidad();
+			total = total + (precioVianda * cantidad);
+			i++;
+		}
+		return total;
+	}
 
 	public String ToString() {
 		String retorno = "";

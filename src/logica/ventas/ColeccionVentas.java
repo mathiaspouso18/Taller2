@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ColeccionVentas implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private static int _contador = 0;
 	private LinkedList<Venta> Ventas;
 
 	public ColeccionVentas() {
@@ -11,7 +14,9 @@ public class ColeccionVentas implements Serializable{
 	}
 
 	public void insertarVenta(Venta _venta) {
-			Ventas.add(_venta);
+		_contador++;
+		_venta.setNumero(_contador);
+		Ventas.add(_venta);
 	}
 
 	public Venta buscarVenta(int numeroVenta) {
@@ -80,6 +85,10 @@ public class ColeccionVentas implements Serializable{
 		Ventas.remove(v);
 	}
 
+	public LinkedList<Venta> getVentas(){
+		return Ventas;
+	}
+	
 	public String ToString() {
 		String retorno = "";
 		Iterator<Venta> iter = Ventas.iterator();

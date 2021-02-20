@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Venta implements Serializable {
-
-
+	private static final long serialVersionUID = 1L;
 	private int numeroVenta;
 	private LocalDate fecha;
 	private String dirEntrega;
@@ -42,6 +41,14 @@ public class Venta implements Serializable {
 	
 	public int getTotalViandas() {
 		return cantViandas.totalViandas();
+	}
+	
+	public int getMontoTotal() {
+		return cantViandas.getMontoTotal();
+	}
+	
+	public void setNumero(int _numero) {
+		numeroVenta = _numero;
 	}
 
 	public void setFecha(LocalDate _fecha) {
