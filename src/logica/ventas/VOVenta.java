@@ -1,9 +1,10 @@
 package logica.ventas;
-
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class VOVenta {
+public class VOVenta implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private static int _contador = 0;
 	private int numeroVenta;
 	private LocalDate fecha;

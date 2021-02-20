@@ -14,7 +14,6 @@ import monitor.*;
 import excepciones.*;
 
 public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
-//public class CapaLogica{
 	private static final long serialVersionUID = 1L;
 	ColeccionViandas viandas;
 	ColeccionVentas ventas;
