@@ -10,6 +10,10 @@ public class VOVenta implements Serializable {
 	private LocalDate fecha;
 	private String dirEntrega;
 	
+	public VOVenta() {
+		
+	}
+	
 	public VOVenta(LocalDate _fecha, String _dirEntrega) {
 		_contador++;
 		numeroVenta = _contador;
