@@ -11,6 +11,10 @@ public class ColeccionVentas implements Serializable{
 
 	public ColeccionVentas() {
 		Ventas = new LinkedList<Venta>();
+		if(Ventas.size() > 0) {
+			Venta ultimaVenta = Ventas.getLast();
+			_contador = ultimaVenta.getNumeroVenta();
+		}
 	}
 
 	public void insertarVenta(Venta _venta) {

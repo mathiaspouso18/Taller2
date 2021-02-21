@@ -1,7 +1,10 @@
 package logica.viandas;
 
-public class VOViandaVeg extends VOVianda {
+import java.io.Serializable;
 
+public class VOViandaVeg extends VOVianda implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private boolean esOvo;
 	private String descAdic;
 	

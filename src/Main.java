@@ -31,21 +31,47 @@ public class Main {
 			
 			ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
 			
-			//LocalDate ld = LocalDate.of(2021, 02, 20);
-			//VOVenta _v = new VOVenta(ld, "Calle 134", true);
-			//capalogica.altaVenta(_v);
+			/*LocalDate ld = LocalDate.of(2021, 02, 20);
+			VOVenta _v = new VOVenta(ld, "Calle 134", true);
+			capalogica.altaVenta(_v);
 			
-			//VOVianda _via = new VOVianda("ACP", "Arroz con pollo", 150);
-			//capalogica.altaVianda(_via);
+			VOViandaVeg _via = new VOViandaVeg("ACS", "Arroz con Seitan", 150, true, "Nada raro");
+			capalogica.altaVianda(_via);
 			
-			//capalogica.altaViandaxVenta("ACP", 1, 5);
+			VOVianda _via2 = new VOVianda("ACP", "Arroz con pollo", 230);
+			capalogica.altaVianda(_via2);*/
+			
+			capalogica.altaViandaxVenta("ACS", 1, 1);
+			capalogica.altaViandaxVenta("ACP", 1, 3);
 			
 			capalogica.respaldarInfo();
 			
+			//capalogica.reducirCantVianda("S", 5, 1);
+			
+
+			ArrayList<VOVianda> listaViandas = capalogica.listarViandas();
 			ArrayList<VOVenta> listaVentas = capalogica.listarVentas();
+			ArrayList<VOVianda> listaViandasEnVenta = capalogica.listarViandasVenta(1);
+			
+			for(VOVianda vi : listaViandas) {
+				if(vi instanceof VOViandaVeg) {
+					System.out.println(((VOViandaVeg)vi).getCodVianda() + " - " + ((VOViandaVeg)vi).getDescripcion() + " - $" + ((VOViandaVeg)vi).getPrecio() + " - " + ((VOViandaVeg)vi).getEsOvo()  + " - " + ((VOViandaVeg)vi).getDescAdic());
+				}else {
+					System.out.println("Soy no veg");
+					System.out.println(vi.getCodVianda() + " - " + vi.getDescripcion() + " - $" + vi.getPrecio());
+				}
+			}
 			
 			for(VOVenta v : listaVentas) {
 				System.out.println(v.getNumero() + " - " + v.getDirEntrega() + " - " + v.getFecha() + " - $" + v.getMontoTotal()  + " - " + (v.getEnProc() ? "Si" : "No"));
+			}
+			
+			for(VOVianda vi : listaViandasEnVenta) {
+				if(vi instanceof VOViandaVeg) {
+					System.out.println(((VOViandaVeg)vi).getCodVianda() + " - " + ((VOViandaVeg)vi).getDescripcion() + " - $" + ((VOViandaVeg)vi).getPrecio() + " - " + ((VOViandaVeg)vi).getEsOvo()  + " - " + ((VOViandaVeg)vi).getDescAdic());
+				}else {
+					System.out.println(vi.getCodVianda() + " - " + vi.getDescripcion() + " - $" + vi.getPrecio());
+				}
 			}
 		}
 		catch (RemoteException e){ 
@@ -60,8 +86,8 @@ public class Main {
 		catch (VentasException e) {
 			System.out.println(e.getMensajeVentaException());
 		}
-		/*catch (ViandasException e) {
+		catch (ViandasException e) {
 			System.out.println(e.getMensajeViandaException());
-		}*/
+		}
 	}
 }

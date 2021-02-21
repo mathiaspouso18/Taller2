@@ -49,6 +49,10 @@ public class ColeccionViandas implements Serializable {
 			}
 		}
 	}
+	
+	public TreeMap<String, Vianda> getViandas(){
+		return Viandas;
+	}
 
 	public String ToString() {
 		String retorno = "";

@@ -198,12 +198,28 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		return listaVentas;
 	}
 	
-	public void listarViandasVenta(int numVenta) throws VentasException, InterruptedException {
+	public ArrayList<VOVianda> listarViandasVenta(int numVenta) throws VentasException, InterruptedException {
 		monitor.comienzoLectura();
+		ArrayList<VOVianda> listaViandas;
 		if(ventas.existeVenta(numVenta)) {
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getTotalViandas()> 0) {
-				System.out.println(v.listarViandasVenta());
+				listaViandas = new ArrayList<>();
+				Iterator<Vianda> iterador = viandas.getViandas().values().iterator();
+				
+				while(iterador.hasNext()) {
+					if(iterador.next() instanceof ViandaVeg) {
+						ViandaVeg vv = (ViandaVeg) iterador.next();
+						VOViandaVeg _vv = new VOViandaVeg(vv.getCodVianda(), vv.getDescripcion(), vv.getPrecio(), vv.getEsOvo(), vv.getDescAdic());
+						listaViandas.add(_vv);
+					}
+					else {
+						Vianda vi = (Vianda)iterador.next();
+						VOVianda _v = new VOVianda(vi.getCodVianda(), vi.getDescripcion(), vi.getPrecio());
+						listaViandas.add(_v);
+					}
+				}
+				
 				monitor.terminoLectura();
 			}
 			else {
@@ -215,6 +231,7 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 			monitor.terminoLectura();
 			throw new VentasException(5);
 		}
+		return listaViandas;
 	}
 	
 	public void respaldarInfo() throws PersistenciaException, IOException {
@@ -237,15 +254,31 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		}
 	}
 	
-	public void listarViandas() throws ViandasException, InterruptedException {
+	public ArrayList<VOVianda> listarViandas() throws ViandasException, InterruptedException {
 		monitor.comienzoLectura();
+		ArrayList<VOVianda> listaViandas;
 		if(!viandas.esVacio()) {
-			System.out.println(viandas.ToString());
+			listaViandas = new ArrayList<>();
+			Iterator<Vianda> iterador = viandas.getViandas().values().iterator();
+			
+			while(iterador.hasNext()) {
+				if(iterador.next() instanceof ViandaVeg) {
+					ViandaVeg vv = (ViandaVeg) iterador.next();
+					VOViandaVeg _vv = new VOViandaVeg(vv.getCodVianda(), vv.getDescripcion(), vv.getPrecio(), vv.getEsOvo(), vv.getDescAdic());
+					listaViandas.add(_vv);
+				}
+				else {
+					Vianda vi = (Vianda)iterador.next();
+					VOVianda _v = new VOVianda(vi.getCodVianda(), vi.getDescripcion(), vi.getPrecio());
+					listaViandas.add(_v);
+				}
+			}
 			monitor.terminoLectura();
 		}else {
 			monitor.terminoLectura();
 			throw new ViandasException(3);
 		}
+		return listaViandas;
 	}
 	
 	public void listarDatosVianda(String codVianda) throws ViandasException, InterruptedException {
