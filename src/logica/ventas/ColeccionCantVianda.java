@@ -3,6 +3,8 @@ package logica.ventas;
 import java.io.Serializable;
 import java.util.*;
 
+import logica.viandas.ColeccionViandas;
+
 public class ColeccionCantVianda implements Serializable {
 	private CantVianda [] CantViandas;
 	private int tope;
@@ -98,6 +100,14 @@ public class ColeccionCantVianda implements Serializable {
 	/*public void eliminarCantViandas(CantVianda cv) {
 		CantViandas.remove(cv);
 	}*/
+	
+	public CantVianda [] getViandas() {
+		return CantViandas;
+	}
+	
+	public int getLargo() {
+		return tope;
+	}
 	
 	public int getMontoTotal() {
 		int total = 0;

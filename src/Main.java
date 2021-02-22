@@ -31,55 +31,70 @@ public class Main {
 			
 			ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
 			
-			
-			
-			/*CapaLogica cp = new CapaLogica();
-			
-			VOViandaVeg _via = new VOViandaVeg("ACS", "Arroz con Seitan", 150, true, "Nada raro");
-			cp.altaVianda(_via);
+			/*VOViandaVeg _via = new VOViandaVeg("ACS", "Arroz con Seitan", 150, true, "Nada raro");
+			capalogica.altaVianda(_via);
 			
 			LocalDate ld = LocalDate.of(2021, 02, 20);
 			VOVenta _v = new VOVenta(ld, "Calle 134", true);
-			cp.altaVenta(_v);
-			cp.listarVentas();			
+			capalogica.altaVenta(_v);
+		
+			LocalDate ld2 = LocalDate.of(2021, 02, 25);
+			VOVenta _v2 = new VOVenta(ld2, "Calle 498", true);
+			capalogica.altaVenta(_v2);
 			
+			VOVianda _via2 = new VOVianda("ACP", "Arroz con pollo", 230);
+			capalogica.altaVianda(_via2);
 			
-			//VOVianda _via2 = new VOVianda("ACP", "Arroz con pollo", 230);
-			//cp.altaVianda(_via2);
-			cp.listarViandas();*/
+			capalogica.altaViandaxVenta("ACS", 1, 1);
+			capalogica.altaViandaxVenta("ACP", 1, 3);
+			capalogica.altaViandaxVenta("ACP", 2, 3);*/
 			
-			//capalogica.altaViandaxVenta("ACS", 1, 1);
-			//capalogica.altaViandaxVenta("ACP", 1, 3);
+			capalogica.respaldarInfo();
 			
-			//capalogica.respaldarInfo();
+			//capalogica.reducirCantVianda("ACP", 1, 1);
 			
-			//capalogica.reducirCantVianda("S", 5, 1);
+			//CapaLogica capalogica = new CapaLogica();
 			
 
-			ArrayList<VOVianda> listaViandas = capalogica.listarViandas();
+			//ArrayList<VOVianda> listaViandas = capalogica.listarViandas();
 			ArrayList<VOVenta> listaVentas = capalogica.listarVentas();
-			ArrayList<VOVianda> listaViandasEnVenta = capalogica.listarViandasVenta(1);
+			//ArrayList<VOVianda> listaViandasEnVenta = capalogica.listarViandasVenta(2);
+			//VOVianda datosVianda = capalogica.listarDatosVianda("ACS");
+			//ArrayList<VOVianda> listaViandasDesc = capalogica.listarViandaxDescripcion("seitan");
 			
-			for(VOVianda vi : listaViandas) {
+			/*for(VOVianda vi : listaViandas) {
 				if(vi instanceof VOViandaVeg) {
-					System.out.println(((VOViandaVeg)vi).getCodVianda() + " - " + ((VOViandaVeg)vi).getDescripcion() + " - $" + ((VOViandaVeg)vi).getPrecio() + " - " + ((VOViandaVeg)vi).getEsOvo()  + " - " + ((VOViandaVeg)vi).getDescAdic());
+					System.out.println(((VOViandaVeg)vi).getCodVianda() + " - Tipo: vegetariana - " + ((VOViandaVeg)vi).getDescripcion() + " - $" + ((VOViandaVeg)vi).getPrecio() + " - Es ovolacto: " + (((VOViandaVeg)vi).getEsOvo() ? "Si" : "No")  + " - " + ((VOViandaVeg)vi).getDescAdic());
 				}else {
-					System.out.println("Soy no veg");
-					System.out.println(vi.getCodVianda() + " - " + vi.getDescripcion() + " - $" + vi.getPrecio());
+					System.out.println(vi.getCodVianda() + " - Tipo: comun - " + vi.getDescripcion() + " - $" + vi.getPrecio());
 				}
-			}
+			}*/
 			
 			for(VOVenta v : listaVentas) {
 				System.out.println(v.getNumero() + " - " + v.getDirEntrega() + " - " + v.getFecha() + " - $" + v.getMontoTotal()  + " - " + (v.getEnProc() ? "Si" : "No"));
 			}
 			
-			for(VOVianda vi : listaViandasEnVenta) {
+			/*for(VOVianda vi : listaViandasEnVenta) {
 				if(vi instanceof VOViandaVeg) {
 					System.out.println(((VOViandaVeg)vi).getCodVianda() + " - " + ((VOViandaVeg)vi).getDescripcion() + " - $" + ((VOViandaVeg)vi).getPrecio() + " - " + ((VOViandaVeg)vi).getEsOvo()  + " - " + ((VOViandaVeg)vi).getDescAdic());
 				}else {
 					System.out.println(vi.getCodVianda() + " - " + vi.getDescripcion() + " - $" + vi.getPrecio());
 				}
-			}
+			}*/
+			
+			/*if(datosVianda instanceof VOViandaVeg) {
+				System.out.println(((VOViandaVeg)datosVianda).getCodVianda() + " - " + ((VOViandaVeg)datosVianda).getDescripcion() + " - $" + ((VOViandaVeg)datosVianda).getPrecio() + " - " + ((VOViandaVeg)datosVianda).getEsOvo()  + " - " + ((VOViandaVeg)datosVianda).getDescAdic());
+			}else {
+				System.out.println(datosVianda.getCodVianda() + " - " + datosVianda.getDescripcion() + " - $" + datosVianda.getPrecio());
+			}*/
+			
+			/*for(VOVianda vi : listaViandasDesc) {
+				if(vi instanceof VOViandaVeg) {
+					System.out.println(((VOViandaVeg)vi).getCodVianda() + " - Tipo: vegetariana - " + ((VOViandaVeg)vi).getDescripcion() + " - $" + ((VOViandaVeg)vi).getPrecio() + " - Es ovolacto: " + (((VOViandaVeg)vi).getEsOvo() ? "Si" : "No")  + " - " + ((VOViandaVeg)vi).getDescAdic());
+				}else {
+					System.out.println(vi.getCodVianda() + " - Tipo: comun - " + vi.getDescripcion() + " - $" + vi.getPrecio());
+				}
+			}*/
 		}
 		catch (RemoteException e){ 
 			e.printStackTrace(); 
@@ -93,8 +108,8 @@ public class Main {
 		catch (VentasException e) {
 			System.out.println(e.getMensajeVentaException());
 		}
-		catch (ViandasException e) {
+		/*catch (ViandasException e) {
 			System.out.println(e.getMensajeViandaException());
-		}
+		}*/
 	}
 }

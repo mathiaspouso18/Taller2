@@ -24,6 +24,6 @@ public interface ICapaLogica extends Remote {
 	public void respaldarInfo() throws PersistenciaException, IOException, RemoteException;
 	public void restaurarInfo() throws ClassNotFoundException, IOException, PersistenciaException, RemoteException;
 	public ArrayList<VOVianda> listarViandas() throws ViandasException, InterruptedException, RemoteException;
-	public void listarDatosVianda(String codVianda) throws ViandasException, InterruptedException, RemoteException;
-	public void listarViandaxDescripcion(String descripcion) throws ViandasException, InterruptedException, RemoteException;
+	public VOVianda listarDatosVianda(String codVianda) throws ViandasException, InterruptedException, RemoteException;
+	public ArrayList<VOVianda> listarViandaxDescripcion(String descripcion) throws ViandasException, InterruptedException, RemoteException;
 }

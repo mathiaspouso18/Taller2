@@ -50,6 +50,10 @@ public class Venta implements Serializable {
 	public void setNumero(int _numero) {
 		numeroVenta = _numero;
 	}
+	
+	public ColeccionCantVianda getCantViandas() {
+		return cantViandas;
+	}
 
 	public void setFecha(LocalDate _fecha) {
 		fecha = _fecha;

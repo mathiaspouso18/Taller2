@@ -188,7 +188,6 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 				_vo.setMontoTotal(_v.getMontoTotal());
 				listaVentas.add(_vo);
 			}
-			
 			monitor.terminoLectura();
 		}else {
 			monitor.terminoLectura();
@@ -205,10 +204,12 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getTotalViandas()> 0) {
 				listaViandas = new ArrayList<>();
-				Iterator<Vianda> iterador = viandas.getViandas().values().iterator();
+				CantVianda[] viandas = v.getCantViandas().getViandas();
+				int i = 0;
+				int tope = v.getCantViandas().getLargo();
 				
-				while(iterador.hasNext()) {
-					Vianda vi = iterador.next();
+				while(i < tope) {
+					Vianda vi = viandas[i].getVianda();
 					if(vi instanceof ViandaVeg) {
 						ViandaVeg vv = (ViandaVeg) vi;
 						VOViandaVeg _vv = new VOViandaVeg(vv.getCodVianda(), vv.getDescripcion(), vv.getPrecio(), vv.getEsOvo(), vv.getDescAdic());
@@ -218,6 +219,7 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 						VOVianda _v = new VOVianda(vi.getCodVianda(), vi.getDescripcion(), vi.getPrecio());
 						listaViandas.add(_v);
 					}
+					i++;
 				}
 				
 				monitor.terminoLectura();
@@ -281,11 +283,19 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		return listaViandas;
 	}
 	
-	public void listarDatosVianda(String codVianda) throws ViandasException, InterruptedException {
+	public VOVianda listarDatosVianda(String codVianda) throws ViandasException, InterruptedException {
 		monitor.comienzoLectura();
+		ArrayList<VOVianda> listaViandas;
+		VOVianda vo;
 		if(!viandas.esVacio()) {
+			listaViandas = new ArrayList<>();
 			if(viandas.existeVianda(codVianda)) {
-				viandas.ListarDatosVianda(codVianda);
+				Vianda v = viandas.buscarVianda(codVianda);
+				if(v instanceof ViandaVeg) {
+					vo = new VOViandaVeg(v.getCodVianda(), v.getDescripcion(), v.getPrecio(), ((ViandaVeg) v).getEsOvo(), ((ViandaVeg) v).getDescAdic());
+				}else {
+					vo = new VOVianda(v.getCodVianda(), v.getDescripcion(), v.getPrecio());
+				}
 				monitor.terminoLectura();
 			}else {
 				monitor.terminoLectura();
@@ -295,16 +305,36 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 			monitor.terminoLectura();
 			throw new ViandasException(3);
 		}
+		
+		return vo;
 	}
 	
-	public void listarViandaxDescripcion(String descripcion) throws ViandasException, InterruptedException {
+	public ArrayList<VOVianda> listarViandaxDescripcion(String descripcion) throws ViandasException, InterruptedException {
 		monitor.comienzoLectura();
+		ArrayList<VOVianda> listaViandas;
 		if(!viandas.esVacio()) {
-			viandas.ListarxDescripcion(descripcion);
+			listaViandas = new ArrayList<>();
+			Iterator<Vianda> iterador = viandas.getViandas().values().iterator();
+			while(iterador.hasNext()) {
+				Vianda v = iterador.next();
+				if(v.getDescripcion().toLowerCase().contains(descripcion.toLowerCase())) {
+					if(v instanceof ViandaVeg) {
+						ViandaVeg vv = (ViandaVeg)v;
+						VOViandaVeg _vv = new VOViandaVeg(vv.getCodVianda(), vv.getDescripcion(), vv.getPrecio(), vv.getEsOvo(), vv.getDescAdic());
+						listaViandas.add(_vv);
+					}
+					else {
+						VOVianda _v = new VOVianda(v.getCodVianda(), v.getDescripcion(), v.getPrecio());
+						listaViandas.add(_v);
+					}
+				}
+			}
 			monitor.terminoLectura();
 		}else {
 			monitor.terminoLectura();
 			throw new ViandasException(3);
 		}
+		
+		return listaViandas;
 	}
 }
