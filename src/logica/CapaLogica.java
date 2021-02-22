@@ -208,13 +208,13 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 				Iterator<Vianda> iterador = viandas.getViandas().values().iterator();
 				
 				while(iterador.hasNext()) {
-					if(iterador.next() instanceof ViandaVeg) {
-						ViandaVeg vv = (ViandaVeg) iterador.next();
+					Vianda vi = iterador.next();
+					if(vi instanceof ViandaVeg) {
+						ViandaVeg vv = (ViandaVeg) vi;
 						VOViandaVeg _vv = new VOViandaVeg(vv.getCodVianda(), vv.getDescripcion(), vv.getPrecio(), vv.getEsOvo(), vv.getDescAdic());
 						listaViandas.add(_vv);
 					}
 					else {
-						Vianda vi = (Vianda)iterador.next();
 						VOVianda _v = new VOVianda(vi.getCodVianda(), vi.getDescripcion(), vi.getPrecio());
 						listaViandas.add(_v);
 					}
@@ -262,14 +262,14 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 			Iterator<Vianda> iterador = viandas.getViandas().values().iterator();
 			
 			while(iterador.hasNext()) {
-				if(iterador.next() instanceof ViandaVeg) {
-					ViandaVeg vv = (ViandaVeg) iterador.next();
+				Vianda v = iterador.next();
+				if(v instanceof ViandaVeg) {
+					ViandaVeg vv = (ViandaVeg)v;
 					VOViandaVeg _vv = new VOViandaVeg(vv.getCodVianda(), vv.getDescripcion(), vv.getPrecio(), vv.getEsOvo(), vv.getDescAdic());
 					listaViandas.add(_vv);
 				}
 				else {
-					Vianda vi = (Vianda)iterador.next();
-					VOVianda _v = new VOVianda(vi.getCodVianda(), vi.getDescripcion(), vi.getPrecio());
+					VOVianda _v = new VOVianda(v.getCodVianda(), v.getDescripcion(), v.getPrecio());
 					listaViandas.add(_v);
 				}
 			}

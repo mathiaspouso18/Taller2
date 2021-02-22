@@ -31,20 +31,27 @@ public class Main {
 			
 			ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
 			
-			/*LocalDate ld = LocalDate.of(2021, 02, 20);
-			VOVenta _v = new VOVenta(ld, "Calle 134", true);
-			capalogica.altaVenta(_v);
+			
+			
+			/*CapaLogica cp = new CapaLogica();
 			
 			VOViandaVeg _via = new VOViandaVeg("ACS", "Arroz con Seitan", 150, true, "Nada raro");
-			capalogica.altaVianda(_via);
+			cp.altaVianda(_via);
 			
-			VOVianda _via2 = new VOVianda("ACP", "Arroz con pollo", 230);
-			capalogica.altaVianda(_via2);*/
+			LocalDate ld = LocalDate.of(2021, 02, 20);
+			VOVenta _v = new VOVenta(ld, "Calle 134", true);
+			cp.altaVenta(_v);
+			cp.listarVentas();			
 			
-			capalogica.altaViandaxVenta("ACS", 1, 1);
-			capalogica.altaViandaxVenta("ACP", 1, 3);
 			
-			capalogica.respaldarInfo();
+			//VOVianda _via2 = new VOVianda("ACP", "Arroz con pollo", 230);
+			//cp.altaVianda(_via2);
+			cp.listarViandas();*/
+			
+			//capalogica.altaViandaxVenta("ACS", 1, 1);
+			//capalogica.altaViandaxVenta("ACP", 1, 3);
+			
+			//capalogica.respaldarInfo();
 			
 			//capalogica.reducirCantVianda("S", 5, 1);
 			
