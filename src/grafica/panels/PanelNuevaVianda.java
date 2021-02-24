@@ -3,17 +3,25 @@ package grafica.panels;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.rmi.RemoteException;
 
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import excepciones.ViandasException;
+import logica.controladores.ControladorAltaVianda;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 import java.awt.Dimension;
@@ -26,16 +34,19 @@ public class PanelNuevaVianda extends JFrame {
 	private JFrame frame;
 	private JPanel contentPanel;
 	private Toolkit t = Toolkit.getDefaultToolkit();
-
+	private ControladorAltaVianda controlador;
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
-	public PanelNuevaVianda() {
+	public PanelNuevaVianda() throws Exception {
+		
+		controlador = new ControladorAltaVianda(this);
 		
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Nueva vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
-		contentPanel.setLayout(new GridLayout(6, 2, 5, 5));
+		contentPanel.setLayout(new GridLayout(7, 2, 5, 5));
 		
 		setResizable(false);
 		setTitle("Gestion de viandas");
@@ -103,6 +114,39 @@ public class PanelNuevaVianda extends JFrame {
 		tfDescAdic.setEnabled(false);
 		contentPanel.add(tfDescAdic);
 		tfPrecio.setColumns(10);
+		
+		JButton btnAceptar = new JButton("Aceptar");
+		contentPanel.add(btnAceptar);
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String codVianda = tfCodVianda.getText();
+				String desc = taDescripcion.getText();
+				int precio = Integer.parseInt(tfPrecio.getText());
+				Boolean veg = chckbxVegana.isSelected();
+				Boolean ovo = chckbxOvo.isSelected();
+				String descAdic = tfDescAdic.getText();
+				try {
+					controlador.altaVianda(codVianda, desc, precio, veg, ovo, descAdic);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ViandasException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		contentPanel.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 	}
 
 }

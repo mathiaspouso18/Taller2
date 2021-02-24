@@ -16,6 +16,7 @@ import grafica.panels.PanelEliminarVianda;
 import grafica.panels.PanelIngresoVianda;
 import grafica.panels.PanelNuevaVenta;
 import grafica.panels.PanelNuevaVianda;
+import logica.controladores.ControladorAltaVianda;
 
 import java.awt.BorderLayout;
 
@@ -41,20 +42,23 @@ public class Principal {
 
 	/**
 	 * Create the application.
+	 * @throws Exception 
 	 */
-	public Principal() {
+	public Principal() throws Exception {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws Exception 
 	 */
-	private void initialize() {
+	private void initialize() throws Exception {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 892, 610);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
+		
 		
 		JMenu mnGestionDeVentas = new JMenu("Gestion de Ventas");
 		menuBar.add(mnGestionDeVentas);
@@ -96,8 +100,13 @@ public class Principal {
 		mnGestionDeViandas.add(mntmNuevaVianda);
 		mntmNuevaVianda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				PanelNuevaVianda pnv = new PanelNuevaVianda();
-				pnv.setVisible(true);
+				try {
+					PanelNuevaVianda pnv = new PanelNuevaVianda();
+					pnv.setVisible(true);
+				}
+				catch(Exception ex) {
+					
+				}
 			}
 		});
 		
