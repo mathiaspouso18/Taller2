@@ -14,8 +14,10 @@ import com.sun.nio.file.SensitivityWatchEventModifier;
 
 import grafica.panels.PanelEliminarVianda;
 import grafica.panels.PanelIngresoVianda;
+import grafica.panels.PanelListadoDetalleVianda;
 import grafica.panels.PanelListadoVentas;
 import grafica.panels.PanelListadoViandas;
+import grafica.panels.PanelListadoViandaxDesc;
 import grafica.panels.PanelNuevaVenta;
 import grafica.panels.PanelNuevaVianda;
 import grafica.panels.PanelViandasxVenta;
@@ -145,9 +147,21 @@ public class Principal {
 		
 		JMenuItem mntmListadoDetalladoDe = new JMenuItem("Listado detallado de una vianda");
 		mnListados.add(mntmListadoDetalladoDe);
+		mntmListadoDetalladoDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent b) {
+				PanelListadoDetalleVianda pldv = new PanelListadoDetalleVianda();
+				pldv.setVisible(true);
+			}
+		});
 		
 		JMenuItem mntmListadoDeViandas_1 = new JMenuItem("Listado de viandas por descripci\u00F3n");
 		mnListados.add(mntmListadoDeViandas_1);
+		mntmListadoDeViandas_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent b) {
+				PanelListadoViandaxDesc pldv = new PanelListadoViandaxDesc();
+				pldv.setVisible(true);
+			}
+		});
 		
 		frame.setVisible(true);
 	}
