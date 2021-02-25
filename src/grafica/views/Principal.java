@@ -14,8 +14,11 @@ import com.sun.nio.file.SensitivityWatchEventModifier;
 
 import grafica.panels.PanelEliminarVianda;
 import grafica.panels.PanelIngresoVianda;
+import grafica.panels.PanelListadoVentas;
+import grafica.panels.PanelListadoViandas;
 import grafica.panels.PanelNuevaVenta;
 import grafica.panels.PanelNuevaVianda;
+import grafica.panels.PanelViandasxVenta;
 import logica.controladores.ControladorAltaVianda;
 
 import java.awt.BorderLayout;
@@ -115,12 +118,30 @@ public class Principal {
 		
 		JMenuItem mntmListadoGeneralDe = new JMenuItem("Listado general de ventas");
 		mnListados.add(mntmListadoGeneralDe);
+		mntmListadoGeneralDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent b) {
+				PanelListadoVentas plv = new PanelListadoVentas();
+				plv.setVisible(true);
+			}
+		});
 		
 		JMenuItem mntmListadoDeViandas = new JMenuItem("Listado de viandas de una venta");
 		mnListados.add(mntmListadoDeViandas);
+		mntmListadoDeViandas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent b) {
+				PanelViandasxVenta pvxv = new PanelViandasxVenta();
+				pvxv.setVisible(true);
+			}
+		});
 		
 		JMenuItem mntmListadoGeneralDe_1 = new JMenuItem("Listado general de viandas");
 		mnListados.add(mntmListadoGeneralDe_1);
+		mntmListadoGeneralDe_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent b) {
+				PanelListadoViandas plv = new PanelListadoViandas();
+				plv.setVisible(true);
+			}
+		});
 		
 		JMenuItem mntmListadoDetalladoDe = new JMenuItem("Listado detallado de una vianda");
 		mnListados.add(mntmListadoDetalladoDe);
@@ -129,8 +150,6 @@ public class Principal {
 		mnListados.add(mntmListadoDeViandas_1);
 		
 		frame.setVisible(true);
-		
-		
 	}
 
 }

@@ -34,14 +34,14 @@ public class PanelNuevaVianda extends JFrame {
 	private JFrame frame;
 	private JPanel contentPanel;
 	private Toolkit t = Toolkit.getDefaultToolkit();
-	private ControladorAltaVianda controlador;
+	//private ControladorAltaVianda controlador;
 	/**
 	 * Create the panel.
 	 * @throws Exception 
 	 */
 	public PanelNuevaVianda() throws Exception {
 		
-		controlador = new ControladorAltaVianda(this);
+		//controlador = new ControladorAltaVianda(this);
 		
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Nueva vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -125,18 +125,6 @@ public class PanelNuevaVianda extends JFrame {
 				Boolean veg = chckbxVegana.isSelected();
 				Boolean ovo = chckbxOvo.isSelected();
 				String descAdic = tfDescAdic.getText();
-				try {
-					controlador.altaVianda(codVianda, desc, precio, veg, ovo, descAdic);
-				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ViandasException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 			}
 		});
 		
