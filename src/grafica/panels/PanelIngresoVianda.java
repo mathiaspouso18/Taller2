@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import logica.controladores.ControladorIngresoVianda;
 
 public class PanelIngresoVianda extends JFrame {
 	private JTextField tfCodVianda;
@@ -22,11 +23,14 @@ public class PanelIngresoVianda extends JFrame {
 	private JFrame frame;
 	private JPanel contentPanel;
 	private Toolkit t = Toolkit.getDefaultToolkit();
+	private PanelIngresoVianda vista;
 
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
-	public PanelIngresoVianda() {
+	public PanelIngresoVianda() throws Exception {
+		ControladorIngresoVianda miControlador = new ControladorIngresoVianda(vista);
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Ingreso de viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
@@ -64,6 +68,18 @@ public class PanelIngresoVianda extends JFrame {
 		
 		JButton btnAgregar = new JButton("Agregar");
 		contentPanel.add(btnAgregar);
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String codVianda = tfCodVianda.getText();
+				int cant = Integer.parseInt(tfCant.getText());
+				int numVenta = Integer.parseInt(tfCodVenta.getText());
+				try {
+					miControlador.ingresoVianda(codVianda, cant, numVenta);
+				}catch(Exception ex) {
+					
+				}
+			}
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		contentPanel.add(btnCancelar);

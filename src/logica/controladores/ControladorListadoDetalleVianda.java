@@ -6,16 +6,15 @@ import java.rmi.RemoteException;
 import java.util.Properties;
 
 import excepciones.ViandasException;
-import grafica.panels.PanelNuevaVianda;
+import grafica.panels.PanelListadoDetalleVianda;
 import logica.ICapaLogica;
 import logica.viandas.VOVianda;
 import logica.viandas.VOViandaVeg;
 
-public class ControladorAltaVianda {
+public class ControladorListadoDetalleVianda {
 	private static ICapaLogica cap;
-	//private PanelNuevaVianda pnv;
 	
-	public ControladorAltaVianda(PanelNuevaVianda pnv) throws Exception {
+	public ControladorListadoDetalleVianda(PanelListadoDetalleVianda pnv) throws Exception {
 		Properties p = new Properties();
 		String nomArch = "src/config/config.properties";
 		p.load (new FileInputStream (nomArch));
@@ -26,18 +25,7 @@ public class ControladorAltaVianda {
 		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
-	public void altaVianda(String codVianda, String desc, int precio, boolean veg, boolean ovo, String descAdic) throws RemoteException, ViandasException, InterruptedException {
-		VOVianda _vo;
-		
-		if(veg) {
-			_vo = new VOViandaVeg(codVianda, desc, precio, ovo, descAdic);
-		}
-		else {
-			_vo = new VOVianda(codVianda, desc, precio);
-		}
-		
-		cap.altaVianda(_vo);
-		cap.listarViandas();
-		
+	public void listadoDetalleVianda(String codVianda) throws RemoteException, ViandasException, InterruptedException {
+		cap.listarDatosVianda(codVianda);		
 	}
 }

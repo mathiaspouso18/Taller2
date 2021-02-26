@@ -2,7 +2,13 @@ package grafica.panels;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.TitledBorder;
+
+import logica.controladores.ControladorProcesarVenta;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -11,11 +17,14 @@ import java.awt.Font;
 
 public class PanelProcesarVenta extends JPanel {
 	private JTextField tfCodVenta;
+	private PanelProcesarVenta vista;
 
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
-	public PanelProcesarVenta() {
+	public PanelProcesarVenta() throws Exception {
+		ControladorProcesarVenta miControlador = new ControladorProcesarVenta(vista);
 		setBorder(new TitledBorder(null, "Procesar venta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new GridLayout(4, 2, 5, 5));
 		
@@ -42,9 +51,28 @@ public class PanelProcesarVenta extends JPanel {
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		add(btnAceptar);
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int numVenta = Integer.parseInt(tfCodVenta.getText());
+				boolean indicacion = false;
+				if(rdbtnConfirmar.isSelected()){
+					indicacion = true;
+				}
+				try {
+					miControlador.procesarVenta(numVenta, indicacion);
+				}catch(Exception ex) {
+					
+				}
+			}
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 
 	}
 

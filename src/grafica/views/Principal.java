@@ -20,6 +20,7 @@ import grafica.panels.PanelListadoViandas;
 import grafica.panels.PanelListadoViandaxDesc;
 import grafica.panels.PanelNuevaVenta;
 import grafica.panels.PanelNuevaVianda;
+import grafica.panels.PanelProcesarVenta;
 import grafica.panels.PanelViandasxVenta;
 import logica.controladores.ControladorAltaVianda;
 
@@ -72,8 +73,12 @@ public class Principal {
 		mnGestionDeVentas.add(mntmNuevaVenta);
 		mntmNuevaVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelNuevaVenta pnv = new PanelNuevaVenta();
-				pnv.setVisible(true);
+				try {
+					PanelNuevaVenta pnv = new PanelNuevaVenta();
+					pnv.setVisible(true);
+				}catch(Exception ex) {
+					
+				}	
 			}
 		});
 		
@@ -81,8 +86,12 @@ public class Principal {
 		mnGestionDeVentas.add(mntmIngresoDeVianda);
 		mntmIngresoDeVianda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				PanelIngresoVianda pnvi = new PanelIngresoVianda();
-				pnvi.setVisible(true);
+				try {
+					PanelIngresoVianda pnvi = new PanelIngresoVianda();
+					pnvi.setVisible(true);
+				}catch(Exception ex) {
+					
+				}	
 			}
 		});
 		
@@ -90,12 +99,27 @@ public class Principal {
 		mnGestionDeVentas.add(mntmQuitarVianda);
 		mntmQuitarVianda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				PanelEliminarVianda pnev = new PanelEliminarVianda();
-				pnev.setVisible(true);
+				try {
+					PanelEliminarVianda pnev = new PanelEliminarVianda();
+					pnev.setVisible(true);
+				}catch(Exception ex) {
+					
+				}
 			}
 		});
 		
 		JMenuItem mntmProcesarVenta = new JMenuItem("Procesar Venta");
+		mntmProcesarVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					PanelProcesarVenta pnv = new PanelProcesarVenta();
+					pnv.setVisible(true);
+				}
+				catch(Exception ex) {
+					
+				}
+			}
+		});
 		mnGestionDeVentas.add(mntmProcesarVenta);
 		
 		JMenu mnGestionDeViandas = new JMenu("Gestion de Viandas");
@@ -122,8 +146,12 @@ public class Principal {
 		mnListados.add(mntmListadoGeneralDe);
 		mntmListadoGeneralDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				PanelListadoVentas plv = new PanelListadoVentas();
-				plv.setVisible(true);
+				try {
+					PanelListadoVentas plv = new PanelListadoVentas();
+					plv.setVisible(true);
+				}catch(Exception ex) {
+					
+				}
 			}
 		});
 		
@@ -131,8 +159,12 @@ public class Principal {
 		mnListados.add(mntmListadoDeViandas);
 		mntmListadoDeViandas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				PanelViandasxVenta pvxv = new PanelViandasxVenta();
-				pvxv.setVisible(true);
+				try {
+					PanelViandasxVenta pvxv = new PanelViandasxVenta();
+					pvxv.setVisible(true);
+				}catch(Exception ex) {
+					
+				}
 			}
 		});
 		
@@ -140,8 +172,12 @@ public class Principal {
 		mnListados.add(mntmListadoGeneralDe_1);
 		mntmListadoGeneralDe_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				PanelListadoViandas plv = new PanelListadoViandas();
-				plv.setVisible(true);
+				try {
+					PanelListadoViandas plv = new PanelListadoViandas();
+					plv.setVisible(true);
+				}catch(Exception ex) {
+					
+				}
 			}
 		});
 		
@@ -149,8 +185,12 @@ public class Principal {
 		mnListados.add(mntmListadoDetalladoDe);
 		mntmListadoDetalladoDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				PanelListadoDetalleVianda pldv = new PanelListadoDetalleVianda();
-				pldv.setVisible(true);
+				try {
+					PanelListadoDetalleVianda pldv = new PanelListadoDetalleVianda();
+					pldv.setVisible(true);
+				}catch(Exception ex) {
+					
+				}
 			}
 		});
 		
@@ -158,8 +198,12 @@ public class Principal {
 		mnListados.add(mntmListadoDeViandas_1);
 		mntmListadoDeViandas_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				PanelListadoViandaxDesc pldv = new PanelListadoViandaxDesc();
-				pldv.setVisible(true);
+				try {
+					PanelListadoViandaxDesc pldv = new PanelListadoViandaxDesc();
+					pldv.setVisible(true);
+				}catch(Exception ex) {
+					
+				}
 			}
 		});
 		

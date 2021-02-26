@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.border.TitledBorder;
+
+import logica.controladores.ControladorEliminarVianda;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -22,11 +25,15 @@ public class PanelEliminarVianda extends JFrame {
 	private JFrame frame;
 	private JPanel contentPanel;
 	private Toolkit t = Toolkit.getDefaultToolkit();
-
+	private PanelEliminarVianda vista;
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
-	public PanelEliminarVianda() {
+	public PanelEliminarVianda() throws Exception {
+		
+		ControladorEliminarVianda miControlador = new ControladorEliminarVianda(vista);
+		
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Eliminar una vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
@@ -64,6 +71,18 @@ public class PanelEliminarVianda extends JFrame {
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		contentPanel.add(btnEliminar);
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String codVianda = tfCodVianda.getText();
+				int cant = Integer.parseInt(tfCant.getText());
+				int numVenta = Integer.parseInt(tfCodVenta.getText());
+				try {
+					miControlador.eliminarVianda(codVianda, cant, numVenta);
+				}catch(Exception ex) {
+					
+				}
+			}
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		contentPanel.add(btnCancelar);

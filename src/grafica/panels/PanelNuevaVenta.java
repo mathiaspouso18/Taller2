@@ -7,8 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
 
 import javax.swing.border.TitledBorder;
+
+import logica.controladores.ControladorAltaVenta;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -24,11 +28,14 @@ public class PanelNuevaVenta extends JFrame {
 	private JFrame frame;
 	private JPanel contentPanel;
 	private Toolkit t = Toolkit.getDefaultToolkit();
-
+	private PanelNuevaVenta vista;
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
-	public PanelNuevaVenta() {
+	public PanelNuevaVenta() throws Exception {
+		ControladorAltaVenta miControlador = new ControladorAltaVenta(vista);
+		
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Datos de la venta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
@@ -64,6 +71,17 @@ public class PanelNuevaVenta extends JFrame {
 		contentPanel.add(taDirEntrega);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//LocalDate fecha = tfFecha.getText() + tfHora.getText();
+				String dir = taDirEntrega.getText();
+				try {
+					//miControlador.altaVenta(fecha, dir);
+				}catch(Exception ex) {
+					
+				}
+			}
+		});
 		contentPanel.add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
