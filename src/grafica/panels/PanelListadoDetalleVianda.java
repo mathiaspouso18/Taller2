@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,16 +19,23 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import excepciones.ViandasException;
+import logica.controladores.ControladorIngresoVianda;
+import logica.controladores.ControladorListadoDetalleVianda;
+
 public class PanelListadoDetalleVianda extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField tfCodVenta;
 	private JPanel contentPanel;
 	JTable table;
+	private PanelListadoDetalleVianda vista;
 
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
-	public PanelListadoDetalleVianda() {
+	public PanelListadoDetalleVianda() throws Exception {
+		ControladorListadoDetalleVianda miControlador = new ControladorListadoDetalleVianda(vista);
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Listado detalle vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPanel.setLayout(new GridLayout(1, 1, 0, 0));
@@ -47,14 +55,9 @@ public class PanelListadoDetalleVianda extends JFrame {
                 "Vegetariana",
                 "Ovolacto vegetariana",
                 "Descripcion adicional"};
-	
-		Object[][] data = {
-			{"ACP150", "Arroz con pollo","$150", "No", "No", "-----"}
-		};
 
 		JScrollPane scrollPane;
 		MyJTable abstractTable = new MyJTable();
-		abstractTable.setData(data);
 		abstractTable.setColumns(columnNames);
 		table = new JTable(abstractTable);
         table.setFillsViewportHeight(true);
@@ -72,28 +75,27 @@ public class PanelListadoDetalleVianda extends JFrame {
 		JButton btnListar = new JButton("Listar");
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
-				if(tfCodVenta.getText().toLowerCase().equals("acp150")) {
-					lblError.setText("");
-					contentPanel3.setVisible(true);
-				}else {
-					if(tfCodVenta.getText().equals("")) {
-						lblError.setText("Debe ingresar el codigo de la vianda");
-						lblError.setForeground(Color.red);
-					}else{
-						lblError.setText("No hay viandas con ese codigo");
-						lblError.setForeground(Color.red);
-					}
+				String codVianda = tfCodVenta.getText();
+				if(codVianda.equals("")) {
+					lblError.setText("Debe ingresar el codigo de la vianda");
+					lblError.setForeground(Color.red);
 					contentPanel3.setVisible(false);
+				}else {
+					try {
+						lblError.setText("");
+						Object[][] data = miControlador.listadoDetalleVianda(codVianda);
+						abstractTable.setData(data);
+						contentPanel2.add(btnListar);
+						contentPanel2.add(lblError);
+				        contentPanel3.add(scrollPane);
+						contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
+						contentPanel.add(contentPanel2);
+						contentPanel3.setVisible(true);
+					}catch(ViandasException | RemoteException | InterruptedException ve) {
+						//mensaje de error; dialog
+					}
 				}
 			}
 		});
-		contentPanel2.add(btnListar);
-		contentPanel2.add(lblError);
-		
-        contentPanel3.add(scrollPane);
-        
-		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
-		
-		contentPanel.add(contentPanel2);
 	}
 }

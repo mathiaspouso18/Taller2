@@ -3,6 +3,7 @@ package grafica.panels;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,18 +11,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 
+import excepciones.VentasException;
+import logica.controladores.ControladorListadoDetalleVianda;
+import logica.controladores.ControladorListadoVentas;
+
 public class PanelListadoVentas extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel;
 	JTable table;
+	PanelListadoVentas vista;
 	
-	public PanelListadoVentas(){
+	public PanelListadoVentas() throws Exception{
+		ControladorListadoVentas miControlador = new ControladorListadoVentas(vista);
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Listado ventas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(new GridLayout(1, 0));
 		
-		//setResizable(false);
 		setTitle("Listados");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -32,20 +38,18 @@ public class PanelListadoVentas extends JFrame {
 	            "Direccion de entrega",
 	            "Monto total",
 	            "Estado"};
-	
-		Object[][] data = {
-			{"1", "20-02-2021 15:07","Calle 123", "$150", "En proceso"},
-			{"2", "21-02-2021 16:00","Calle 456", "$250", "Finalizada"},
-		};
 		
 		MyJTable abstractTable = new MyJTable();
-		abstractTable.setData(data);
 		abstractTable.setColumns(columnNames);
 		table = new JTable(abstractTable);
         table.setFillsViewportHeight(true);
-        
         JScrollPane scrollPane = new JScrollPane(table);
-		
-		contentPanel.add(scrollPane);
+		try {
+			Object[][] data = miControlador.listadoVentas();
+			abstractTable.setData(data);
+			contentPanel.add(scrollPane);
+		}catch(Exception ex) {
+			//mensaje de error; dialog
+		}
 	}
 }

@@ -3,19 +3,19 @@ package logica.controladores;
 import java.io.FileInputStream;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import excepciones.ViandasException;
-import grafica.panels.PanelListadoDetalleVianda;
+import grafica.panels.PanelListadoViandas;
 import logica.ICapaLogica;
 import logica.viandas.VOVianda;
 import logica.viandas.VOViandaVeg;
-import logica.viandas.ViandaVeg;
 
-public class ControladorListadoDetalleVianda {
+public class ControladorListadoViandas {
 	private static ICapaLogica cap;
 	
-	public ControladorListadoDetalleVianda(PanelListadoDetalleVianda pnv) throws Exception {
+	public ControladorListadoViandas(PanelListadoViandas pnv) throws Exception {
 		Properties p = new Properties();
 		String nomArch = "src/config/config.properties";
 		p.load (new FileInputStream (nomArch));
@@ -26,23 +26,23 @@ public class ControladorListadoDetalleVianda {
 		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
-	public Object[][] listadoDetalleVianda(String codVianda) throws RemoteException, ViandasException, InterruptedException {
+	public Object[][] listadoViandas() throws RemoteException, ViandasException, InterruptedException {
 		Object[][] data = {};
 		String desc = "", precio="", veg="No", ovo="No", descAdic="---";
-		VOVianda vi = cap.listarDatosVianda(codVianda);
-		desc = vi.getDescripcion();
-		precio = "$ "+vi.getPrecio();
-		if(vi instanceof VOViandaVeg) {
-			VOViandaVeg vveg = (VOViandaVeg) vi;
-			veg = "Si";
-			if(vveg.getEsOvo()){
-				ovo="Si";
-				descAdic = vveg.getDescAdic();
+		ArrayList<VOVianda> arr = cap.listarViandas();
+		for(VOVianda v: arr) {
+			desc = v.getDescripcion();
+			precio = "$ "+v.getPrecio();
+			if(v instanceof VOViandaVeg) {
+				VOViandaVeg vveg = (VOViandaVeg) v;
+				veg = "Si";
+				if(vveg.getEsOvo()){
+					ovo="Si";
+					descAdic = vveg.getDescAdic();
+				}
 			}
-		}
-		
-		//data[0][0] = {codVianda, desc, precio, veg, descAdic};
-				
+			//data[0][0] = {codVianda, desc, precio, veg, descAdic};
+		}	
 		return data;
 	}
 }

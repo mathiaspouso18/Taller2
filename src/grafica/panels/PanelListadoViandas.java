@@ -10,18 +10,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 
+import logica.controladores.ControladorListadoViandas;
+
 public class PanelListadoViandas extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel;
 	JTable table;
+	private PanelListadoViandas vista;
 	
-	public PanelListadoViandas(){
+	public PanelListadoViandas() throws Exception{
+		ControladorListadoViandas miControlador = new ControladorListadoViandas(vista);
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Listado viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(new GridLayout(1, 0));
 		
-		//setResizable(false);
 		setTitle("Listados");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -34,19 +37,17 @@ public class PanelListadoViandas extends JFrame{
                 "Ovolacto vegetariana",
                 "Descripcion adicional"};
 
-		Object[][] data = {
-			{"ACP150", "Arroz con pollo","$150", "No", "No", "-----"},
-			{"ACS170", "Arroz con seitan","$170", "Si", "Si", "Nada raro"},
-		};
-		
 		MyJTable abstractTable = new MyJTable();
-		abstractTable.setData(data);
 		abstractTable.setColumns(columnNames);
 		table = new JTable(abstractTable);
         table.setFillsViewportHeight(true);
-        
         JScrollPane scrollPane = new JScrollPane(table);
-		
-		contentPanel.add(scrollPane);
+		try {
+			Object[][] data = miControlador.listadoViandas();
+			abstractTable.setData(data);
+			contentPanel.add(scrollPane);
+		}catch(Exception ex) {
+			//mensaje de error; dialog
+		}
 	}
 }
