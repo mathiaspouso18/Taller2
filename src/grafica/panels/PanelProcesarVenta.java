@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 
 public class PanelProcesarVenta extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private JTextField tfCodVenta;
 	private PanelProcesarVenta vista;
 
@@ -73,7 +74,5 @@ public class PanelProcesarVenta extends JPanel {
 				setVisible(false);
 			}
 		});
-
 	}
-
 }

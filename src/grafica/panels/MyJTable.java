@@ -3,6 +3,7 @@ package grafica.panels;
 import javax.swing.table.AbstractTableModel;
 
 public class MyJTable extends AbstractTableModel{
+	private static final long serialVersionUID = 1L;
 	private String[] columnNames;
     private Object[][] data;
 

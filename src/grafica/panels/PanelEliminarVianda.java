@@ -19,12 +19,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 public class PanelEliminarVianda extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JTextField tfCodVianda;
 	private JTextField tfCant;
 	private JTextField tfCodVenta;
-	private JFrame frame;
 	private JPanel contentPanel;
-	private Toolkit t = Toolkit.getDefaultToolkit();
 	private PanelEliminarVianda vista;
 	/**
 	 * Create the panel.

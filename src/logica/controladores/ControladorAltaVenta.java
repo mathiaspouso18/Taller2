@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.Properties;
 
 import excepciones.VentasException;
-import excepciones.ViandasException;
 import grafica.panels.PanelNuevaVenta;
 import logica.ICapaLogica;
 import logica.ventas.VOVenta;

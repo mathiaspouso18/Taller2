@@ -31,10 +31,6 @@ public class ColeccionViandas implements Serializable {
 		return Viandas.size() == 0;
 	}
 	
-	/*public int largoColeccion() {
-		return Viandas.size();
-	}*/
-	
 	public void ListarDatosVianda(String _codVianda) {
 		Vianda v = Viandas.get(_codVianda);
 		System.out.println(v.ToString());
@@ -66,7 +62,6 @@ public class ColeccionViandas implements Serializable {
 				retorno = retorno + "\n\n";
 			}
 		}
-		
 		return retorno;
 	}
 }

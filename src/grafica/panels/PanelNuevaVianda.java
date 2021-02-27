@@ -7,19 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.rmi.RemoteException;
 
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import excepciones.ViandasException;
 import logica.controladores.ControladorAltaVianda;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -28,12 +23,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 public class PanelNuevaVianda extends JFrame {
+	private static final long serialVersionUID = 1L;// Esto va?
 	private JTextField tfCodVianda;
 	private JTextField tfPrecio;
 	private JTextField tfDescAdic;
-	private JFrame frame;
 	private JPanel contentPanel;
-	private Toolkit t = Toolkit.getDefaultToolkit();
 	private PanelNuevaVianda vista;
 	/**
 	 * Create the panel.

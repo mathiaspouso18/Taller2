@@ -9,7 +9,6 @@ import excepciones.PersistenciaException;
 import excepciones.VentasException;
 import excepciones.ViandasException;
 import logica.ventas.VOVenta;
-import logica.ventas.Venta;
 import logica.viandas.VOVianda;
 
 public interface ICapaLogica extends Remote {

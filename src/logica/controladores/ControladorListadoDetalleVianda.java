@@ -8,8 +8,6 @@ import java.util.Properties;
 import excepciones.ViandasException;
 import grafica.panels.PanelListadoDetalleVianda;
 import logica.ICapaLogica;
-import logica.viandas.VOVianda;
-import logica.viandas.VOViandaVeg;
 
 public class ControladorListadoDetalleVianda {
 	private static ICapaLogica cap;

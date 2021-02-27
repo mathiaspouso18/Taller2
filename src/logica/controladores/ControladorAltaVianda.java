@@ -13,7 +13,6 @@ import logica.viandas.VOViandaVeg;
 
 public class ControladorAltaVianda {
 	private static ICapaLogica cap;
-	//private PanelNuevaVianda pnv;
 	
 	public ControladorAltaVianda(PanelNuevaVianda pnv) throws Exception {
 		Properties p = new Properties();
@@ -38,6 +37,5 @@ public class ControladorAltaVianda {
 		
 		cap.altaVianda(_vo);
 		cap.listarViandas();
-		
 	}
 }

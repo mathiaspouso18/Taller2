@@ -11,10 +11,8 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 
 public class PanelListadoViandas extends JFrame{
-
-	private JFrame frame;
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel;
-	private Toolkit t = Toolkit.getDefaultToolkit();
 	JTable table;
 	
 	public PanelListadoViandas(){

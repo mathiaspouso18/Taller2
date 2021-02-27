@@ -285,10 +285,8 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 	
 	public VOVianda listarDatosVianda(String codVianda) throws ViandasException, InterruptedException {
 		monitor.comienzoLectura();
-		ArrayList<VOVianda> listaViandas;
 		VOVianda vo;
 		if(!viandas.esVacio()) {
-			listaViandas = new ArrayList<>();
 			if(viandas.existeVianda(codVianda)) {
 				Vianda v = viandas.buscarVianda(codVianda);
 				if(v instanceof ViandaVeg) {
@@ -305,7 +303,6 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 			monitor.terminoLectura();
 			throw new ViandasException(3);
 		}
-		
 		return vo;
 	}
 	

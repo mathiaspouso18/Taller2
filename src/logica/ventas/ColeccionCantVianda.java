@@ -1,11 +1,9 @@
 package logica.ventas;
 
 import java.io.Serializable;
-import java.util.*;
-
-import logica.viandas.ColeccionViandas;
 
 public class ColeccionCantVianda implements Serializable {
+	private static final long serialVersionUID = 1L; //Esto va?
 	private CantVianda [] CantViandas;
 	private int tope;
 
@@ -18,10 +16,6 @@ public class ColeccionCantVianda implements Serializable {
 		CantViandas[tope] = _cantVianda;
 		tope++;
 	}
-
-	/*public void setCantViandas(LinkedList<CantVianda> _cantViandas) {
-		CantViandas = _cantViandas;
-	}*/
 	
 	public int totalViandas() {
 		int total = 0;
@@ -95,11 +89,6 @@ public class ColeccionCantVianda implements Serializable {
 	public boolean esVacio() {
 		return tope == 0;
 	}
-	
-	
-	/*public void eliminarCantViandas(CantVianda cv) {
-		CantViandas.remove(cv);
-	}*/
 	
 	public CantVianda [] getViandas() {
 		return CantViandas;

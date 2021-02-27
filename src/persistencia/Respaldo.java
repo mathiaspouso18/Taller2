@@ -1,29 +1,13 @@
 package persistencia;
 import java.io.*;
 import java.util.Properties;
-import java.util.TreeMap;
+//import java.util.TreeMap;
 import excepciones.PersistenciaException;
 import logica.ventas.ColeccionVentas;
 import logica.viandas.*;
 
 public class Respaldo
 {	
-	/*private void respaldarColeccionViandas (String nomArch, ColeccionViandas cv) throws IOException{
-		FileOutputStream f = new FileOutputStream(nomArch);
-		ObjectOutputStream o = new ObjectOutputStream(f);
-		o.writeObject(cv);
-		o.close();
-		f.close();
-	}
-	
-	private void respaldarColeccionVentas(String nomArch, ColeccionVentas cve) throws IOException {
-		FileOutputStream f = new FileOutputStream(nomArch);
-		ObjectOutputStream o = new ObjectOutputStream(f);
-		o.writeObject(cve);
-		o.close();
-		f.close();
-	}*/
-	
 	public void respaldar(String nomArch, ColeccionVentas cve, ColeccionViandas cv) throws IOException {
 		FileOutputStream f = new FileOutputStream(nomArch);
 		ObjectOutputStream o = new ObjectOutputStream(f);

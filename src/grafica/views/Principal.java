@@ -8,9 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
-import com.sun.nio.file.SensitivityWatchEventModifier;
 
 import grafica.panels.PanelEliminarVianda;
 import grafica.panels.PanelIngresoVianda;
@@ -22,9 +20,7 @@ import grafica.panels.PanelNuevaVenta;
 import grafica.panels.PanelNuevaVianda;
 import grafica.panels.PanelProcesarVenta;
 import grafica.panels.PanelViandasxVenta;
-import logica.controladores.ControladorAltaVianda;
 
-import java.awt.BorderLayout;
 
 public class Principal {
 

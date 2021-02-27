@@ -20,10 +20,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class PanelViandasxVenta extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JTextField tfCodVenta;
-	private JFrame frame;
 	private JPanel contentPanel;
-	private Toolkit t = Toolkit.getDefaultToolkit();
 	JTable table;
 
 	/**

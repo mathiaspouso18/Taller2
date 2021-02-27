@@ -17,12 +17,11 @@ import java.awt.Font;
 import logica.controladores.ControladorIngresoVianda;
 
 public class PanelIngresoVianda extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JTextField tfCodVianda;
 	private JTextField tfCant;
 	private JTextField tfCodVenta;
-	private JFrame frame;
 	private JPanel contentPanel;
-	private Toolkit t = Toolkit.getDefaultToolkit();
 	private PanelIngresoVianda vista;
 
 	/**
@@ -90,5 +89,4 @@ public class PanelIngresoVianda extends JFrame {
 		});
 
 	}
-
 }

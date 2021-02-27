@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Vianda implements Serializable {
 
+	private static final long serialVersionUID = 1L;//Esto va?
 	private String codVianda;
 	private String descripcion;
 	private int precio;

@@ -5,8 +5,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 
 import javax.swing.border.TitledBorder;
@@ -23,11 +21,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 public class PanelNuevaVenta extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JTextField tfFecha;
 	private JTextField tfHora;
-	private JFrame frame;
 	private JPanel contentPanel;
-	private Toolkit t = Toolkit.getDefaultToolkit();
 	private PanelNuevaVenta vista;
 	/**
 	 * Create the panel.

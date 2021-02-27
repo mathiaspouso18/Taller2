@@ -19,9 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class PanelListadoViandaxDesc extends JFrame {
-	private JFrame frame;
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel;
-	private Toolkit t = Toolkit.getDefaultToolkit();
 	JTable table;
 
 	/**

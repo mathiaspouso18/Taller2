@@ -4,6 +4,7 @@
 import logica.viandas.*;
 
 public class CantVianda implements Serializable {
+	private static final long serialVersionUID = 1L;//Esto va?
 	private Vianda vianda;
 	private int cantidad;
 

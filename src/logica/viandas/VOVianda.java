@@ -9,7 +9,6 @@ public class VOVianda implements Serializable {
 	private int precio;
 
 	public VOVianda() {
-		
 	}
 	
 	public VOVianda(String _codVianda, String _descripcion, int _precio) {

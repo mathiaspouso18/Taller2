@@ -36,38 +36,21 @@ public class ColeccionVentas implements Serializable{
 		return existe;
 	}
 	
-	/*public void reducirCantViandas(int _numeroVenta, String _codVianda, int _cant) throws VentasException {
-		Venta ve = this.buscarVenta(_numeroVenta);
-		if(ve.getEnProc()) {
-			ve.reducirCantidad(_codVianda, _cant);
-		}else {
-			throw new VentasException(2);
-		}
-	}*/
-	
-	/*public void procesarVenta(int _numeroVenta, boolean _indicacion) { ORIGINAL
-		boolean encontre = false;
-		Iterator<Venta> iter = Ventas.iterator();
-		while(iter.hasNext() && !encontre) {
-			Venta v = iter.next();
-			if(v.getNumeroVenta() == (_numeroVenta)) {
-				if(_indicacion) {
-					v.setEnProc(true);
-				}else {
-					Ventas.remove(v);
-				}
-				encontre = true;
-			}
-		}
-	}*/
-	
 	public void procesarVenta(int _numeroVenta, boolean _indicacion) {
 		boolean encontre = false;
 		Iterator<Venta> iter = Ventas.iterator();
 		while(iter.hasNext() && !encontre) {
 			Venta v = iter.next();
 			if(v.getNumeroVenta() == (_numeroVenta)) {
-				v.setEnProc(_indicacion);
+				if(v.getCantViandas()!=null) {
+					if(_indicacion) {
+						v.setEnProc(!_indicacion);//enProc = false, por lo tanto está finalizada
+					}else {
+						this.eliminarVenta(v);
+					}
+				}else {
+					this.eliminarVenta(v);
+				}
 				encontre = true;
 			}
 		}
@@ -76,10 +59,6 @@ public class ColeccionVentas implements Serializable{
 	public boolean esVacio() {
 		return Ventas.size() == 0;
 	}
-	
-	/*public int largoColeccion() {
-		return Ventas.size();
-	}*/
 	
 	public Venta obtenerUltimaVenta() {
 		return Ventas.getLast();

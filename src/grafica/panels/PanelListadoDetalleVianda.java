@@ -19,10 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class PanelListadoDetalleVianda extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JTextField tfCodVenta;
-	private JFrame frame;
 	private JPanel contentPanel;
-	private Toolkit t = Toolkit.getDefaultToolkit();
 	JTable table;
 
 	/**
