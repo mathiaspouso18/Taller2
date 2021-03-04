@@ -100,7 +100,7 @@ public class PanelListadoDetalleVianda extends JFrame {
 						model.addRow(d);
 						contentPanel3.setVisible(true);
 					}catch(ViandasException | RemoteException | InterruptedException ve) {
-						//mensaje de error; dialog
+						lblError.setText("Error al obtener las viandas.");
 					}
 				}
 			}

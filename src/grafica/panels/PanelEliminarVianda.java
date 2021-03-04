@@ -82,9 +82,9 @@ public class PanelEliminarVianda extends JFrame {
 		tfCodVenta.setColumns(10);
 		contentPanel.add(tfCodVenta);
 		
-		JLabel lblMsg = new JLabel("Aca se suponen van los mensajes");
-		lblMsg.setBounds(10, 120, 300, 20);
-		contentPanel.add(lblMsg);
+		JLabel lblError = new JLabel("");
+		lblError.setBounds(10, 120, 300, 20);
+		contentPanel.add(lblError);
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		contentPanel.add(btnEliminar);
@@ -97,7 +97,7 @@ public class PanelEliminarVianda extends JFrame {
 				try {
 					miControlador.eliminarVianda(codVianda, cant, numVenta);
 				}catch(Exception ex) {
-					
+					lblError.setText("Error al eliminar las viandas");
 				}
 			}
 		});

@@ -27,12 +27,13 @@ public class ControladorViandasxVenta {
 		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
-	public Object[][] listadoViandasxVenta(int numVenta) throws RemoteException, ViandasException, VentasException, InterruptedException {
-		Object[][] data = {};
-		String desc = "", precio="", veg="No", ovo="No", descAdic="---";
+	public ArrayList<String []> listadoViandasxVenta(int numVenta) throws RemoteException, ViandasException, VentasException, InterruptedException {
+		ArrayList<String []> arre = new ArrayList<String []>();
 		try {
-			ArrayList<VOVianda> arre = cap.listarViandasVenta(numVenta);
-			for(VOVianda vi: arre) {
+			ArrayList<VOVianda> arr = cap.listarViandasVenta(numVenta);
+			for(VOVianda vi: arr) {
+				String [] data = new String[6];
+				String codVianda="", desc = "", precio="", veg="No", ovo="No", descAdic="---";
 				desc = vi.getDescripcion();
 				precio = "$ "+vi.getPrecio();
 				if(vi instanceof VOViandaVeg) {
@@ -43,11 +44,17 @@ public class ControladorViandasxVenta {
 						descAdic = vveg.getDescAdic();
 					}
 				}
-				//data[0][0] = {codVianda, desc, precio, veg, descAdic};
+				data[0] = codVianda;
+				data[1] = desc;
+				data[2] = precio;
+				data[3] = veg;
+				data[4] = ovo;
+				data[5] = descAdic;
+				arre.add(data);
 			}
 		}catch(VentasException ve) {
 			throw ve;
 		}
-		return data;
+		return arre;
 	}
 }

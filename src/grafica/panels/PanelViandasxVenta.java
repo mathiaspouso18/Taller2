@@ -13,9 +13,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import excepciones.VentasException;
 import excepciones.ViandasException;
@@ -48,25 +50,31 @@ public class PanelViandasxVenta extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 800, 300);
 		
+		JScrollPane scrollPane;
+		table = new JTable();
+		DefaultTableModel model = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
+		
+		model.addColumn("Código");
+		model.addColumn("Descripción");
+		model.addColumn("Precio");
+		model.addColumn("Vegetariana");
+		model.addColumn("Ovolacto vegetariana");
+		model.addColumn("Descripción adicional");
+		table.setModel(model);
+		
 		JPanel contentPanel3 = new JPanel();
 		contentPanel3.setBorder(new TitledBorder(null, "Viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
-		String[] columnNames = {"Codigo",
-                "Descripcion",
-                "Precio",
-                "Vegetariana",
-                "Ovolacto vegetariana",
-                "Descripcion adicional"};
-	
-		JScrollPane scrollPane;
-		MyJTable abstractTable = new MyJTable();
-		abstractTable.setColumns(columnNames);
-		table = new JTable(abstractTable);
-        table.setFillsViewportHeight(true);
+		table.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(table);
-        contentPanel3.setVisible(false);
+		contentPanel3.setVisible(false);
 
-		JLabel lblError = new JLabel();
+		
 		JPanel contentPanel2 = new JPanel();
 		contentPanel2.setLayout(new FlowLayout(0));
 		JLabel lblNumVenta = new JLabel("Codigo de la venta:");
@@ -75,6 +83,12 @@ public class PanelViandasxVenta extends JFrame {
 		contentPanel2.add(tfCodVenta, BorderLayout.NORTH);
 		tfCodVenta.setColumns(10);
 		JButton btnListar = new JButton("Listar");
+		JLabel lblError = new JLabel();
+		contentPanel2.add(btnListar);
+		contentPanel2.add(lblError);
+		contentPanel3.add(scrollPane);
+		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
+		contentPanel.add(contentPanel2);
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
 				String numVenta = tfCodVenta.getText();
@@ -85,16 +99,14 @@ public class PanelViandasxVenta extends JFrame {
 				}else {
 					try {
 						lblError.setText("");
-						Object[][] data = miControlador.listadoViandasxVenta(Integer.parseInt(numVenta));
-						abstractTable.setData(data);
-						contentPanel2.add(btnListar);
-						contentPanel2.add(lblError);
-				        contentPanel3.add(scrollPane);
-						contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
-						contentPanel.add(contentPanel2);
+						ArrayList<String []> datos = new ArrayList<String []>();
+						datos = miControlador.listadoViandasxVenta(Integer.parseInt(numVenta));
+						for(String [] d: datos) {
+							model.addRow(d);
+						}
 						contentPanel3.setVisible(true);
 					}catch(VentasException | NumberFormatException | RemoteException | ViandasException | InterruptedException  ex) {
-						//mensaje de error; dialog
+						lblError.setText("Error al obtener la ventas o las viandas");
 					}
 				}
 			}
