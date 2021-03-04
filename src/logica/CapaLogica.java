@@ -90,35 +90,40 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 	
 	public void altaViandaxVenta(String codVianda, int numVenta, int cant) throws VentasException, ViandasException, InterruptedException {
 		monitor.comienzoEscritura();
-		if(ventas.existeVenta(numVenta)){
+		if(cant <= 30) {
+			if(ventas.existeVenta(numVenta)){
 				if(viandas.existeVianda(codVianda)) {
 				Venta v = ventas.buscarVenta(numVenta);
-				if(v.getEnProc()) {
-					if(v.getTotalViandas() < 30){
-						if(v.existeViandaxVenta(codVianda)) {
-							v.aumentarCantidad(codVianda, cant);
-							monitor.terminoEscritura();
+					if(v.getEnProc()) {
+						if(v.getTotalViandas() < 30){
+							if(v.existeViandaxVenta(codVianda)) {
+								v.aumentarCantidad(codVianda, cant);
+								monitor.terminoEscritura();
+							}else {
+								Vianda v1 = viandas.buscarVianda(codVianda); 
+								CantVianda cv = new CantVianda(v1, cant);
+								v.insertCantVianda(cv);
+								monitor.terminoEscritura();
+							}
 						}else {
-							Vianda v1 = viandas.buscarVianda(codVianda); 
-							CantVianda cv = new CantVianda(v1, cant);
-							v.insertCantVianda(cv);
 							monitor.terminoEscritura();
+							throw new VentasException(4);
 						}
 					}else {
 						monitor.terminoEscritura();
-						throw new VentasException(4);
+						throw new VentasException(2);
 					}
 				}else {
 					monitor.terminoEscritura();
-					throw new VentasException(2);
+					throw new ViandasException(2);
 				}
 			}else {
 				monitor.terminoEscritura();
-				throw new ViandasException(2);
+				throw new VentasException(5);
 			}
 		}else {
 			monitor.terminoEscritura();
-			throw new VentasException(5);
+			throw new VentasException(4);
 		}
 	}
 	
@@ -127,25 +132,17 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		if(ventas.existeVenta(numVenta)){
 			Venta v = ventas.buscarVenta(numVenta);
 			if(v.getEnProc()) {
-				if(v.getTotalViandas() < 30){
-						if(v.existeViandaxVenta(codVianda)) {
-							v.reducirCantidad(codVianda, cant);
-							if(v.getTotalViandas() == 0) {
-								ventas.eliminarVenta(v);
-							}
-							monitor.terminoEscritura();
-						}else {
-							monitor.terminoEscritura();
-							throw new VentasException(6);
-						}
-					}else {
-						monitor.terminoEscritura();
-						throw new VentasException(4);
-					}
+				if(v.existeViandaxVenta(codVianda)) {
+					v.reducirCantidad(codVianda, cant);
+					monitor.terminoEscritura();
 				}else {
 					monitor.terminoEscritura();
-					throw new VentasException(2);
+					throw new VentasException(6);
 				}
+			}else {
+				monitor.terminoEscritura();
+				throw new VentasException(2);
+			}
 		}else {
 			monitor.terminoEscritura();
 			throw new VentasException(5);

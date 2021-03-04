@@ -1,6 +1,9 @@
 package logica.ventas;
 
 import java.io.Serializable;
+import java.util.*;
+
+import logica.viandas.ColeccionViandas;
 
 public class ColeccionCantVianda implements Serializable {
 	private static final long serialVersionUID = 1L; //Esto va?
@@ -50,6 +53,9 @@ public class ColeccionCantVianda implements Serializable {
 				int cant = cv.getCantidad();
 				cant = cant - _cantidad;
 				cv.setCantidad(cant);
+				if(cv.getCantidad() <= 0) {
+					eliminarCantViandas(_codVianda);
+				}
 				encontre = true;
 			}
 			i++;
@@ -88,6 +94,26 @@ public class ColeccionCantVianda implements Serializable {
 	
 	public boolean esVacio() {
 		return tope == 0;
+	}
+	
+	public void eliminarCantViandas(String _codVianda) {
+		int i = 0, j = 0;
+		boolean encontre = false;
+		while(i < tope && !encontre) {
+			if(CantViandas[i].getVianda().getCodVianda().toLowerCase().equals(_codVianda.toLowerCase())) {
+				encontre = true;
+				i++;
+			}
+		}
+		
+		if(encontre) {
+			j = i;
+			while(j < tope - 1) {
+				CantViandas[j] = CantViandas[j+1];
+				j++;
+			}
+			tope--;
+		}
 	}
 	
 	public CantVianda [] getViandas() {

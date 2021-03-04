@@ -6,20 +6,20 @@ import java.util.LinkedList;
 public class ColeccionVentas implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private static int _contador = 0;
 	private LinkedList<Venta> Ventas;
 
 	public ColeccionVentas() {
 		Ventas = new LinkedList<Venta>();
-		if(Ventas.size() > 0) {
-			Venta ultimaVenta = Ventas.getLast();
-			_contador = ultimaVenta.getNumeroVenta();
-		}
 	}
 
 	public void insertarVenta(Venta _venta) {
-		_contador++;
-		_venta.setNumero(_contador);
+		int numero = 1;
+		if(Ventas.size() > 0) {
+			Venta ultimaVenta = Ventas.getLast();
+			numero = ultimaVenta.getNumeroVenta();
+			numero++;
+		}
+		_venta.setNumero(numero);
 		Ventas.add(_venta);
 	}
 
