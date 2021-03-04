@@ -22,20 +22,24 @@ public class ControladorAltaVianda {
 		String puerto = p.getProperty("puertoServidor");
 		String ruta = "//" + ip + ":" + puerto + "/fachada";
 		
-		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
+		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
 	public void altaVianda(String codVianda, String desc, int precio, boolean veg, boolean ovo, String descAdic) throws RemoteException, ViandasException, InterruptedException {
 		VOVianda _vo;
 		
-		if(veg) {
-			_vo = new VOViandaVeg(codVianda, desc, precio, ovo, descAdic);
+		try {
+			if(veg) {
+				_vo = new VOViandaVeg(codVianda, desc, precio, ovo, descAdic);
+			}
+			else {
+				_vo = new VOVianda(codVianda, desc, precio);
+			}
+
+			cap.altaVianda(_vo);
 		}
-		else {
-			_vo = new VOVianda(codVianda, desc, precio);
+		catch(ViandasException ve) {
+			throw ve;
 		}
-		
-		cap.altaVianda(_vo);
-		cap.listarViandas();
 	}
 }

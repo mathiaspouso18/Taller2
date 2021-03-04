@@ -5,9 +5,11 @@ import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import javax.swing.border.TitledBorder;
 
+import excepciones.VentasException;
 import logica.CapaLogica;
 import logica.controladores.ControladorAltaVenta;
 import logica.ventas.VOVenta;
@@ -40,8 +42,6 @@ public class PanelNuevaVenta extends JFrame {
 	public PanelNuevaVenta() throws Exception {
 		ControladorAltaVenta miControlador = new ControladorAltaVenta(vista);
 		
-		CapaLogica cp = new CapaLogica();
-		
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Datos de la venta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
@@ -51,7 +51,7 @@ public class PanelNuevaVenta extends JFrame {
 		setTitle("Registrar");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(screenSize.width/3, screenSize.height/3, 350, 230);
+		setBounds(screenSize.width/3, screenSize.height/3, 500, 230);
 		
 		JLabel lblFecha = new JLabel("Fecha");
 		lblFecha.setForeground(Color.BLACK);
@@ -64,14 +64,14 @@ public class PanelNuevaVenta extends JFrame {
 		for(int i=1;i<=31;i++){
 			cbFechaDia.addItem(i);
 		}
-		cbFechaDia.setBounds(140, 23, 35, 20);
+		cbFechaDia.setBounds(140, 23, 40, 20);
 		contentPanel.add(cbFechaDia);
 		
 		cbFechaMes = new JComboBox<>();
 		for(int i=1;i<=12;i++){
 			cbFechaMes.addItem(i);
 		}
-		cbFechaMes.setBounds(177, 23, 35, 20);
+		cbFechaMes.setBounds(177, 23, 40, 20);
 		contentPanel.add(cbFechaMes);
 		
 		cbFechaAño = new JComboBox<>();
@@ -116,7 +116,7 @@ public class PanelNuevaVenta extends JFrame {
 		contentPanel.add(taDirEntrega);
 		
 		JLabel lblMsg = new JLabel("Aca se suponen van los mensajes");
-		lblMsg.setBounds(10, 120, 300, 20);
+		lblMsg.setBounds(10, 120, 500, 20);
 		contentPanel.add(lblMsg);
 		
 		JButton btnAceptar = new JButton("Aceptar");
@@ -131,13 +131,27 @@ public class PanelNuevaVenta extends JFrame {
 					int min = (int) cbFechaMin.getSelectedItem();
 					LocalDateTime fecha = LocalDateTime.of(año, mes, dia, hora, min);
 					String dir = taDirEntrega.getText();
-					/*VOVenta _voventa = new VOVenta(fecha, dir, true);
-					cp.altaVenta(_voventa);*/
 					miControlador.altaVenta(fecha, dir);
+					lblMsg.setForeground(Color.GREEN);
 					lblMsg.setText("Venta ingresada con exito");
+					cbFechaDia.setSelectedIndex(0);
+					cbFechaMes.setSelectedIndex(0);
+					cbFechaAño.setSelectedIndex(0);
+					cbFechaHora.setSelectedIndex(0);
+					cbFechaMin.setSelectedIndex(0);
+					taDirEntrega.setText("");
+				}
+				catch(VentasException ve) {
+					lblMsg.setText(ve.getMensajeVentaException());
+					lblMsg.setForeground(Color.RED);
+				}
+				catch(DateTimeException de) {
+					lblMsg.setText("Fecha incorrecta: febrero no tiene 29 dias");
+					lblMsg.setForeground(Color.RED);
 				}
 				catch(Exception ex) {
 					lblMsg.setText("Error");
+					lblMsg.setForeground(Color.RED);
 				}
 			}
 		});

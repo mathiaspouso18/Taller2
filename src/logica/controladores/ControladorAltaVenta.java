@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Properties;
 
 import excepciones.VentasException;
@@ -23,7 +24,7 @@ public class ControladorAltaVenta {
 		String puerto = p.getProperty("puertoServidor");
 		String ruta = "//" + ip + ":" + puerto + "/fachada";
 		
-		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
+		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
 	public void altaVenta(LocalDateTime fecha, String dir) throws RemoteException, VentasException, InterruptedException  {

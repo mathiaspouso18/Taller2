@@ -24,7 +24,7 @@ public class ControladorListadoVentas {
 		String puerto = p.getProperty("puertoServidor");
 		String ruta = "//" + ip + ":" + puerto + "/fachada";
 		
-		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
+		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
 	public Object[][] listadoVentas() throws RemoteException, VentasException, InterruptedException {
