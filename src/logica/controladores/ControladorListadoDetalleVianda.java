@@ -27,8 +27,8 @@ public class ControladorListadoDetalleVianda {
 		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
-	public Object[][] listadoDetalleVianda(String codVianda) throws RemoteException, ViandasException, InterruptedException {
-		Object[][] data = {};
+	public String [] listadoDetalleVianda(String codVianda) throws RemoteException, ViandasException, InterruptedException {
+		String [] data = new String[5];
 		String desc = "", precio="", veg="No", ovo="No", descAdic="---";
 		try {
 			VOVianda vi = cap.listarDatosVianda(codVianda);
@@ -42,7 +42,11 @@ public class ControladorListadoDetalleVianda {
 					descAdic = vveg.getDescAdic();
 				}
 			}
-			//data[0][0] = {codVianda, desc, precio, veg, descAdic};
+			data[0] = desc;
+			data[1] = precio;
+			data[2] = veg;
+			data[3] = ovo;
+			data[4] = descAdic;
 		}catch(ViandasException ve) {
 			throw ve;
 		}

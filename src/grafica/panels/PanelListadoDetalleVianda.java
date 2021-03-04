@@ -47,9 +47,6 @@ public class PanelListadoDetalleVianda extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 800, 300);
 		
-		JPanel contentPanel3 = new JPanel();
-		contentPanel3.setBorder(new TitledBorder(null, "Detalle", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
 		table = new JTable();
 		DefaultTableModel model = new DefaultTableModel() {
 			private static final long serialVersionUID = 1L;
@@ -59,7 +56,6 @@ public class PanelListadoDetalleVianda extends JFrame {
 		    }
 		};
 		
-		model.addColumn("Código");
 		model.addColumn("Descripción");
 		model.addColumn("Precio");
 		model.addColumn("Vegetariana");
@@ -70,9 +66,7 @@ public class PanelListadoDetalleVianda extends JFrame {
 		JScrollPane scrollPane;
         table.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(table);
-        contentPanel3.setVisible(true);
-
-		JLabel lblError = new JLabel();
+		
 		JPanel contentPanel2 = new JPanel();
 		contentPanel2.setLayout(new FlowLayout(0));
 		JLabel lblCodigoDeLa = new JLabel("Codigo de la vianda:");
@@ -80,7 +74,18 @@ public class PanelListadoDetalleVianda extends JFrame {
 		tfCodVenta = new JTextField();
 		contentPanel2.add(tfCodVenta, BorderLayout.NORTH);
 		tfCodVenta.setColumns(10);
+		
 		JButton btnListar = new JButton("Listar");
+		JLabel lblError = new JLabel();
+		contentPanel2.add(btnListar);
+		contentPanel2.add(lblError);
+		contentPanel.add(contentPanel2);
+		
+		JPanel contentPanel3 = new JPanel();
+		contentPanel3.setBorder(new TitledBorder(null, "Detalle", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel3.add(scrollPane);
+		contentPanel3.setVisible(false);
+		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
 				String codVianda = tfCodVenta.getText();
@@ -91,13 +96,8 @@ public class PanelListadoDetalleVianda extends JFrame {
 				}else {
 					try {
 						lblError.setText("");
-						Object[][] data = miControlador.listadoDetalleVianda(codVianda);
-						
-						contentPanel2.add(btnListar);
-						contentPanel2.add(lblError);
-				        contentPanel3.add(scrollPane);
-						contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
-						contentPanel.add(contentPanel2);
+						String [] d = miControlador.listadoDetalleVianda(codVianda);
+						model.addRow(d);
 						contentPanel3.setVisible(true);
 					}catch(ViandasException | RemoteException | InterruptedException ve) {
 						//mensaje de error; dialog
