@@ -42,13 +42,5 @@ public class ControladorAltaVianda {
 		catch(ViandasException ve) {
 			throw ve;
 		}
-<<<<<<< HEAD
-=======
-		try {
-			cap.altaVianda(_vo);
-		}catch(ViandasException ve) {
-				throw ve;
-		}
->>>>>>> 23d4a960cb68dd4916a37cdf0cffab02bdbc3ec1
 	}
 }
