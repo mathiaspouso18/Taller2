@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import excepciones.VentasException;
 import excepciones.ViandasException;
+import grafica.panels.MyJTable;
 import grafica.panels.PanelListadoViandas;
 import logica.ICapaLogica;
 import logica.viandas.VOVianda;
@@ -27,13 +28,13 @@ public class ControladorListadoViandas {
 		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
-	public Object[][] listadoViandas() throws RemoteException, ViandasException, InterruptedException {
-		Object[][] data = {};
-		String codVianda="", desc = "", precio="", veg="No", ovo="No", descAdic="---";
+	public ArrayList<String []> listadoViandas() throws RemoteException, ViandasException, InterruptedException {
+		ArrayList<String []> arre = new ArrayList<String []>();
 		try {
 			ArrayList<VOVianda> arr = cap.listarViandas();
-			int row = 0;
 			for(VOVianda v: arr) {
+				String [] data = new String[6];
+				String codVianda="", desc = "", precio="", veg="No", ovo="No", descAdic="---";
 				codVianda = v.getCodVianda();
 				desc = v.getDescripcion();
 				precio = "$ "+v.getPrecio();
@@ -45,18 +46,18 @@ public class ControladorListadoViandas {
 						descAdic = vveg.getDescAdic();
 					}
 				}
-				data[row][0] = codVianda;
-				data[row][1] = desc;
-				data[row][2] = precio;
-				data[row][3] = veg;
-				data[row][4] = ovo;
-				data[row][2] = descAdic;
-				row++;
+				data[0] = codVianda;
+				data[1] = desc;
+				data[2] = precio;
+				data[3] = veg;
+				data[4] = ovo;
+				data[5] = descAdic;
+				arre.add(data);
 			}	
 		}catch(ViandasException ve) {
 			throw ve;
 		}
 		
-		return data;
+		return arre;
 	}
 }
