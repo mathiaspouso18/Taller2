@@ -13,7 +13,7 @@ import logica.viandas.VOVianda;
 import logica.viandas.VOViandaVeg;
 
 public class ControladorListadoViandaxDesc {
-	private static ICapaLogica cap;
+	private ICapaLogica cap;
 	
 	public ControladorListadoViandaxDesc(PanelListadoViandaxDesc pnv) throws Exception {
 		Properties p = new Properties();
@@ -23,26 +23,31 @@ public class ControladorListadoViandaxDesc {
 		String puerto = p.getProperty("puertoServidor");
 		String ruta = "//" + ip + ":" + puerto + "/fachada";
 		
-		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
+		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
 	public Object[][] listadoViandaxDesc(String descripcion) throws RemoteException, ViandasException, InterruptedException {
 		Object[][] data = {};
 		String desc = "", precio="", veg="No", ovo="No", descAdic="---";
-		ArrayList<VOVianda> arr = cap.listarViandaxDescripcion(descripcion);
-		for(VOVianda v: arr) {
-			desc = v.getDescripcion();
-			precio = "$ "+v.getPrecio();
-			if(v instanceof VOViandaVeg) {
-				VOViandaVeg vveg = (VOViandaVeg) v;
-				veg = "Si";
-				if(vveg.getEsOvo()){
-					ovo="Si";
-					descAdic = vveg.getDescAdic();
+		try {
+			ArrayList<VOVianda> arr = cap.listarViandaxDescripcion(descripcion);
+			for(VOVianda v: arr) {
+				desc = v.getDescripcion();
+				precio = "$ "+v.getPrecio();
+				if(v instanceof VOViandaVeg) {
+					VOViandaVeg vveg = (VOViandaVeg) v;
+					veg = "Si";
+					if(vveg.getEsOvo()){
+						ovo="Si";
+						descAdic = vveg.getDescAdic();
+					}
 				}
-			}
-			//data[0][0] = {codVianda, desc, precio, veg, descAdic};
-		}	
+				//data[0][0] = {codVianda, desc, precio, veg, descAdic};
+			}	
+		}catch(ViandasException ve) {
+			throw ve;
+		}
+		
 		return data;
 	}
 }

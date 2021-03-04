@@ -13,7 +13,7 @@ import logica.ICapaLogica;
 import logica.ventas.VOVenta;
 
 public class ControladorAltaVenta {
-	private static ICapaLogica cap;
+	private ICapaLogica cap;
 	
 	public ControladorAltaVenta(PanelNuevaVenta pnv) throws Exception {
 		Properties p = new Properties();
@@ -23,7 +23,7 @@ public class ControladorAltaVenta {
 		String puerto = p.getProperty("puertoServidor");
 		String ruta = "//" + ip + ":" + puerto + "/fachada";
 		
-		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
+		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
 	public void altaVenta(LocalDateTime fecha, String dir) throws RemoteException, VentasException, InterruptedException  {

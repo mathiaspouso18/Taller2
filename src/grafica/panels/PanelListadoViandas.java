@@ -39,12 +39,13 @@ public class PanelListadoViandas extends JFrame{
 
 		MyJTable abstractTable = new MyJTable();
 		abstractTable.setColumns(columnNames);
-		table = new JTable(abstractTable);
-        table.setFillsViewportHeight(true);
-        JScrollPane scrollPane = new JScrollPane(table);
+		
 		try {
 			Object[][] data = miControlador.listadoViandas();
 			abstractTable.setData(data);
+			table = new JTable(abstractTable);
+	        table.setFillsViewportHeight(true);
+	        JScrollPane scrollPane = new JScrollPane(table);
 			contentPanel.add(scrollPane);
 		}catch(Exception ex) {
 			//mensaje de error; dialog
