@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import excepciones.ViandasException;
 import logica.controladores.ControladorIngresoVianda;
@@ -46,25 +47,26 @@ public class PanelListadoDetalleVianda extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 800, 300);
 		
-		JPanel contentPanel3 = new JPanel();
-		contentPanel3.setBorder(new TitledBorder(null, "Detalle", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		table = new JTable();
+		DefaultTableModel model = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 		
-		String[] columnNames = {"Codigo",
-                "Descripcion",
-                "Precio",
-                "Vegetariana",
-                "Ovolacto vegetariana",
-                "Descripcion adicional"};
-
+		model.addColumn("Descripción");
+		model.addColumn("Precio");
+		model.addColumn("Vegetariana");
+		model.addColumn("Ovolacto vegetariana");
+		model.addColumn("Descripción adicional");
+		table.setModel(model);
+		
 		JScrollPane scrollPane;
-		MyJTable abstractTable = new MyJTable();
-		abstractTable.setColumns(columnNames);
-		table = new JTable(abstractTable);
         table.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(table);
-        contentPanel3.setVisible(false);
-
-		JLabel lblError = new JLabel();
+		
 		JPanel contentPanel2 = new JPanel();
 		contentPanel2.setLayout(new FlowLayout(0));
 		JLabel lblCodigoDeLa = new JLabel("Codigo de la vianda:");
@@ -72,7 +74,18 @@ public class PanelListadoDetalleVianda extends JFrame {
 		tfCodVenta = new JTextField();
 		contentPanel2.add(tfCodVenta, BorderLayout.NORTH);
 		tfCodVenta.setColumns(10);
+		
 		JButton btnListar = new JButton("Listar");
+		JLabel lblError = new JLabel();
+		contentPanel2.add(btnListar);
+		contentPanel2.add(lblError);
+		contentPanel.add(contentPanel2);
+		
+		JPanel contentPanel3 = new JPanel();
+		contentPanel3.setBorder(new TitledBorder(null, "Detalle", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel3.add(scrollPane);
+		contentPanel3.setVisible(false);
+		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
 				String codVianda = tfCodVenta.getText();
@@ -83,13 +96,8 @@ public class PanelListadoDetalleVianda extends JFrame {
 				}else {
 					try {
 						lblError.setText("");
-						Object[][] data = miControlador.listadoDetalleVianda(codVianda);
-						abstractTable.setData(data);
-						contentPanel2.add(btnListar);
-						contentPanel2.add(lblError);
-				        contentPanel3.add(scrollPane);
-						contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
-						contentPanel.add(contentPanel2);
+						String [] d = miControlador.listadoDetalleVianda(codVianda);
+						model.addRow(d);
 						contentPanel3.setVisible(true);
 					}catch(ViandasException | RemoteException | InterruptedException ve) {
 						//mensaje de error; dialog

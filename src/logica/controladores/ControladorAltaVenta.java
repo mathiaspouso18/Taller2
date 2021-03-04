@@ -14,7 +14,7 @@ import logica.ICapaLogica;
 import logica.ventas.VOVenta;
 
 public class ControladorAltaVenta {
-	private static ICapaLogica cap;
+	private ICapaLogica cap;
 	
 	public ControladorAltaVenta(PanelNuevaVenta pnv) throws Exception {
 		Properties p = new Properties();

@@ -11,7 +11,7 @@ import grafica.panels.PanelEliminarVianda;
 import logica.ICapaLogica;
 
 public class ControladorEliminarVianda {
-	private static ICapaLogica cap;
+	private ICapaLogica cap;
 	
 	public ControladorEliminarVianda(PanelEliminarVianda pnv) throws Exception {
 		Properties p = new Properties();
@@ -21,11 +21,14 @@ public class ControladorEliminarVianda {
 		String puerto = p.getProperty("puertoServidor");
 		String ruta = "//" + ip + ":" + puerto + "/fachada";
 		
-		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
+		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
 	public void eliminarVianda(String codVianda, int cant, int numVenta) throws RemoteException, VentasException, InterruptedException, ViandasException {
-		cap.reducirCantVianda(codVianda, cant, numVenta);
-		cap.listarVentas();
+		try {
+			cap.reducirCantVianda(codVianda, cant, numVenta);
+		}catch(VentasException | ViandasException ve) {
+			throw ve;
+		}
 	}
 }
