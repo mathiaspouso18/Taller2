@@ -2,11 +2,12 @@ package logica.ventas;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Venta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int numeroVenta;
-	private LocalDate fecha;
+	private LocalDateTime fecha;
 	private String dirEntrega;
 	private boolean enProc;
 	private ColeccionCantVianda cantViandas;
@@ -15,9 +16,9 @@ public class Venta implements Serializable {
 		cantViandas = new ColeccionCantVianda();
 	}
 
-	public Venta(int _numeroVenta, LocalDate _fecha, String _dirEntrega) {
+	public Venta(int _numeroVenta, LocalDateTime fecha2, String _dirEntrega) {
 		numeroVenta = _numeroVenta;
-		fecha = _fecha;
+		fecha = fecha2;
 		dirEntrega = _dirEntrega;
 		enProc = true;
 		cantViandas = new ColeccionCantVianda();
@@ -27,7 +28,7 @@ public class Venta implements Serializable {
 		return numeroVenta;
 	}
 
-	public LocalDate getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
@@ -55,7 +56,7 @@ public class Venta implements Serializable {
 		return cantViandas;
 	}
 
-	public void setFecha(LocalDate _fecha) {
+	public void setFecha(LocalDateTime _fecha) {
 		fecha = _fecha;
 	}
 

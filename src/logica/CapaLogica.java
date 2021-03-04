@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -68,14 +69,14 @@ public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 		monitor.comienzoEscritura();
 		int numeroVenta = _voventa.getNumero();
 		String dir = _voventa.getDirEntrega();
-		LocalDate fecha = _voventa.getFecha();
+		LocalDateTime fecha = _voventa.getFecha();
 		if(ventas.esVacio()) {
 			Venta ve = new Venta(numeroVenta, fecha, dir);
 			ventas.insertarVenta(ve);
 			monitor.terminoEscritura();
 		}else {
 			Venta ulventa = ventas.obtenerUltimaVenta();
-			LocalDate ulfecha = ulventa.getFecha();
+			LocalDateTime ulfecha = ulventa.getFecha();
 			if(fecha.compareTo(ulfecha)>0) {
 				Venta ve = new Venta(numeroVenta, fecha, dir);
 				ventas.insertarVenta(ve);

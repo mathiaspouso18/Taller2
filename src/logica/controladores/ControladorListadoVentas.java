@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -29,7 +30,7 @@ public class ControladorListadoVentas {
 	public Object[][] listadoVentas() throws RemoteException, VentasException, InterruptedException {
 		Object[][] data = {};
 		int numVenta = 0, montoTotal = 0;
-		LocalDate fecha;
+		LocalDateTime fecha;
 		String dir = "", estado="";
 		ArrayList<VOVenta> arr = cap.listarVentas();
 		for(VOVenta v: arr) {

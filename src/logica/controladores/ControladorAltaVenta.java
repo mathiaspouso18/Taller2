@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 import excepciones.VentasException;
@@ -25,11 +26,15 @@ public class ControladorAltaVenta {
 		ICapaLogica capalogica = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
-	public void altaVenta(LocalDate fecha, String dir) throws RemoteException, VentasException, InterruptedException  {
+	public void altaVenta(LocalDateTime fecha, String dir) throws RemoteException, VentasException, InterruptedException  {
 		VOVenta _v;
 		_v = new VOVenta(fecha,dir,true);
 		
-		cap.altaVenta(_v);
-		cap.listarVentas();
+		try {
+			cap.altaVenta(_v);
+		}
+		catch(VentasException ve) {
+			throw ve;
+		}
 	}
 }

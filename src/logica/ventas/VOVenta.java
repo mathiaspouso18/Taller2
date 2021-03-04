@@ -1,12 +1,13 @@
 package logica.ventas;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class VOVenta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int numeroVenta;
-	private LocalDate fecha;
+	private LocalDateTime fecha;
 	private String dirEntrega;
 	private boolean enProc;
 	private int montoTotal;
@@ -15,8 +16,8 @@ public class VOVenta implements Serializable {
 		
 	}
 	
-	public VOVenta(LocalDate _fecha, String _dirEntrega, boolean _enProc) {
-		fecha = _fecha;
+	public VOVenta(LocalDateTime fecha2, String _dirEntrega, boolean _enProc) {
+		fecha = fecha2;
 		dirEntrega = _dirEntrega;
 		enProc = _enProc;
 		montoTotal = 0;
@@ -34,7 +35,7 @@ public class VOVenta implements Serializable {
 		return numeroVenta;
 	}
 
-	public LocalDate getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
