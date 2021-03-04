@@ -4,12 +4,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import excepciones.VentasException;
 import logica.controladores.ControladorListadoDetalleVianda;
@@ -32,21 +34,32 @@ public class PanelListadoVentas extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 800, 300);
+
+		table = new JTable();
+		DefaultTableModel model = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 		
-		String[] columnNames = {"Numero",
-	            "Fecha",
-	            "Direccion de entrega",
-	            "Monto total",
-	            "Estado"};
+		model.addColumn("Numero");
+		model.addColumn("Fecha");
+		model.addColumn("Direccion de entrega");
+		model.addColumn("Monto total");
+		model.addColumn("Estado");
+		table.setModel(model);
 		
-		MyJTable abstractTable = new MyJTable();
-		abstractTable.setColumns(columnNames);
-		table = new JTable(abstractTable);
-        table.setFillsViewportHeight(true);
-        JScrollPane scrollPane = new JScrollPane(table);
+		ArrayList<String []> datos = new ArrayList<String []>();
+		
 		try {
-			Object[][] data = miControlador.listadoVentas();
-			abstractTable.setData(data);
+			datos = miControlador.listadoVentas();
+			for(String [] d: datos) {
+				model.addRow(d);
+			}
+			table.setFillsViewportHeight(true);
+	        JScrollPane scrollPane = new JScrollPane(table);
 			contentPanel.add(scrollPane);
 		}catch(Exception ex) {
 			//mensaje de error; dialog

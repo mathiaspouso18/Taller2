@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.border.TitledBorder;
+
+import excepciones.VentasException;
+import excepciones.ViandasException;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -16,6 +20,8 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+
+import logica.CapaLogica;
 import logica.controladores.ControladorIngresoVianda;
 
 public class PanelIngresoVianda extends JFrame {
@@ -41,7 +47,7 @@ public class PanelIngresoVianda extends JFrame {
 		setTitle("Registrar");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(screenSize.width/3, screenSize.height/3, 350, 238);
+		setBounds(screenSize.width/3, screenSize.height/3, 500, 238);
 		
 		JLabel lblCodigoDeVianda = new JLabel("Código");
 		lblCodigoDeVianda.setForeground(Color.BLACK);
@@ -79,20 +85,48 @@ public class PanelIngresoVianda extends JFrame {
 		tfCodVenta.setColumns(10);
 		contentPanel.add(tfCodVenta);
 		
-		JLabel lblMsg = new JLabel("Aca se suponen van los mensajes");
-		lblMsg.setBounds(10, 120, 300, 20);
+		JLabel lblMsg = new JLabel();
+		lblMsg.setBounds(10, 120, 500, 20);
 		contentPanel.add(lblMsg);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(65, 160, 100, 20);
 		contentPanel.add(btnAgregar);
 		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String codVianda = tfCodVianda.getText();
-				int cant = Integer.parseInt(tfCant.getText());
-				int numVenta = Integer.parseInt(tfCodVenta.getText());
+			public void actionPerformed(ActionEvent e){
 				try {
-					miControlador.ingresoVianda(codVianda, cant, numVenta);
+					String codVianda = tfCodVianda.getText();
+					String tfcant = tfCant.getText();
+					String tfnumVenta = tfCodVenta.getText();
+					if(!codVianda.isEmpty() && !tfcant.isEmpty() && !tfnumVenta.isEmpty()) {
+						int numVenta = Integer.parseInt(tfnumVenta);
+						int cant = Integer.parseInt(tfcant);
+						if(cant > 0 && numVenta > 0) {
+							//CapaLogica cp = new CapaLogica();
+							//cp.altaViandaxVenta(codVianda, numVenta, cant);
+							miControlador.ingresoVianda(codVianda, numVenta, cant);
+							lblMsg.setForeground(Color.GREEN);
+							lblMsg.setText("Vianda agregada con éxito a la venta");
+							tfCodVianda.setText("");
+							tfCodVenta.setText("");
+							tfCant.setText("");
+						}else {
+							lblMsg.setText("Los campos 'Cantidad' y 'Codigo de venta' no pueden tener ese valor");
+							lblMsg.setForeground(Color.GRAY);
+						}
+					}else {
+						lblMsg.setText("Los campos 'Codigo', 'Cantidad' y 'Codigo de venta' deben estar completos");
+						lblMsg.setForeground(Color.GRAY);
+					}
+				}catch(VentasException ve){
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(ve.getMensajeVentaException());
+				}catch(ViandasException v){
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(v.getMensajeViandaException());
+				}catch(NumberFormatException nfe) {
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText("Valor no permitido");
 				}catch(Exception ex) {
 					
 				}

@@ -115,7 +115,7 @@ public class PanelNuevaVenta extends JFrame {
 		taDirEntrega.setBounds(140, 92, 150, 20);
 		contentPanel.add(taDirEntrega);
 		
-		JLabel lblMsg = new JLabel("Aca se suponen van los mensajes");
+		JLabel lblMsg = new JLabel();
 		lblMsg.setBounds(10, 120, 500, 20);
 		contentPanel.add(lblMsg);
 		
@@ -131,15 +131,20 @@ public class PanelNuevaVenta extends JFrame {
 					int min = (int) cbFechaMin.getSelectedItem();
 					LocalDateTime fecha = LocalDateTime.of(año, mes, dia, hora, min);
 					String dir = taDirEntrega.getText();
-					miControlador.altaVenta(fecha, dir);
-					lblMsg.setForeground(Color.GREEN);
-					lblMsg.setText("Venta ingresada con exito");
-					cbFechaDia.setSelectedIndex(0);
-					cbFechaMes.setSelectedIndex(0);
-					cbFechaAño.setSelectedIndex(0);
-					cbFechaHora.setSelectedIndex(0);
-					cbFechaMin.setSelectedIndex(0);
-					taDirEntrega.setText("");
+					if(!dir.isEmpty()) {
+						miControlador.altaVenta(fecha, dir);
+						lblMsg.setForeground(Color.GREEN);
+						lblMsg.setText("Venta ingresada con exito");
+						cbFechaDia.setSelectedIndex(0);
+						cbFechaMes.setSelectedIndex(0);
+						cbFechaAño.setSelectedIndex(0);
+						cbFechaHora.setSelectedIndex(0);
+						cbFechaMin.setSelectedIndex(0);
+						taDirEntrega.setText("");
+					}else {
+						lblMsg.setText("Debe ingresar una dirección");
+					}
+					
 				}
 				catch(VentasException ve) {
 					lblMsg.setText(ve.getMensajeVentaException());

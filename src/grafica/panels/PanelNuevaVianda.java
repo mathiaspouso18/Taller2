@@ -134,8 +134,7 @@ public class PanelNuevaVianda extends JFrame {
 		contentPanel.add(tfDescAdic);
 		
 		JLabel lblMsg = new JLabel();
-		lblMsg.setText("Aca van los errores");
-		lblMsg.setBounds(10, 180, 120, 20);
+		lblMsg.setBounds(10, 180, 300, 20);
 		contentPanel.add(lblMsg);
 		
 		JButton btnAceptar = new JButton("Aceptar");
@@ -143,16 +142,45 @@ public class PanelNuevaVianda extends JFrame {
 		contentPanel.add(btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean todoOK = true;
+				int precio = 0;
 				String codVianda = tfCodVianda.getText();
 				String desc = taDescripcion.getText();
-				int precio = Integer.parseInt(tfPrecio.getText());
+				String sPrecio = tfPrecio.getText();
 				Boolean veg = chckbxVegana.isSelected();
 				Boolean ovo = chckbxOvo.isSelected();
 				String descAdic = tfDescAdic.getText();
 				try {
-					miControlador.altaVianda(codVianda, desc, precio, veg, ovo, descAdic);
-					lblMsg.setText("Vianda ingresada con exito");
+					if(codVianda.isEmpty()) {
+						todoOK = false;
+						lblMsg.setText("Debe ingresar el codigo de vianda");
+						lblMsg.setForeground(Color.GRAY);
+					}else if(desc.isEmpty()) {
+						todoOK = false;
+						lblMsg.setText("Debe ingresar una descripcion");
+						lblMsg.setForeground(Color.GRAY);
+					}else if(sPrecio.isEmpty()) {
+						todoOK = false;
+						lblMsg.setText("Debe ingresar el precio");
+						lblMsg.setForeground(Color.GRAY);
+					}
+					
+					if(todoOK) {
+						precio = Integer.parseInt(tfPrecio.getText());
+						miControlador.altaVianda(codVianda, desc, precio, veg, ovo, descAdic);
+						lblMsg.setText("Vianda ingresada con exito");
+						lblMsg.setForeground(Color.GREEN);
+						tfCodVianda.setText("");
+						tfPrecio.setText("");
+						taDescripcion.setText("");
+						chckbxVegana.setSelected(false);
+						chckbxOvo.setSelected(false);
+						chckbxOvo.setEnabled(false);
+						tfDescAdic.setText("");
+						tfDescAdic.setEnabled(false);
+					}
 				}catch(ViandasException ve){
+					lblMsg.setForeground(Color.RED);
 					lblMsg.setText(ve.getMensajeViandaException());
 				}catch(Exception ex){
 					lblMsg.setText(ex.getMessage());
@@ -168,56 +196,5 @@ public class PanelNuevaVianda extends JFrame {
 				setVisible(false);
 			}
 		});
-		
-		/*		
-		
-		JLabel labelDescAdic = new JLabel("Descripcion adicional");
-		labelDescAdic.setFont(new Font("Tahoma", Font.BOLD, 13));
-		contentPanel.add(labelDescAdic);
-		
-		tfDescAdic = new JTextField();
-		tfDescAdic.setEnabled(false);
-		contentPanel.add(tfDescAdic);
-		tfPrecio.setColumns(10);
-
-		JLabel lblMsg3 = new JLabel();
-		lblMsg3.setText("Aca van los errores");
-		contentPanel.add(lblMsg3);
-
-		JLabel lblMsg2 = new JLabel();
-		lblMsg2.setText("Aca van los errores");
-		contentPanel.add(lblMsg2);
-		
-		JLabel lblMsg = new JLabel();
-		lblMsg.setText("Aca van los errores");
-		contentPanel.add(lblMsg);
-		
-		JButton btnAceptar = new JButton("Aceptar");
-		contentPanel.add(btnAceptar);
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String codVianda = tfCodVianda.getText();
-				String desc = taDescripcion.getText();
-				int precio = Integer.parseInt(tfPrecio.getText());
-				Boolean veg = chckbxVegana.isSelected();
-				Boolean ovo = chckbxOvo.isSelected();
-				String descAdic = tfDescAdic.getText();
-				try {
-					miControlador.altaVianda(codVianda, desc, precio, veg, ovo, descAdic);
-				}catch(ViandasException ve){
-					//lblMsg
-					throw null;
-				}
-			}
-		});
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		contentPanel.add(btnCancelar);
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});*/
 	}
-
 }

@@ -24,11 +24,14 @@ public class ControladorIngresoVianda {
 		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
-	public void ingresoVianda(String codVianda, int cant, int numVenta) throws RemoteException, VentasException, InterruptedException, ViandasException {
+	public void ingresoVianda(String codVianda, int numVenta, int cant) throws RemoteException, VentasException, InterruptedException, ViandasException {
 		try {
-			cap.altaViandaxVenta(codVianda, cant, numVenta);
-		}catch(VentasException | ViandasException ve) {
+			cap.altaViandaxVenta(codVianda, numVenta, cant);
+		}catch(VentasException ve) {
 			throw ve;
+		}
+		catch(ViandasException v) {
+			throw v;
 		}
 	}
 }

@@ -28,14 +28,15 @@ public class ControladorListadoVentas {
 		cap = (ICapaLogica) Naming.lookup(ruta);
 	}
 	
-	public Object[][] listadoVentas() throws RemoteException, VentasException, InterruptedException {
-		Object[][] data = {};
+	public ArrayList<String []> listadoVentas() throws RemoteException, VentasException, InterruptedException {
+		ArrayList<String []> arre = new ArrayList<String []>();
 		int numVenta = 0, montoTotal = 0;
 		LocalDateTime fecha;
 		String dir = "", estado="";
 		try {
 			ArrayList<VOVenta> arr = cap.listarVentas();
 			for(VOVenta v: arr) {
+				String [] data = new String[5];
 				numVenta = v.getNumero();
 				fecha = v.getFecha();
 				dir = v.getDirEntrega();
@@ -45,13 +46,18 @@ public class ControladorListadoVentas {
 				}else {
 					estado = "Finalizada";
 				}
-				//data[0][0] = {numVenta, fecha, dir, montoTotal, estado};
+				
+				data[0] = String.valueOf(numVenta);
+				data[1] = fecha.toString();
+				data[2] = dir;
+				data[3] = String.valueOf(montoTotal);
+				data[4] = estado;
+				arre.add(data);
 			}	
 		}catch(VentasException ve) {
 			throw ve;
 		}
 		
-		
-		return data;
+		return arre;
 	}
 }
