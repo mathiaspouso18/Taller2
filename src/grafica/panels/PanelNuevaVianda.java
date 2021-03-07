@@ -1,7 +1,6 @@
 package grafica.panels;
 
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,18 +15,16 @@ import logica.controladores.ControladorAltaVianda;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JTextArea;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
 public class PanelNuevaVianda extends JFrame {
-	private static final long serialVersionUID = 1L;// Esto va?
+	private static final long serialVersionUID = 1L;
 	private JTextField tfCodVianda;
 	private JTextField tfPrecio;
 	private JTextField tfDescAdic;
@@ -153,23 +150,23 @@ public class PanelNuevaVianda extends JFrame {
 				try {
 					if(codVianda.isEmpty()) {
 						todoOK = false;
-						lblMsg.setText("Debe ingresar el codigo de vianda");
 						lblMsg.setForeground(Color.GRAY);
+						lblMsg.setText("Debe ingresar el codigo de vianda");
 					}else if(desc.isEmpty()) {
 						todoOK = false;
-						lblMsg.setText("Debe ingresar una descripcion");
 						lblMsg.setForeground(Color.GRAY);
+						lblMsg.setText("Debe ingresar una descripcion");
 					}else if(sPrecio.isEmpty()) {
 						todoOK = false;
-						lblMsg.setText("Debe ingresar el precio");
 						lblMsg.setForeground(Color.GRAY);
+						lblMsg.setText("Debe ingresar el precio");	
 					}
 					
 					if(todoOK) {
 						precio = Integer.parseInt(tfPrecio.getText());
 						miControlador.altaVianda(codVianda, desc, precio, veg, ovo, descAdic);
-						lblMsg.setText("Vianda ingresada con exito");
 						lblMsg.setForeground(Color.GREEN);
+						lblMsg.setText("Vianda ingresada con exito");
 						tfCodVianda.setText("");
 						tfPrecio.setText("");
 						taDescripcion.setText("");
@@ -182,7 +179,11 @@ public class PanelNuevaVianda extends JFrame {
 				}catch(ViandasException ve){
 					lblMsg.setForeground(Color.RED);
 					lblMsg.setText(ve.getMensajeViandaException());
+				}catch(NumberFormatException nfe) {
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText("Precio debe ser un valor numerico y entero");
 				}catch(Exception ex){
+					lblMsg.setForeground(Color.RED);
 					lblMsg.setText(ex.getMessage());
 				}
 			}

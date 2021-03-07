@@ -1,12 +1,12 @@
 package grafica.panels;
 
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,7 +14,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import excepciones.VentasException;
-import logica.controladores.ControladorListadoDetalleVianda;
 import logica.controladores.ControladorListadoVentas;
 
 public class PanelListadoVentas extends JFrame {
@@ -28,12 +27,16 @@ public class PanelListadoVentas extends JFrame {
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Listado ventas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
-		contentPanel.setLayout(new GridLayout(1, 0));
 		
 		setTitle("Listados");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 800, 300);
+		contentPanel.setLayout(null);
+		
+		JLabel lblMsg = new JLabel();
+		lblMsg.setBounds(6, 18, 627, 22);
+		contentPanel.add(lblMsg);
 
 		table = new JTable();
 		DefaultTableModel model = new DefaultTableModel() {
@@ -54,15 +57,18 @@ public class PanelListadoVentas extends JFrame {
 		ArrayList<String []> datos = new ArrayList<String []>();
 		
 		try {
+			lblMsg.setText("");
 			datos = miControlador.listadoVentas();
 			for(String [] d: datos) {
 				model.addRow(d);
 			}
 			table.setFillsViewportHeight(true);
 	        JScrollPane scrollPane = new JScrollPane(table);
+	        scrollPane.setBounds(16, 46, 754, 200);
 			contentPanel.add(scrollPane);
-		}catch(Exception ex) {
-			//mensaje de error; dialog
+		}catch(VentasException ve) {
+			lblMsg.setForeground(Color.RED);
+			lblMsg.setText(ve.getMensajeVentaException());
 		}
 	}
 }

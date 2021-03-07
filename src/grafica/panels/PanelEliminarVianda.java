@@ -1,13 +1,14 @@
 package grafica.panels;
 
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.border.TitledBorder;
 
+import excepciones.VentasException;
+import excepciones.ViandasException;
 import logica.controladores.ControladorEliminarVianda;
 
 import javax.swing.JLabel;
@@ -53,7 +54,7 @@ public class PanelEliminarVianda extends JFrame {
 		lblCodigoDeVianda.setBounds(10, 13, 70, 40);
 		contentPanel.add(lblCodigoDeVianda);
 		
-		JTextField tfCodVianda = new JTextField();
+		tfCodVianda = new JTextField();
 		tfCodVianda.setColumns(10);
 		tfCodVianda.setBounds(140, 25, 150, 20);
 		contentPanel.add(tfCodVianda);
@@ -65,7 +66,7 @@ public class PanelEliminarVianda extends JFrame {
 		lblCantidad.setBounds(10, 45, 70, 40);
 		contentPanel.add(lblCantidad);
 		
-		JTextField tfCant = new JTextField();
+		tfCant = new JTextField();
 		tfCant.setColumns(10);
 		tfCant.setBounds(140, 56, 150, 20);
 		contentPanel.add(tfCant);
@@ -82,22 +83,52 @@ public class PanelEliminarVianda extends JFrame {
 		tfCodVenta.setColumns(10);
 		contentPanel.add(tfCodVenta);
 		
-		JLabel lblError = new JLabel("");
-		lblError.setBounds(10, 120, 300, 20);
-		contentPanel.add(lblError);
+		JLabel lblMsg = new JLabel("");
+		lblMsg.setBounds(10, 120, 300, 20);
+		contentPanel.add(lblMsg);
 		
 		JButton btnEliminar = new JButton("Eliminar");
-		contentPanel.add(btnEliminar);
 		btnEliminar.setBounds(65, 160, 100, 20);
+		contentPanel.add(btnEliminar);
+		
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String codVianda = tfCodVianda.getText();
-				int cant = Integer.parseInt(tfCant.getText());
-				int numVenta = Integer.parseInt(tfCodVenta.getText());
 				try {
-					miControlador.eliminarVianda(codVianda, cant, numVenta);
+					boolean todoOK = true;
+					String codVianda = tfCodVianda.getText();
+					if(codVianda.isEmpty()) {
+						todoOK= false;
+						lblMsg.setForeground(Color.GRAY);
+						lblMsg.setText("Debe ingresar el codigo de vianda");
+					}
+					
+					if(todoOK) {
+						int cant = Integer.parseInt(tfCant.getText());
+						int numVenta = Integer.parseInt(tfCodVenta.getText());
+						if(cant > 0 && numVenta > 0) {
+							miControlador.eliminarVianda(codVianda, cant, numVenta);
+							lblMsg.setForeground(Color.GREEN);
+							lblMsg.setText("Vianda reducida con éxito");
+							tfCodVianda.setText("");
+							tfCant.setText("");
+							tfCodVenta.setText("");
+						}else {
+							lblMsg.setForeground(Color.GRAY);
+							lblMsg.setText("Los campos 'Cantidad' y 'Codigo de venta' no pueden tener ese valor");
+						}
+					}
+				}catch(VentasException ve){
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(ve.getMensajeVentaException());
+				}catch(ViandasException v){
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(v.getMensajeViandaException());
+				}catch(NumberFormatException nfe) {
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText("Valor no permitido");
 				}catch(Exception ex) {
-					lblError.setText("Error al eliminar las viandas");
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(ex.getMessage());
 				}
 			}
 		});

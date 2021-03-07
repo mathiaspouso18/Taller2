@@ -1,19 +1,20 @@
 package grafica.panels;
 
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import excepciones.ViandasException;
 import logica.controladores.ControladorListadoViandas;
-import logica.viandas.VOVianda;
 
 public class PanelListadoViandas extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -26,14 +27,16 @@ public class PanelListadoViandas extends JFrame{
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Listado viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
-		contentPanel.setLayout(new GridLayout(1, 0));
 		
 		setTitle("Listados");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 800, 300);
+		contentPanel.setLayout(null);
 		
-		table = new JTable();
+		JLabel lblMsg = new JLabel();
+		lblMsg.setBounds(6, 18, 637, 22);
+		contentPanel.add(lblMsg);
 		DefaultTableModel model = new DefaultTableModel() {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -48,21 +51,26 @@ public class PanelListadoViandas extends JFrame{
 		model.addColumn("Vegetariana");
 		model.addColumn("Ovolacto vegetariana");
 		model.addColumn("Descripción adicional");
-		table.setModel(model);
 		
 		ArrayList<String []> datos = new ArrayList<String []>();
 		
 		try {
+			lblMsg.setText("");
 			datos = miControlador.listadoViandas();
 			for(String [] d: datos) {
 				model.addRow(d);
 			}
-	        table.setFillsViewportHeight(true);
-	        JScrollPane scrollPane = new JScrollPane(table);
+	        JScrollPane scrollPane = new JScrollPane();
+	        scrollPane.setBounds(16, 46, 754, 200);
 			contentPanel.add(scrollPane);
-		}catch(Exception ex) {
-			System.out.println(ex);
-			//mensaje de error; dialog
+			
+			table = new JTable();
+			scrollPane.setViewportView(table);
+			table.setModel(model);
+			table.setFillsViewportHeight(true);
+		}catch(ViandasException vi) {
+			lblMsg.setForeground(Color.RED);
+			lblMsg.setText(vi.getMensajeViandaException());
 		}
 	}
 }

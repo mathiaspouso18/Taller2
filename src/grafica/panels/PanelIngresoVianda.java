@@ -1,7 +1,6 @@
 package grafica.panels;
 
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +20,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import logica.CapaLogica;
 import logica.controladores.ControladorIngresoVianda;
 
 public class PanelIngresoVianda extends JFrame {
@@ -56,7 +54,7 @@ public class PanelIngresoVianda extends JFrame {
 		lblCodigoDeVianda.setBounds(10, 13, 70, 40);
 		contentPanel.add(lblCodigoDeVianda);
 		
-		JTextField tfCodVianda = new JTextField();
+		tfCodVianda = new JTextField();
 		tfCodVianda.setColumns(10);
 		tfCodVianda.setBounds(140, 25, 150, 20);
 		contentPanel.add(tfCodVianda);
@@ -68,7 +66,7 @@ public class PanelIngresoVianda extends JFrame {
 		lblCantidad.setBounds(10, 45, 70, 40);
 		contentPanel.add(lblCantidad);
 		
-		JTextField tfCant = new JTextField();
+		tfCant = new JTextField();
 		tfCant.setColumns(10);
 		tfCant.setBounds(140, 56, 150, 20);
 		contentPanel.add(tfCant);
@@ -102,8 +100,6 @@ public class PanelIngresoVianda extends JFrame {
 						int numVenta = Integer.parseInt(tfnumVenta);
 						int cant = Integer.parseInt(tfcant);
 						if(cant > 0 && numVenta > 0) {
-							//CapaLogica cp = new CapaLogica();
-							//cp.altaViandaxVenta(codVianda, numVenta, cant);
 							miControlador.ingresoVianda(codVianda, numVenta, cant);
 							lblMsg.setForeground(Color.GREEN);
 							lblMsg.setText("Vianda agregada con éxito a la venta");
@@ -111,12 +107,12 @@ public class PanelIngresoVianda extends JFrame {
 							tfCodVenta.setText("");
 							tfCant.setText("");
 						}else {
-							lblMsg.setText("Los campos 'Cantidad' y 'Codigo de venta' no pueden tener ese valor");
 							lblMsg.setForeground(Color.GRAY);
+							lblMsg.setText("Los campos 'Cantidad' y 'Codigo de venta' no pueden tener ese valor");
 						}
 					}else {
-						lblMsg.setText("Los campos 'Codigo', 'Cantidad' y 'Codigo de venta' deben estar completos");
 						lblMsg.setForeground(Color.GRAY);
+						lblMsg.setText("Los campos 'Codigo', 'Cantidad' y 'Codigo de venta' deben estar completos");
 					}
 				}catch(VentasException ve){
 					lblMsg.setForeground(Color.RED);
@@ -128,7 +124,8 @@ public class PanelIngresoVianda extends JFrame {
 					lblMsg.setForeground(Color.RED);
 					lblMsg.setText("Valor no permitido");
 				}catch(Exception ex) {
-					
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(ex.getMessage());
 				}
 			}
 		});

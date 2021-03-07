@@ -1,7 +1,6 @@
 package grafica.panels;
 
 import javax.swing.JPanel;
-import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +9,7 @@ import java.time.LocalDateTime;
 import javax.swing.border.TitledBorder;
 
 import excepciones.VentasException;
-import logica.CapaLogica;
 import logica.controladores.ControladorAltaVenta;
-import logica.ventas.VOVenta;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -32,7 +29,7 @@ public class PanelNuevaVenta extends JFrame {
 	private JComboBox cbFechaAño;
 	private JComboBox cbFechaHora;
 	private JComboBox cbFechaMin;
-	private TextField tfDireccion;
+	private JTextField taDirEntrega;
 	private JPanel contentPanel;
 	private PanelNuevaVenta vista;
 	/**
@@ -110,7 +107,7 @@ public class PanelNuevaVenta extends JFrame {
 		lblDir.setBounds(10, 80, 70, 40);
 		contentPanel.add(lblDir);
 		
-		JTextField taDirEntrega = new JTextField();
+		taDirEntrega = new JTextField();
 		taDirEntrega.setColumns(10);
 		taDirEntrega.setBounds(140, 92, 150, 20);
 		contentPanel.add(taDirEntrega);
@@ -144,19 +141,18 @@ public class PanelNuevaVenta extends JFrame {
 					}else {
 						lblMsg.setText("Debe ingresar una dirección");
 					}
-					
 				}
 				catch(VentasException ve) {
-					lblMsg.setText(ve.getMensajeVentaException());
 					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(ve.getMensajeVentaException());
 				}
 				catch(DateTimeException de) {
-					lblMsg.setText("Fecha incorrecta: febrero no tiene 29 dias");
 					lblMsg.setForeground(Color.RED);
+					lblMsg.setText("Fecha incorrecta: febrero no tiene 29 dias");
 				}
 				catch(Exception ex) {
-					lblMsg.setText("Error");
 					lblMsg.setForeground(Color.RED);
+					lblMsg.setText("Error");
 				}
 			}
 		});

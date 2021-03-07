@@ -12,7 +12,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -66,6 +65,7 @@ public class PanelViandasxVenta extends JFrame {
 		model.addColumn("Vegetariana");
 		model.addColumn("Ovolacto vegetariana");
 		model.addColumn("Descripción adicional");
+		model.addColumn("Cantidad");
 		table.setModel(model);
 		
 		JPanel contentPanel3 = new JPanel();
@@ -83,9 +83,9 @@ public class PanelViandasxVenta extends JFrame {
 		contentPanel2.add(tfCodVenta, BorderLayout.NORTH);
 		tfCodVenta.setColumns(10);
 		JButton btnListar = new JButton("Listar");
-		JLabel lblError = new JLabel();
+		JLabel lblMsg = new JLabel();
 		contentPanel2.add(btnListar);
-		contentPanel2.add(lblError);
+		contentPanel2.add(lblMsg);
 		contentPanel3.add(scrollPane);
 		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
 		contentPanel.add(contentPanel2);
@@ -93,23 +93,32 @@ public class PanelViandasxVenta extends JFrame {
 			public void actionPerformed(ActionEvent b) {
 				String numVenta = tfCodVenta.getText();
 				if(numVenta.equals("")) {
-					lblError.setText("Debe ingresar el codigo de la venta");
-					lblError.setForeground(Color.red);
+					lblMsg.setText("Debe ingresar el codigo de la venta");
+					lblMsg.setForeground(Color.RED);
 					contentPanel3.setVisible(false);
 				}else {
 					try {
-						lblError.setText("");
+						lblMsg.setText("");
 						ArrayList<String []> datos = new ArrayList<String []>();
 						datos = miControlador.listadoViandasxVenta(Integer.parseInt(numVenta));
 						for(String [] d: datos) {
 							model.addRow(d);
 						}
 						contentPanel3.setVisible(true);
-					}catch(VentasException | NumberFormatException | RemoteException | ViandasException | InterruptedException  ex) {
-						lblError.setText("Error al obtener la ventas o las viandas");
+					}catch(VentasException ve) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(ve.getMensajeVentaException());
+					}catch(ViandasException  vi) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(vi.getMensajeViandaException());
+					}catch(NumberFormatException nfe) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText("Valor no permitido");
+					}catch(Exception ex) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(ex.getMessage());
 					}
 				}
-			}
-		});
+			}});
 	}
 }

@@ -42,7 +42,7 @@ public class ColeccionVentas implements Serializable{
 		while(iter.hasNext() && !encontre) {
 			Venta v = iter.next();
 			if(v.getNumeroVenta() == (_numeroVenta)) {
-				if(v.getCantViandas()!=null) {
+				if(!v.esVacioCantViandas()) {
 					if(_indicacion) {
 						v.setEnProc(!_indicacion);//enProc = false, por lo tanto está finalizada
 					}else {

@@ -1,9 +1,6 @@
 package logica.ventas;
 
 import java.io.Serializable;
-import java.util.*;
-
-import logica.viandas.ColeccionViandas;
 
 public class ColeccionCantVianda implements Serializable {
 	private static final long serialVersionUID = 1L; //Esto va?

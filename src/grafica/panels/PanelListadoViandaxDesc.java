@@ -8,7 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import excepciones.ViandasException;
 import logica.controladores.ControladorListadoViandaxDesc;
@@ -44,53 +45,70 @@ public class PanelListadoViandaxDesc extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 600, 300);
 		
-		JPanel contentPanel3 = new JPanel();
-		contentPanel3.setBorder(new TitledBorder(null, "Viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		table = new JTable();
+		DefaultTableModel model = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 		
-		String[] columnNames = {"Codigo",
-                "Descripcion",
-                "Precio",
-                "Vegetariana",
-                "Ovolacto vegetariana",
-                "Descripcion adicional"};
+		model.addColumn("Código");
+		model.addColumn("Descripción");
+		model.addColumn("Precio");
+		model.addColumn("Vegetariana");
+		model.addColumn("Ovolacto vegetariana");
+		model.addColumn("Descripción adicional");
+		table.setModel(model);
 
 		JScrollPane scrollPane;
-		MyJTable abstractTable = new MyJTable();
-		abstractTable.setColumns(columnNames);
-		table = new JTable(abstractTable);
         table.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(table);
-        contentPanel3.setVisible(false);
-
-		JLabel lblError = new JLabel();
-		JPanel contentPanel2 = new JPanel();
+        
+        JPanel contentPanel2 = new JPanel();
 		contentPanel2.setLayout(new FlowLayout(0));
 		JLabel lblDescripcion = new JLabel("Descripcion:");
 		contentPanel2.add(lblDescripcion);
 		JTextField tfDesc = new JTextField();
 		contentPanel2.add(tfDesc, BorderLayout.NORTH);
 		tfDesc.setColumns(10);
+		
 		JButton btnListar = new JButton("Listar");
+		JLabel lblMsg = new JLabel();
+		contentPanel2.add(btnListar);
+		contentPanel2.add(lblMsg);
+		contentPanel.add(contentPanel2);
+		
+		JPanel contentPanel3 = new JPanel();
+		contentPanel3.setBorder(new TitledBorder(null, "Viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        contentPanel3.add(scrollPane);
+		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
+		contentPanel3.setVisible(false);
+		
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
+				lblMsg.setText("");
 				String descripcion = tfDesc.getText();
 				if(descripcion.equals("")) {
-					lblError.setText("Debe ingresar");
-					lblError.setForeground(Color.red);
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText("Debe ingresar alguna descripción");
 					contentPanel3.setVisible(false);
 				}else {
+					ArrayList<String []> datos = new ArrayList<String []>();
 					try {
-						lblError.setText("");
-						Object[][] data = miControlador.listadoViandaxDesc(descripcion);
-						abstractTable.setData(data);
-						contentPanel2.add(btnListar);
-						contentPanel2.add(lblError);
-				        contentPanel3.add(scrollPane);
-						contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
-						contentPanel.add(contentPanel2);
+						lblMsg.setText("");
+						datos = miControlador.listadoViandaxDesc(descripcion);
+						for(String [] d: datos) {
+							model.addRow(d);
+						}
 						contentPanel3.setVisible(true);
-					}catch(ViandasException | RemoteException | InterruptedException ve) {
-						//mensaje de error; dialog
+					}catch(ViandasException vi) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(vi.getMensajeViandaException());
+					}catch(Exception ex) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(ex.getMessage());
 					}
 				}
 			}

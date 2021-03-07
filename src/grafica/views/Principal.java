@@ -1,5 +1,6 @@
 package grafica.views;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +10,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-
+import excepciones.PersistenciaException;
 import grafica.panels.PanelEliminarVianda;
 import grafica.panels.PanelIngresoVianda;
 import grafica.panels.PanelListadoDetalleVianda;
@@ -21,10 +22,16 @@ import grafica.panels.PanelNuevaVianda;
 import grafica.panels.PanelProcesarVenta;
 import grafica.panels.PanelViandasxVenta;
 
+import logica.controladores.ControladorPrincipal;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
 
 public class Principal {
 
 	private JFrame frame;
+	private Principal vista;
 
 	/**
 	 * Launch the application.
@@ -58,9 +65,26 @@ public class Principal {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 892, 610);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		ControladorPrincipal miControlador = new ControladorPrincipal(vista);
+		
+		JLabel lblMsg = new JLabel("");
+		lblMsg.setBounds(28, 17, 441, 34);
+		frame.getContentPane().add(lblMsg);
+		
+		try{
+			lblMsg.setText("");
+			miControlador.restaurarInfo();
+		}catch(PersistenciaException pe) {
+			lblMsg.setForeground(Color.RED);
+			lblMsg.setText(pe.getMensajePersistenciaExcep());
+		}catch(Exception ex) {
+			lblMsg.setForeground(Color.RED);
+			lblMsg.setText(ex.getMessage());
+		}
+
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		
 		
 		JMenu mnGestionDeVentas = new JMenu("Gestion de Ventas");
 		menuBar.add(mnGestionDeVentas);
@@ -105,18 +129,18 @@ public class Principal {
 		});
 		
 		JMenuItem mntmProcesarVenta = new JMenuItem("Procesar Venta");
+		mnGestionDeVentas.add(mntmProcesarVenta);
 		mntmProcesarVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					PanelProcesarVenta pnv = new PanelProcesarVenta();
-					pnv.setVisible(true);
+					PanelProcesarVenta pnvp = new PanelProcesarVenta();
+					pnvp.setVisible(true);
 				}
 				catch(Exception ex) {
 					
 				}
 			}
 		});
-		mnGestionDeVentas.add(mntmProcesarVenta);
 		
 		JMenu mnGestionDeViandas = new JMenu("Gestion de Viandas");
 		menuBar.add(mnGestionDeViandas);
@@ -192,6 +216,8 @@ public class Principal {
 		
 		JMenuItem mntmListadoDeViandas_1 = new JMenuItem("Listado de viandas por descripci\u00F3n");
 		mnListados.add(mntmListadoDeViandas_1);
+		frame.getContentPane().setLayout(null);
+
 		mntmListadoDeViandas_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
 				try {
@@ -203,7 +229,26 @@ public class Principal {
 			}
 		});
 		
+		JButton btnGuardarCambios = new JButton("Respaldar Info");
+		btnGuardarCambios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					lblMsg.setText("");
+					miControlador.respaldarInfo();
+					lblMsg.setForeground(Color.GREEN);
+					lblMsg.setText("Información respaldada exitosamente");
+				}catch(PersistenciaException pe){
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(pe.getMensajePersistenciaExcep());
+				}catch(Exception ex) {
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText(ex.getMessage());
+				}
+			}
+		});
+		btnGuardarCambios.setBounds(731, 13, 131, 25);
+		frame.getContentPane().add(btnGuardarCambios);
+		
 		frame.setVisible(true);
 	}
-
 }

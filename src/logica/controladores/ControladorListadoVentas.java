@@ -3,13 +3,11 @@ package logica.controladores;
 import java.io.FileInputStream;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import excepciones.VentasException;
-import excepciones.ViandasException;
 import grafica.panels.PanelListadoVentas;
 import logica.ICapaLogica;
 import logica.ventas.VOVenta;

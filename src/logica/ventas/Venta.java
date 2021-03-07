@@ -1,7 +1,6 @@
 package logica.ventas;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Venta implements Serializable {
@@ -55,6 +54,13 @@ public class Venta implements Serializable {
 	public ColeccionCantVianda getCantViandas() {
 		return cantViandas;
 	}
+	public boolean esVacioCantViandas() {
+		boolean esVacio = false;
+		if(cantViandas.totalViandas() == 0) {
+			esVacio= true;
+		}
+		return esVacio;
+	}
 
 	public void setFecha(LocalDateTime _fecha) {
 		fecha = _fecha;
@@ -84,7 +90,7 @@ public class Venta implements Serializable {
 		cantViandas.reducirCant(_codVianda, _cantidad);
 	}
 	
-	public String listarViandasVenta() { //1
+	public String listarViandasVenta() { 
 		return cantViandas.ToString();
 	}
 	

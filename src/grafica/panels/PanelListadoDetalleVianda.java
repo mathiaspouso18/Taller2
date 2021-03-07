@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +20,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import excepciones.ViandasException;
-import logica.controladores.ControladorIngresoVianda;
 import logica.controladores.ControladorListadoDetalleVianda;
 
 public class PanelListadoDetalleVianda extends JFrame {
@@ -76,9 +74,9 @@ public class PanelListadoDetalleVianda extends JFrame {
 		tfCodVenta.setColumns(10);
 		
 		JButton btnListar = new JButton("Listar");
-		JLabel lblError = new JLabel();
+		JLabel lblMsg = new JLabel();
 		contentPanel2.add(btnListar);
-		contentPanel2.add(lblError);
+		contentPanel2.add(lblMsg);
 		contentPanel.add(contentPanel2);
 		
 		JPanel contentPanel3 = new JPanel();
@@ -88,19 +86,24 @@ public class PanelListadoDetalleVianda extends JFrame {
 		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
+				lblMsg.setText("");
 				String codVianda = tfCodVenta.getText();
 				if(codVianda.equals("")) {
-					lblError.setText("Debe ingresar el codigo de la vianda");
-					lblError.setForeground(Color.red);
+					lblMsg.setForeground(Color.RED);
+					lblMsg.setText("Debe ingresar el codigo de la vianda");
 					contentPanel3.setVisible(false);
 				}else {
 					try {
-						lblError.setText("");
+						lblMsg.setText("");
 						String [] d = miControlador.listadoDetalleVianda(codVianda);
 						model.addRow(d);
 						contentPanel3.setVisible(true);
-					}catch(ViandasException | RemoteException | InterruptedException ve) {
-						lblError.setText("Error al obtener las viandas.");
+					}catch(ViandasException vi) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(vi.getMensajeViandaException());
+					}catch(Exception ex) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(ex.getMessage());
 					}
 				}
 			}

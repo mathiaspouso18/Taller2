@@ -5,13 +5,11 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Properties;
 
-import excepciones.VentasException;
 import excepciones.ViandasException;
 import grafica.panels.PanelListadoDetalleVianda;
 import logica.ICapaLogica;
 import logica.viandas.VOVianda;
 import logica.viandas.VOViandaVeg;
-import logica.viandas.ViandaVeg;
 
 public class ControladorListadoDetalleVianda {
 	private ICapaLogica cap;

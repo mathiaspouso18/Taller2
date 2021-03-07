@@ -6,9 +6,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import excepciones.VentasException;
 import excepciones.ViandasException;
-import grafica.panels.MyJTable;
 import grafica.panels.PanelListadoViandas;
 import logica.ICapaLogica;
 import logica.viandas.VOVianda;

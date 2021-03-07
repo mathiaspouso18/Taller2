@@ -5,7 +5,6 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Properties;
 
-import excepciones.VentasException;
 import excepciones.ViandasException;
 import grafica.panels.PanelNuevaVianda;
 import logica.ICapaLogica;
