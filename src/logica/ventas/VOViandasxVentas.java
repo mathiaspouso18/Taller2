@@ -19,14 +19,6 @@ public class VOViandasxVentas implements Serializable {
 		cant = _cant;
 	}
 	
-	public void setVOVianda(VOVianda _vovianda) {
-		vovianda = _vovianda;
-	}
-	
-	public void setCant(int _cant) {
-		cant = _cant;
-	}
-
 	public VOVianda getVOVianda() {
 		return vovianda;
 	}

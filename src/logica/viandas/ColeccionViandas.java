@@ -27,29 +27,14 @@ public class ColeccionViandas implements Serializable {
 		return buscarVianda(_codVianda) != null;
 	}
 	
+	public TreeMap<String, Vianda> getViandas(){
+		return Viandas;
+	}
+	
 	public boolean esVacio() {
 		return Viandas.size() == 0;
 	}
 	
-	public void ListarDatosVianda(String _codVianda) {
-		Vianda v = Viandas.get(_codVianda);
-		System.out.println(v.ToString());
-	}
-	
-	public void ListarxDescripcion(String _descripcion) {	
-		for(Vianda v : Viandas.values()) {
-			String desc = v.getDescripcion();
-			if(desc.contains(_descripcion)) {
-				System.out.println(v.ToString());
-				System.out.println();
-			}
-		}
-	}
-	
-	public TreeMap<String, Vianda> getViandas(){
-		return Viandas;
-	}
-
 	public String ToString() {
 		String retorno = "";
 		for (Vianda v : Viandas.values()) {
