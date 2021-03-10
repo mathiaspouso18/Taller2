@@ -29,7 +29,7 @@ public class ControladorListadoDetalleVianda {
 		String [] data = new String[5];
 		String desc = "", precio="", veg="No", ovo="No", descAdic="---";
 		try {
-			VOVianda vi = cap.listarDatosVianda(codVianda);
+			VOVianda vi = cap.listarDatosVianda(codVianda.toUpperCase());
 			desc = vi.getDescripcion();
 			precio = "$ "+vi.getPrecio();
 			if(vi instanceof VOViandaVeg) {

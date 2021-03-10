@@ -30,10 +30,10 @@ public class ControladorAltaVianda {
 		
 		try {
 			if(veg) {
-				_vo = new VOViandaVeg(codVianda, desc, precio, ovo, descAdic);
+				_vo = new VOViandaVeg(codVianda.toUpperCase(), desc, precio, ovo, descAdic);
 			}
 			else {
-				_vo = new VOVianda(codVianda, desc, precio);
+				_vo = new VOVianda(codVianda.toUpperCase(), desc, precio);
 			}
 
 			cap.altaVianda(_vo);

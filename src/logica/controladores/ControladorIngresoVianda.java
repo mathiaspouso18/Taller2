@@ -26,7 +26,7 @@ public class ControladorIngresoVianda {
 	
 	public void ingresoVianda(String codVianda, int numVenta, int cant) throws RemoteException, VentasException, InterruptedException, ViandasException {
 		try {
-			cap.altaViandaxVenta(codVianda, numVenta, cant);
+			cap.altaViandaxVenta(codVianda.toUpperCase(), numVenta, cant);
 		}catch(VentasException ve) {
 			throw ve;
 		}

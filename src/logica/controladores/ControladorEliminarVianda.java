@@ -26,7 +26,7 @@ public class ControladorEliminarVianda {
 	
 	public void eliminarVianda(String codVianda, int cant, int numVenta) throws RemoteException, VentasException, InterruptedException, ViandasException {
 		try {
-			cap.reducirCantVianda(codVianda, cant, numVenta);
+			cap.reducirCantVianda(codVianda.toUpperCase(), cant, numVenta);
 		}catch(VentasException | ViandasException ve) {
 			throw ve;
 		}
