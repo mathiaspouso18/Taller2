@@ -34,7 +34,7 @@ public class VOVenta implements Serializable {
 		return numeroVenta;
 	}
 
-	public LocalDate getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
@@ -58,7 +58,7 @@ public class VOVenta implements Serializable {
 		return montoTotal;
 	}
 	
-	public void setFecha(LocalDate _fecha) {
+	public void setFecha(LocalDateTime _fecha) {
 		fecha = _fecha;
 	}
 }
