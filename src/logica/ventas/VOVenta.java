@@ -34,7 +34,7 @@ public class VOVenta implements Serializable {
 		return numeroVenta;
 	}
 
-	public LocalDateTime getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
@@ -42,11 +42,23 @@ public class VOVenta implements Serializable {
 		return dirEntrega;
 	}
 	
+	public void setDirEntrega(String _dirEntrega) {
+		dirEntrega = _dirEntrega;
+	}
+	
 	public boolean getEnProc() {
 		return enProc;
 	}
 	
+	public void setEnProc(boolean _enProc) {
+		enProc = _enProc;
+	}
+	
 	public int getMontoTotal() {
 		return montoTotal;
+	}
+	
+	public void setFecha(LocalDate _fecha) {
+		fecha = _fecha;
 	}
 }

@@ -21,8 +21,16 @@ public class VOViandaVeg extends VOVianda implements Serializable {
 	public boolean getEsOvo() {
 		return esOvo;
 	}
+	
+	public void setEsOvo(boolean _esOvo) {
+		esOvo = _esOvo;
+	}
 
 	public String getDescAdic() {
 		return descAdic;
+	}
+	
+	public void setDescAdic(String _descAdic) {
+		descAdic = _descAdic;
 	}
 }

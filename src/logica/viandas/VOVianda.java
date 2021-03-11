@@ -20,12 +20,24 @@ public class VOVianda implements Serializable {
 	public String getCodVianda() {
 		return codVianda;
 	}
+	
+	public void setCodVianda(String _codVianda) {
+		codVianda = _codVianda;
+	}
 
 	public String getDescripcion() {
 		return descripcion;
 	}
+	
+	public void setDescripcion(String _descripcion) {
+		descripcion = _descripcion;
+	}
 
 	public int getPrecio() {
 		return precio;
+	}
+	
+	public void setPrecio(int _precio) {
+		precio = _precio;
 	}
 }
