@@ -70,14 +70,16 @@ public class PanelViandasxVenta extends JFrame {
 		
 		JPanel contentPanel3 = new JPanel();
 		contentPanel3.setBorder(new TitledBorder(null, "Viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel3.setBounds(16,46,754,200);
 		table.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(16, 46, 754, 200);
 		contentPanel3.setVisible(false);
 
 		
 		JPanel contentPanel2 = new JPanel();
 		contentPanel2.setLayout(new FlowLayout(0));
-		JLabel lblNumVenta = new JLabel("Codigo de la venta:");
+		JLabel lblNumVenta = new JLabel("N\u00B0 de venta:");
 		contentPanel2.add(lblNumVenta);
 		tfCodVenta = new JTextField();
 		contentPanel2.add(tfCodVenta, BorderLayout.NORTH);

@@ -37,12 +37,12 @@ public class PanelEliminarVianda extends JFrame {
 		ControladorEliminarVianda miControlador = new ControladorEliminarVianda(vista);
 		
 		contentPanel = new JPanel();
-		contentPanel.setBorder(new TitledBorder(null, "Eliminar una vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel.setBorder(new TitledBorder(null, "Quitar vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 		
 		setResizable(false);
-		setTitle("Registrar");
+		setTitle("Gestion de Ventas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 350, 238);
@@ -71,7 +71,7 @@ public class PanelEliminarVianda extends JFrame {
 		tfCant.setBounds(140, 56, 150, 20);
 		contentPanel.add(tfCant);
 		
-		JLabel lblCodigoDeVenta = new JLabel("Codigo de venta");
+		JLabel lblCodigoDeVenta = new JLabel("N\u00B0 de venta");
 		lblCodigoDeVenta.setForeground(Color.BLACK);
 		lblCodigoDeVenta.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCodigoDeVenta.setHorizontalAlignment(SwingConstants.LEADING);

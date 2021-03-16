@@ -1,6 +1,8 @@
 package grafica.panels;
 
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +31,7 @@ public class PanelNuevaVenta extends JFrame {
 	private JComboBox cbFechaAño;
 	private JComboBox cbFechaHora;
 	private JComboBox cbFechaMin;
-	private JTextField taDirEntrega;
+	private JTextArea taDirEntrega;
 	private JPanel contentPanel;
 	private PanelNuevaVenta vista;
 	/**
@@ -45,10 +47,10 @@ public class PanelNuevaVenta extends JFrame {
 		contentPanel.setLayout(null);
 
 		setResizable(false);
-		setTitle("Registrar");
+		setTitle("Gestion de Ventas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(screenSize.width/3, screenSize.height/3, 500, 230);
+		setBounds(screenSize.width/3, screenSize.height/3, 363, 270);
 		
 		JLabel lblFecha = new JLabel("Fecha");
 		lblFecha.setForeground(Color.BLACK);
@@ -100,24 +102,25 @@ public class PanelNuevaVenta extends JFrame {
 		cbFechaMin.setBounds(195, 55, 50, 20);
 		contentPanel.add(cbFechaMin);
 		
-		JLabel lblDir = new JLabel("Direccion");
+		JLabel lblDir = new JLabel("Direcci\u00F3n");
 		lblDir.setForeground(Color.BLACK);
 		lblDir.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblDir.setHorizontalAlignment(SwingConstants.LEADING);
 		lblDir.setBounds(10, 80, 70, 40);
 		contentPanel.add(lblDir);
 		
-		taDirEntrega = new JTextField();
+		taDirEntrega = new JTextArea();
+		taDirEntrega.setLineWrap(true);
 		taDirEntrega.setColumns(10);
-		taDirEntrega.setBounds(140, 92, 150, 20);
+		taDirEntrega.setBounds(140, 92, 150, 48);
 		contentPanel.add(taDirEntrega);
 		
 		JLabel lblMsg = new JLabel();
-		lblMsg.setBounds(10, 120, 500, 20);
+		lblMsg.setBounds(10, 156, 500, 20);
 		contentPanel.add(lblMsg);
 		
 		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(70, 150, 100, 20);
+		btnAceptar.setBounds(69, 189, 100, 20);
 		btnAceptar.addActionListener(new ActionListener()  {
 			public void actionPerformed(ActionEvent e) {
 				try{
@@ -159,7 +162,7 @@ public class PanelNuevaVenta extends JFrame {
 		contentPanel.add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(175, 150, 100, 20);
+		btnCancelar.setBounds(174, 189, 100, 20);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);

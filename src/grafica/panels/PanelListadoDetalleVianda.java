@@ -36,7 +36,7 @@ public class PanelListadoDetalleVianda extends JFrame {
 	public PanelListadoDetalleVianda() throws Exception {
 		ControladorListadoDetalleVianda miControlador = new ControladorListadoDetalleVianda(vista);
 		contentPanel = new JPanel();
-		contentPanel.setBorder(new TitledBorder(null, "Listado detalle vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel.setBorder(new TitledBorder(null, "Listado detalle de vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPanel.setLayout(new GridLayout(1, 1, 0, 0));
 		setResizable(false);
 		setContentPane(contentPanel);

@@ -41,12 +41,12 @@ public class PanelProcesarVenta extends JFrame {
 		contentPanel.setLayout(null);
 		
 		setResizable(false);
-		setTitle("Registrar");
+		setTitle("Gestion de Ventas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screenSize.width/3, screenSize.height/3, 350, 238);
 		
-		JLabel lblCodigoDeVenta = new JLabel("Codigo de venta:");
+		JLabel lblCodigoDeVenta = new JLabel("N° de venta:");
 		lblCodigoDeVenta.setForeground(Color.BLACK);
 		lblCodigoDeVenta.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCodigoDeVenta.setHorizontalAlignment(SwingConstants.LEADING);

@@ -11,7 +11,6 @@ import excepciones.ViandasException;
 import grafica.panels.PanelViandasxVenta;
 import logica.ICapaLogica;
 import logica.ventas.VOViandasxVentas;
-import logica.viandas.VOVianda;
 import logica.viandas.VOViandaVeg;
 
 public class ControladorViandasxVenta {

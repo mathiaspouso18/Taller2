@@ -25,7 +25,7 @@ public class PanelListadoVentas extends JFrame {
 	public PanelListadoVentas() throws Exception{
 		ControladorListadoVentas miControlador = new ControladorListadoVentas(vista);
 		contentPanel = new JPanel();
-		contentPanel.setBorder(new TitledBorder(null, "Listado ventas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel.setBorder(new TitledBorder(null, "Listado general de ventas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPanel);
 		
 		setTitle("Listados");

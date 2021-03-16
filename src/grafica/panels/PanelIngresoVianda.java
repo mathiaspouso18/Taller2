@@ -42,16 +42,16 @@ public class PanelIngresoVianda extends JFrame {
 		contentPanel.setLayout(null);
 		
 		setResizable(false);
-		setTitle("Registrar");
+		setTitle("Gestion de Ventas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(screenSize.width/3, screenSize.height/3, 500, 238);
+		setBounds(screenSize.width/3, screenSize.height/3, 351, 238);
 		
-		JLabel lblCodigoDeVianda = new JLabel("Código");
+		JLabel lblCodigoDeVianda = new JLabel("C\u00F3digo de vianda");
 		lblCodigoDeVianda.setForeground(Color.BLACK);
 		lblCodigoDeVianda.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCodigoDeVianda.setHorizontalAlignment(SwingConstants.LEADING);
-		lblCodigoDeVianda.setBounds(10, 13, 70, 40);
+		lblCodigoDeVianda.setBounds(10, 13, 118, 40);
 		contentPanel.add(lblCodigoDeVianda);
 		
 		tfCodVianda = new JTextField();
@@ -71,7 +71,7 @@ public class PanelIngresoVianda extends JFrame {
 		tfCant.setBounds(140, 56, 150, 20);
 		contentPanel.add(tfCant);
 		
-		JLabel lblCodigoDeVenta = new JLabel("Codigo de venta");
+		JLabel lblCodigoDeVenta = new JLabel("N\u00B0 de venta");
 		lblCodigoDeVenta.setForeground(Color.BLACK);
 		lblCodigoDeVenta.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCodigoDeVenta.setHorizontalAlignment(SwingConstants.LEADING);

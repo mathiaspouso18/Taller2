@@ -36,7 +36,7 @@ public class PanelListadoViandaxDesc extends JFrame {
 	public PanelListadoViandaxDesc() throws Exception {
 		ControladorListadoViandaxDesc miControlador = new ControladorListadoViandaxDesc(vista);
 		contentPanel = new JPanel();
-		contentPanel.setBorder(new TitledBorder(null, "Listado detalle vianda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPanel.setBorder(new TitledBorder(null, "Listado de vianda por descripción", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPanel.setLayout(new GridLayout(1, 1, 0, 0));
 		setResizable(false);
 		setContentPane(contentPanel);
@@ -68,7 +68,7 @@ public class PanelListadoViandaxDesc extends JFrame {
         
         JPanel contentPanel2 = new JPanel();
 		contentPanel2.setLayout(new FlowLayout(0));
-		JLabel lblDescripcion = new JLabel("Descripcion:");
+		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
 		contentPanel2.add(lblDescripcion);
 		JTextField tfDesc = new JTextField();
 		contentPanel2.add(tfDesc, BorderLayout.NORTH);
