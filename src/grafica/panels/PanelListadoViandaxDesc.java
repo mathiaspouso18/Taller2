@@ -37,7 +37,6 @@ public class PanelListadoViandaxDesc extends JFrame {
 		ControladorListadoViandaxDesc miControlador = new ControladorListadoViandaxDesc(vista);
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Listado de vianda por descripción", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		contentPanel.setLayout(new GridLayout(1, 1, 0, 0));
 		setResizable(false);
 		setContentPane(contentPanel);
 		setTitle("Listados");
@@ -63,27 +62,36 @@ public class PanelListadoViandaxDesc extends JFrame {
 		table.setModel(model);
 
 		JScrollPane scrollPane;
+        contentPanel.setLayout(null);
         table.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(11, 21, 546, 192);
         
         JPanel contentPanel2 = new JPanel();
-		contentPanel2.setLayout(new FlowLayout(0));
+        contentPanel2.setBounds(6, 16, 582, 248);
+		contentPanel2.setLayout(null);
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
+		lblDescripcion.setBounds(5, 9, 86, 14);
 		contentPanel2.add(lblDescripcion);
 		JTextField tfDesc = new JTextField();
-		contentPanel2.add(tfDesc, BorderLayout.NORTH);
+		tfDesc.setBounds(81, 6, 86, 20);
+		contentPanel2.add(tfDesc);
 		tfDesc.setColumns(10);
 		
 		JButton btnListar = new JButton("Listar");
+		btnListar.setBounds(173, 5, 77, 23);
 		JLabel lblMsg = new JLabel();
+		lblMsg.setBounds(260, 5, 200, 25);
 		contentPanel2.add(btnListar);
 		contentPanel2.add(lblMsg);
 		contentPanel.add(contentPanel2);
 		
 		JPanel contentPanel3 = new JPanel();
+		contentPanel3.setBounds(5, 33, 567, 215);
 		contentPanel3.setBorder(new TitledBorder(null, "Viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        contentPanel3.setLayout(null);
         contentPanel3.add(scrollPane);
-		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
+		contentPanel2.add(contentPanel3);
 		contentPanel3.setVisible(false);
 		
 		btnListar.addActionListener(new ActionListener() {

@@ -102,7 +102,7 @@ public class PanelViandasxVenta extends JFrame {
 			public void actionPerformed(ActionEvent b) {
 				String numVenta = tfCodVenta.getText();
 				if(numVenta.equals("")) {
-					lblMsg.setText("Debe ingresar el codigo de la venta");
+					lblMsg.setText("Debe ingresar el N\u00B0 de venta");
 					lblMsg.setForeground(Color.GRAY);
 					contentPanel3.setVisible(false);
 				}else {
