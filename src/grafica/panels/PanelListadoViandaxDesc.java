@@ -91,7 +91,7 @@ public class PanelListadoViandaxDesc extends JFrame {
 				lblMsg.setText("");
 				String descripcion = tfDesc.getText();
 				if(descripcion.equals("")) {
-					lblMsg.setForeground(Color.RED);
+					lblMsg.setForeground(Color.GRAY);
 					lblMsg.setText("Debe ingresar alguna descripción");
 					contentPanel3.setVisible(false);
 				}else {
@@ -106,9 +106,11 @@ public class PanelListadoViandaxDesc extends JFrame {
 					}catch(ViandasException vi) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(vi.getMensajeViandaException());
+						contentPanel3.setVisible(false);
 					}catch(Exception ex) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(ex.getMessage());
+						contentPanel3.setVisible(false);
 					}
 				}
 			}

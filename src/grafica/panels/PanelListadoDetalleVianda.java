@@ -89,7 +89,7 @@ public class PanelListadoDetalleVianda extends JFrame {
 				lblMsg.setText("");
 				String codVianda = tfCodVenta.getText();
 				if(codVianda.equals("")) {
-					lblMsg.setForeground(Color.RED);
+					lblMsg.setForeground(Color.GRAY);
 					lblMsg.setText("Debe ingresar el codigo de la vianda");
 					contentPanel3.setVisible(false);
 				}else {
@@ -101,9 +101,11 @@ public class PanelListadoDetalleVianda extends JFrame {
 					}catch(ViandasException vi) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(vi.getMensajeViandaException());
+						contentPanel3.setVisible(false);
 					}catch(Exception ex) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(ex.getMessage());
+						contentPanel3.setVisible(false);
 					}
 				}
 			}

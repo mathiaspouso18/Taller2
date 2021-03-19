@@ -96,7 +96,7 @@ public class PanelViandasxVenta extends JFrame {
 				String numVenta = tfCodVenta.getText();
 				if(numVenta.equals("")) {
 					lblMsg.setText("Debe ingresar el codigo de la venta");
-					lblMsg.setForeground(Color.RED);
+					lblMsg.setForeground(Color.GRAY);
 					contentPanel3.setVisible(false);
 				}else {
 					try {
@@ -110,15 +110,19 @@ public class PanelViandasxVenta extends JFrame {
 					}catch(VentasException ve) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(ve.getMensajeVentaException());
+						contentPanel3.setVisible(false);
 					}catch(ViandasException  vi) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(vi.getMensajeViandaException());
+						contentPanel3.setVisible(false);
 					}catch(NumberFormatException nfe) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText("Valor no permitido");
+						contentPanel3.setVisible(false);
 					}catch(Exception ex) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(ex.getMessage());
+						contentPanel3.setVisible(false);
 					}
 				}
 			}});
