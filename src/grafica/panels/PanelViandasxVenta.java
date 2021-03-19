@@ -25,6 +25,7 @@ import logica.controladores.ControladorViandasxVenta;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.ScrollPaneConstants;
 
 public class PanelViandasxVenta extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +42,6 @@ public class PanelViandasxVenta extends JFrame {
 		ControladorViandasxVenta miControlador = new ControladorViandasxVenta(vista);
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new TitledBorder(null, "Listado de viandas de una venta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		contentPanel.setLayout(new GridLayout(1, 1, 0, 0));
 		setResizable(false);
 		setContentPane(contentPanel);
 		setTitle("Listados");
@@ -70,26 +70,33 @@ public class PanelViandasxVenta extends JFrame {
 		
 		JPanel contentPanel3 = new JPanel();
 		contentPanel3.setBorder(new TitledBorder(null, "Viandas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		contentPanel3.setBounds(16,46,754,200);
+		contentPanel3.setBounds(0,30,772,218);
 		table.setFillsViewportHeight(true);
         scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(16, 46, 754, 200);
+        scrollPane.setBounds(11, 21, 750, 190);
 		contentPanel3.setVisible(false);
+		contentPanel.setLayout(null);
 
 		
 		JPanel contentPanel2 = new JPanel();
-		contentPanel2.setLayout(new FlowLayout(0));
+		contentPanel2.setBounds(6, 16, 782, 248);
+		contentPanel2.setLayout(null);
 		JLabel lblNumVenta = new JLabel("N\u00B0 de venta:");
+		lblNumVenta.setBounds(10, 10, 90, 14);
 		contentPanel2.add(lblNumVenta);
 		tfCodVenta = new JTextField();
-		contentPanel2.add(tfCodVenta, BorderLayout.NORTH);
+		tfCodVenta.setBounds(79, 7, 86, 20);
+		contentPanel2.add(tfCodVenta);
 		tfCodVenta.setColumns(10);
 		JButton btnListar = new JButton("Listar");
+		btnListar.setBounds(175, 6, 90, 23);
 		JLabel lblMsg = new JLabel();
+		lblMsg.setBounds(280, 5, 300, 25);
 		contentPanel2.add(btnListar);
 		contentPanel2.add(lblMsg);
+		contentPanel3.setLayout(null);
 		contentPanel3.add(scrollPane);
-		contentPanel2.add(contentPanel3, BorderLayout.SOUTH);
+		contentPanel2.add(contentPanel3);
 		contentPanel.add(contentPanel2);
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent b) {
