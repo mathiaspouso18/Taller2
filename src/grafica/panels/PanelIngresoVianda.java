@@ -45,7 +45,7 @@ public class PanelIngresoVianda extends JFrame {
 		setTitle("Gestion de Ventas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(screenSize.width/3, screenSize.height/3, 351, 238);
+		setBounds(screenSize.width/3, screenSize.height/3, 426, 238);
 		
 		JLabel lblCodigoDeVianda = new JLabel("C\u00F3digo de vianda");
 		lblCodigoDeVianda.setForeground(Color.BLACK);
@@ -108,11 +108,11 @@ public class PanelIngresoVianda extends JFrame {
 							tfCant.setText("");
 						}else {
 							lblMsg.setForeground(Color.GRAY);
-							lblMsg.setText("Los campos 'Cantidad' y 'Codigo de venta' no pueden tener ese valor");
+							lblMsg.setText("Los campos 'Cantidad' y 'N° de Venta' no pueden tener ese valor");
 						}
 					}else {
 						lblMsg.setForeground(Color.GRAY);
-						lblMsg.setText("Los campos 'Codigo', 'Cantidad' y 'Codigo de venta' deben estar completos");
+						lblMsg.setText("Los campos 'Codigo', 'Cantidad' y 'N° de Venta' deben estar completos");
 					}
 				}catch(VentasException ve){
 					lblMsg.setForeground(Color.RED);

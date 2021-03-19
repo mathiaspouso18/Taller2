@@ -87,27 +87,33 @@ public class PanelProcesarVenta extends JFrame {
 		btnAceptar.setBounds(65, 140, 100, 20);
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					boolean indicacion = true;
-					lblMsg.setText("");
-					int numVenta = Integer.parseInt(tfCodVenta.getText());
-					if(rdbtnCancelar.isSelected()){
-						indicacion = false;
+				String sNumVenta = tfCodVenta.getText();
+				if(sNumVenta.equals("")) {
+					lblMsg.setForeground(Color.GRAY);
+					lblMsg.setText("Debe ingresar el N° de la venta");
+				}else {
+					try {
+						boolean indicacion = true;
+						lblMsg.setText("");
+						int numVenta = Integer.parseInt(sNumVenta);
+						if(rdbtnCancelar.isSelected()){
+							indicacion = false;
+						}
+						miControlador.procesarVenta(numVenta, indicacion);
+						lblMsg.setForeground(Color.GREEN);
+						lblMsg.setText("Venta procesada con exito");
+						tfCodVenta.setText("");
+						rdbtnConfirmar.setSelected(true);
+					}catch(VentasException ve) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(ve.getMensajeVentaException());
+					}catch(NumberFormatException nfe) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText("Valor no permitido");
+					}catch(Exception ex) {
+						lblMsg.setForeground(Color.RED);
+						lblMsg.setText(ex.getMessage());
 					}
-					miControlador.procesarVenta(numVenta, indicacion);
-					lblMsg.setForeground(Color.GREEN);
-					lblMsg.setText("Venta procesada con exito");
-					tfCodVenta.setText("");
-					rdbtnConfirmar.setSelected(true);
-				}catch(VentasException ve) {
-					lblMsg.setForeground(Color.RED);
-					lblMsg.setText(ve.getMensajeVentaException());
-				}catch(NumberFormatException nfe) {
-					lblMsg.setForeground(Color.RED);
-					lblMsg.setText("Valor no permitido");
-				}catch(Exception ex) {
-					lblMsg.setForeground(Color.RED);
-					lblMsg.setText(ex.getMessage());
 				}
 			}});
 		

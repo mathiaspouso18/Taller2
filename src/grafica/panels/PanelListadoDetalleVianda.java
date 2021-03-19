@@ -109,21 +109,28 @@ public class PanelListadoDetalleVianda extends JFrame {
 				lblMsg.setText("");
 				String codVianda = tfCodVenta.getText();
 				if(codVianda.equals("")) {
-					lblMsg.setForeground(Color.RED);
+					lblMsg.setForeground(Color.GRAY);
 					lblMsg.setText("Debe ingresar el codigo de la vianda");
 					contentPanel3.setVisible(false);
 				}else {
 					try {
 						lblMsg.setText("");
+						if (model.getRowCount() > 0) {
+						    for (int i = model.getRowCount() - 1; i > -1; i--) {
+						        model.removeRow(i);
+						    }
+						}
 						String [] d = miControlador.listadoDetalleVianda(codVianda);
 						model.addRow(d);
 						contentPanel3.setVisible(true);
 					}catch(ViandasException vi) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(vi.getMensajeViandaException());
+						contentPanel3.setVisible(false);
 					}catch(Exception ex) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(ex.getMessage());
+						contentPanel3.setVisible(false);
 					}
 				}
 			}

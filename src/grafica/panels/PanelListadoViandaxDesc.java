@@ -91,13 +91,18 @@ public class PanelListadoViandaxDesc extends JFrame {
 				lblMsg.setText("");
 				String descripcion = tfDesc.getText();
 				if(descripcion.equals("")) {
-					lblMsg.setForeground(Color.RED);
+					lblMsg.setForeground(Color.GRAY);
 					lblMsg.setText("Debe ingresar alguna descripción");
 					contentPanel3.setVisible(false);
 				}else {
 					ArrayList<String []> datos = new ArrayList<String []>();
 					try {
 						lblMsg.setText("");
+						if (model.getRowCount() > 0) {
+						    for (int i = model.getRowCount() - 1; i > -1; i--) {
+						        model.removeRow(i);
+						    }
+						}
 						datos = miControlador.listadoViandaxDesc(descripcion);
 						for(String [] d: datos) {
 							model.addRow(d);
@@ -106,9 +111,11 @@ public class PanelListadoViandaxDesc extends JFrame {
 					}catch(ViandasException vi) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(vi.getMensajeViandaException());
+						contentPanel3.setVisible(false);
 					}catch(Exception ex) {
 						lblMsg.setForeground(Color.RED);
 						lblMsg.setText(ex.getMessage());
+						contentPanel3.setVisible(false);
 					}
 				}
 			}
