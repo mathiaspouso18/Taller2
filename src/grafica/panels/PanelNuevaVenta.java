@@ -50,7 +50,7 @@ public class PanelNuevaVenta extends JFrame {
 		setTitle("Gestion de Ventas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(screenSize.width/3, screenSize.height/3, 363, 270);
+		setBounds(screenSize.width/3, screenSize.height/3, 422, 270);
 		
 		JLabel lblFecha = new JLabel("Fecha");
 		lblFecha.setForeground(Color.BLACK);
@@ -142,6 +142,7 @@ public class PanelNuevaVenta extends JFrame {
 						cbFechaMin.setSelectedIndex(0);
 						taDirEntrega.setText("");
 					}else {
+						lblMsg.setForeground(Color.GRAY);
 						lblMsg.setText("Debe ingresar una dirección");
 					}
 				}

@@ -101,6 +101,11 @@ public class PanelViandasxVenta extends JFrame {
 				}else {
 					try {
 						lblMsg.setText("");
+						if (model.getRowCount() > 0) {
+						    for (int i = model.getRowCount() - 1; i > -1; i--) {
+						        model.removeRow(i);
+						    }
+						}
 						ArrayList<String []> datos = new ArrayList<String []>();
 						datos = miControlador.listadoViandasxVenta(Integer.parseInt(numVenta));
 						for(String [] d: datos) {

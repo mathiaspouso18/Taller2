@@ -95,6 +95,11 @@ public class PanelListadoDetalleVianda extends JFrame {
 				}else {
 					try {
 						lblMsg.setText("");
+						if (model.getRowCount() > 0) {
+						    for (int i = model.getRowCount() - 1; i > -1; i--) {
+						        model.removeRow(i);
+						    }
+						}
 						String [] d = miControlador.listadoDetalleVianda(codVianda);
 						model.addRow(d);
 						contentPanel3.setVisible(true);

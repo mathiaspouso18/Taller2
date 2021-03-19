@@ -98,6 +98,11 @@ public class PanelListadoViandaxDesc extends JFrame {
 					ArrayList<String []> datos = new ArrayList<String []>();
 					try {
 						lblMsg.setText("");
+						if (model.getRowCount() > 0) {
+						    for (int i = model.getRowCount() - 1; i > -1; i--) {
+						        model.removeRow(i);
+						    }
+						}
 						datos = miControlador.listadoViandaxDesc(descripcion);
 						for(String [] d: datos) {
 							model.addRow(d);
